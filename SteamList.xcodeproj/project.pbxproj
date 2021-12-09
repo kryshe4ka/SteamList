@@ -16,6 +16,9 @@
 		3DC02A712761DEF6002F0028 /* SteamListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A702761DEF6002F0028 /* SteamListUITests.swift */; };
 		3DC02A732761DEF6002F0028 /* SteamListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */; };
 		3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3DC02A802761E9AA002F0028 /* Alamofire */; };
+		3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */; };
+		3DC02A852761F7B7002F0028 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */; };
+		3DC02A872761F990002F0028 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A862761F990002F0028 /* APIRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		3DC02A6C2761DEF6002F0028 /* SteamListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SteamListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A702761DEF6002F0028 /* SteamListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamListUITests.swift; sourceTree = "<group>"; };
 		3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamListUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataManager.swift; sourceTree = "<group>"; };
+		3DC02A862761F990002F0028 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,9 @@
 				3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */,
 				3DC02A5D2761DEF6002F0028 /* Info.plist */,
 				3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */,
+				3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */,
+				3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */,
+				3DC02A862761F990002F0028 /* APIRouter.swift */,
 			);
 			path = SteamList;
 			sourceTree = "<group>";
@@ -262,8 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DC02A852761F7B7002F0028 /* NetworkDataManager.swift in Sources */,
+				3DC02A872761F990002F0028 /* APIRouter.swift in Sources */,
 				3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */,
 				3DC02A512761DEF4002F0028 /* ViewController.swift in Sources */,
+				3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */,
 				3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
