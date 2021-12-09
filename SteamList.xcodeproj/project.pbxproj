@@ -19,6 +19,11 @@
 		3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */; };
 		3DC02A852761F7B7002F0028 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */; };
 		3DC02A872761F990002F0028 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A862761F990002F0028 /* APIRouter.swift */; };
+		3DC02A8D27621F4E002F0028 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A8C27621F4E002F0028 /* CoreDataManager.swift */; };
+		3DC02A8F2762210B002F0028 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A8E2762210B002F0028 /* StorageProtocol.swift */; };
+		3DC02A912762267E002F0028 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A902762267E002F0028 /* App.swift */; };
+		3DC02A9327622724002F0028 /* AppDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A9227622724002F0028 /* AppDetails.swift */; };
+		3DC02A952762273B002F0028 /* AppNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A942762273B002F0028 /* AppNews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +59,11 @@
 		3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataManager.swift; sourceTree = "<group>"; };
 		3DC02A862761F990002F0028 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		3DC02A8C27621F4E002F0028 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		3DC02A8E2762210B002F0028 /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
+		3DC02A902762267E002F0028 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		3DC02A9227622724002F0028 /* AppDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetails.swift; sourceTree = "<group>"; };
+		3DC02A942762273B002F0028 /* AppNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,14 +116,14 @@
 			isa = PBXGroup;
 			children = (
 				3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */,
+				3DC02A9727622AFD002F0028 /* Storage */,
+				3DC02A9627622755002F0028 /* Model */,
 				3DC02A502761DEF4002F0028 /* ViewController.swift */,
 				3DC02A582761DEF6002F0028 /* Assets.xcassets */,
 				3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */,
 				3DC02A5D2761DEF6002F0028 /* Info.plist */,
 				3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */,
-				3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */,
-				3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */,
-				3DC02A862761F990002F0028 /* APIRouter.swift */,
+				3DC02A882762127C002F0028 /* Network */,
 			);
 			path = SteamList;
 			sourceTree = "<group>";
@@ -133,6 +143,35 @@
 				3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */,
 			);
 			path = SteamListUITests;
+			sourceTree = "<group>";
+		};
+		3DC02A882762127C002F0028 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */,
+				3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */,
+				3DC02A862761F990002F0028 /* APIRouter.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		3DC02A9627622755002F0028 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3DC02A902762267E002F0028 /* App.swift */,
+				3DC02A9227622724002F0028 /* AppDetails.swift */,
+				3DC02A942762273B002F0028 /* AppNews.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3DC02A9727622AFD002F0028 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				3DC02A8C27621F4E002F0028 /* CoreDataManager.swift */,
+				3DC02A8E2762210B002F0028 /* StorageProtocol.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,12 +310,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DC02A9327622724002F0028 /* AppDetails.swift in Sources */,
+				3DC02A912762267E002F0028 /* App.swift in Sources */,
 				3DC02A852761F7B7002F0028 /* NetworkDataManager.swift in Sources */,
 				3DC02A872761F990002F0028 /* APIRouter.swift in Sources */,
 				3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */,
 				3DC02A512761DEF4002F0028 /* ViewController.swift in Sources */,
 				3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */,
+				3DC02A8D27621F4E002F0028 /* CoreDataManager.swift in Sources */,
 				3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */,
+				3DC02A952762273B002F0028 /* AppNews.swift in Sources */,
+				3DC02A8F2762210B002F0028 /* StorageProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
