@@ -15,6 +15,7 @@
 		3DC02A672761DEF6002F0028 /* SteamListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A662761DEF6002F0028 /* SteamListTests.swift */; };
 		3DC02A712761DEF6002F0028 /* SteamListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A702761DEF6002F0028 /* SteamListUITests.swift */; };
 		3DC02A732761DEF6002F0028 /* SteamListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */; };
+		3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3DC02A802761E9AA002F0028 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,9 @@
 			dependencies = (
 			);
 			name = SteamList;
+			packageProductDependencies = (
+				3DC02A802761E9AA002F0028 /* Alamofire */,
+			);
 			productName = SteamList;
 			productReference = 3DC02A492761DEF4002F0028 /* SteamList.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +217,9 @@
 				Base,
 			);
 			mainGroup = 3DC02A402761DEF4002F0028;
+			packageReferences = (
+				3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 3DC02A4A2761DEF4002F0028 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -614,6 +622,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3DC02A802761E9AA002F0028 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */ = {
