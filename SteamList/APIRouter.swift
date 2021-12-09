@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum APIRouter: URLRequestConvertible {
-    
+        
     enum APIConstants {
         static let baseUrl = "https://api.steampowered.com"
     }
@@ -53,7 +53,7 @@ enum APIRouter: URLRequestConvertible {
     
     func asURLRequest() throws -> URLRequest {
         let url = try APIConstants.baseUrl.asURL()
-        var request = URLRequest(url: url.appendingPathComponent(path))
+        var request = URLRequest(url: url.appendingPathComponent(path), cachePolicy: .returnCacheDataElseLoad)
         request.httpMethod = method.rawValue
         request.timeoutInterval = TimeInterval(10*1000)
         return try URLEncoding.default.encode(request, with: parameters)
