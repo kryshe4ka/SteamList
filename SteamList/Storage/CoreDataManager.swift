@@ -10,7 +10,7 @@ import CoreData
 
 class CoreDataManager: NSObject {
     static let shared = CoreDataManager()
-    let modelName = "Apps"
+    let modelName = "SteamList"
     
     /// Persistent Container
     lazy var persistentContainer: NSPersistentContainer = {

@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="App" representedClassName="App" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="appDetails" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppDetails" inverseName="app" inverseEntity="AppDetails"/>
+        <relationship name="news" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AppNews" inverseName="app" inverseEntity="AppNews"/>
+    </entity>
+    <entity name="AppDetails" representedClassName="AppDetails" syncable="YES" codeGenerationType="class">
+        <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="headerImage" optional="YES" attributeType="Binary"/>
+        <attribute name="isFree" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="linux" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mac" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="releaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="shortdescription" optional="YES" attributeType="String"/>
+        <attribute name="windows" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="App" inverseName="appDetails" inverseEntity="App"/>
+    </entity>
+    <entity name="AppNews" representedClassName="AppNews" syncable="YES" codeGenerationType="class">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="contents" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="App" inverseName="news" inverseEntity="App"/>
+    </entity>
+    <elements>
+        <element name="App" positionX="-54" positionY="-9" width="128" height="104"/>
+        <element name="AppDetails" positionX="-36" positionY="9" width="128" height="179"/>
+        <element name="AppNews" positionX="-18" positionY="27" width="128" height="119"/>
+    </elements>
 </model>

@@ -168,8 +168,8 @@
 		3DC02A9727622AFD002F0028 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				3DC02A8C27621F4E002F0028 /* CoreDataManager.swift */,
 				3DC02A8E2762210B002F0028 /* StorageProtocol.swift */,
+				3DC02A8C27621F4E002F0028 /* CoreDataManager.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
