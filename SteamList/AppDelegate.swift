@@ -11,55 +11,48 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var window: UIWindow?
+    
+    var tabBarController: UITabBarController {
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers([gamesListNavigationController, favsListNavigationController, newsListNavigationController], animated: false)
+        tabBarController.tabBar.backgroundColor = Colors.tabBarBackground
+        return tabBarController
+    }
+    
+    var gamesListNavigationController: UINavigationController {
+        let gamesListViewController = GamesListViewController()
+        let navigationController = UINavigationController(rootViewController: gamesListViewController)
+        navigationController.tabBarItem.image = UIImage(named: TabBarImage.games)
+        navigationController.tabBarItem.selectedImage = UIImage(named: TabBarImage.games)
+        navigationController.tabBarItem.title = TabBar.games
+        return navigationController
+    }
+    
+    var favsListNavigationController: UINavigationController {
+        let favsListViewController = FavsListViewController()
+        let navigationController = UINavigationController(rootViewController: favsListViewController)
+        navigationController.tabBarItem.image = UIImage(named: TabBarImage.favorites)
+        navigationController.tabBarItem.selectedImage = UIImage(named: TabBarImage.favorites)
+        navigationController.tabBarItem.title = TabBar.favorites
+        return navigationController
+    }
+    
+    var newsListNavigationController: UINavigationController {
+        let newsListViewController = NewsListViewController()
+        let navigationController = UINavigationController(rootViewController: newsListViewController)
+        navigationController.tabBarItem.image = UIImage(named: TabBarImage.news)
+        navigationController.tabBarItem.selectedImage = UIImage(named: TabBarImage.news)
+        navigationController.tabBarItem.title = TabBar.news
+        return navigationController
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let window = UIWindow()
+        window.rootViewController = tabBarController
+        self.window = window
+        window.makeKeyAndVisible()
         return true
     }
-
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
-        let container = NSPersistentContainer(name: "SteamList")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
 }
 
