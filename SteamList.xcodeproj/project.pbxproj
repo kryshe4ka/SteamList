@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */; };
-		3DC02A512761DEF4002F0028 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A502761DEF4002F0028 /* ViewController.swift */; };
 		3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */; };
 		3DC02A592761DEF6002F0028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A582761DEF6002F0028 /* Assets.xcassets */; };
 		3DC02A5C2761DEF6002F0028 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */; };
@@ -24,6 +23,10 @@
 		3DC02A912762267E002F0028 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A902762267E002F0028 /* App.swift */; };
 		3DC02A9327622724002F0028 /* AppDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A9227622724002F0028 /* AppDetails.swift */; };
 		3DC02A952762273B002F0028 /* AppNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A942762273B002F0028 /* AppNews.swift */; };
+		3DC02AA62762438F002F0028 /* GamesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AA52762438F002F0028 /* GamesListViewController.swift */; };
+		3DC02AA827624420002F0028 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AA727624420002F0028 /* Helper.swift */; };
+		3DC02AAA27624518002F0028 /* FavsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AA927624518002F0028 /* FavsListViewController.swift */; };
+		3DC02AAC2762454C002F0028 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AAB2762454C002F0028 /* NewsListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +49,6 @@
 /* Begin PBXFileReference section */
 		3DC02A492761DEF4002F0028 /* SteamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DC02A502761DEF4002F0028 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3DC02A562761DEF4002F0028 /* SteamList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SteamList.xcdatamodel; sourceTree = "<group>"; };
 		3DC02A582761DEF6002F0028 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DC02A5B2761DEF6002F0028 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,6 +66,10 @@
 		3DC02A902762267E002F0028 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		3DC02A9227622724002F0028 /* AppDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetails.swift; sourceTree = "<group>"; };
 		3DC02A942762273B002F0028 /* AppNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.swift; sourceTree = "<group>"; };
+		3DC02AA52762438F002F0028 /* GamesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListViewController.swift; sourceTree = "<group>"; };
+		3DC02AA727624420002F0028 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		3DC02AA927624518002F0028 /* FavsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavsListViewController.swift; sourceTree = "<group>"; };
+		3DC02AAB2762454C002F0028 /* NewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D34565627636BC0005AC30F /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				3DC02AA727624420002F0028 /* Helper.swift */,
+				3DC02A582761DEF6002F0028 /* Assets.xcassets */,
+				3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
 		3DC02A402761DEF4002F0028 = {
 			isa = PBXGroup;
 			children = (
@@ -116,14 +132,15 @@
 			isa = PBXGroup;
 			children = (
 				3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */,
+				3DC02AA52762438F002F0028 /* GamesListViewController.swift */,
+				3DC02AA927624518002F0028 /* FavsListViewController.swift */,
+				3DC02AAB2762454C002F0028 /* NewsListViewController.swift */,
 				3DC02A9727622AFD002F0028 /* Storage */,
-				3DC02A9627622755002F0028 /* Model */,
-				3DC02A502761DEF4002F0028 /* ViewController.swift */,
-				3DC02A582761DEF6002F0028 /* Assets.xcassets */,
-				3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */,
-				3DC02A5D2761DEF6002F0028 /* Info.plist */,
-				3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */,
 				3DC02A882762127C002F0028 /* Network */,
+				3DC02A9627622755002F0028 /* Model */,
+				3D34565627636BC0005AC30F /* Resourses */,
+				3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */,
+				3DC02A5D2761DEF6002F0028 /* Info.plist */,
 			);
 			path = SteamList;
 			sourceTree = "<group>";
@@ -310,15 +327,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DC02AAC2762454C002F0028 /* NewsListViewController.swift in Sources */,
 				3DC02A9327622724002F0028 /* AppDetails.swift in Sources */,
 				3DC02A912762267E002F0028 /* App.swift in Sources */,
 				3DC02A852761F7B7002F0028 /* NetworkDataManager.swift in Sources */,
 				3DC02A872761F990002F0028 /* APIRouter.swift in Sources */,
+				3DC02AAA27624518002F0028 /* FavsListViewController.swift in Sources */,
 				3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */,
-				3DC02A512761DEF4002F0028 /* ViewController.swift in Sources */,
 				3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */,
 				3DC02A8D27621F4E002F0028 /* CoreDataManager.swift in Sources */,
+				3DC02AA62762438F002F0028 /* GamesListViewController.swift in Sources */,
 				3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */,
+				3DC02AA827624420002F0028 /* Helper.swift in Sources */,
 				3DC02A952762273B002F0028 /* AppNews.swift in Sources */,
 				3DC02A8F2762210B002F0028 /* StorageProtocol.swift in Sources */,
 			);

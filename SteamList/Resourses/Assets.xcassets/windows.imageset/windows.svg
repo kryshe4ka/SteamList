@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons8-windows-10-2</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g filter="url(#filter-1)" id="icons8-windows-10-2">
+            <g>
+                <path d="M15,20.027344 L0.011719,20 L0.011719,32.742188 L15,34.816406 L15,20.027344 Z M17,20.03125 L17,35.09375 L37.996094,38 L38,20.066406 L17,20.03125 Z M15,3.257812 L0,5.378906 L0.015625,18 L15,18 L15,3.257812 Z M17,2.972656 L17,18 L37.996094,18 L37.996094,0 L17,2.972656 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -11,4 +11,5 @@ protocol Storage {
     func fetchApps() -> [App]
     func fetchAppDetails(appId: Int) -> AppDetails
     func fetchAppNews(appId: Int, count: Int) -> [AppNews]
+    func saveContext()
 }
