@@ -7,6 +7,18 @@
 
 import Foundation
 
-struct App: Codable {
-    
+// MARK: - App
+struct App: Decodable {
+    let applist: Applist
+}
+
+// MARK: - Applist
+struct Applist: Decodable {
+    let apps: [AppElement]
+}
+
+// MARK: - AppElement
+struct AppElement: Decodable {
+    let appid: Int
+    let name: String
 }

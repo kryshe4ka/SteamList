@@ -10,7 +10,7 @@ import UIKit
 
 class GamesListViewController: UIViewController {
     
-    var apps: [App] = [] // возможно перенесется в data source
+    var apps: [AppElement] = [] // возможно перенесется в data source
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +26,15 @@ class GamesListViewController: UIViewController {
     
     func getApps() {
         let request = NetworkDataManager.shared.buildRequestForFetchApps()
-        let completion: (Result<[App], Error>) -> Void = { [weak self] result in
+        let completion: (Result<App, Error>) -> Void = { [weak self] result in
             // обновляем UI на главной очереди
             DispatchQueue.main.async {
                 switch result {
-                case .success(let apps):
+                case .success(let app):
                     // обновить массив с играми (возможно отфильтровать, убрав те, где нет имени)
                     // тут -> ...
-                    print(apps)
+                    print("getApps work")
+                    self?.apps = app.applist.apps
                     // спрятать индикатор загрузки
                     // тут -> ...
                 case .failure(let error):
