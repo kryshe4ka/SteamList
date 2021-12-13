@@ -29,6 +29,10 @@ enum Colors {
     static let navBarBackground = UIColor(named: "navBarBackground")
     static let tabBarBackground = UIColor(named: "tabBarBackground")
     static let content = UIColor.white
+    static let searchBackground = UIColor(named: "searchBackground")
+    static let searchContent = UIColor(named: "searchContent")
+
+
 }
 
 enum Font {

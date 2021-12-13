@@ -16,7 +16,9 @@ class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
 
 extension GamesListTableViewDelegate: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AppDataSource.shared.apps.count
+//        return AppDataSource.shared.apps.count
+        
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -24,6 +26,7 @@ extension GamesListTableViewDelegate: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.setupCell()
+        if AppDataSource.shared.apps.isEmpty { return UITableViewCell() }
         let app = AppDataSource.shared.apps[indexPath.row]
         let state = CellState(name: app.name, isFavorite: false)
         cell.update(state: state)
