@@ -38,6 +38,7 @@ class GamesListTtableViewCell: UITableViewCell {
     }()
     
     func setupCell() {
+        selectionStyle = .none
         backgroundColor = .clear
         contentView.addSubview(nameLabel)
         contentView.addSubview(favoriteButton)

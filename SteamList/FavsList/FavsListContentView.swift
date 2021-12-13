@@ -11,6 +11,8 @@ import UIKit
 class FavsListContentView: UIView {
     
     let searchView = SearchView()
+    var delegate = FavsListTableViewDelegate()
+
     
     let favsListTableView: TableView = {
         let table = TableView()
@@ -20,6 +22,8 @@ class FavsListContentView: UIView {
     
     init() {
         super.init(frame: .zero)
+        favsListTableView.delegate = delegate
+        favsListTableView.dataSource = delegate
         addSubview(searchView)
         addSubview(favsListTableView)
         addConstraints()

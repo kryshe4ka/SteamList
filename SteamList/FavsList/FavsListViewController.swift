@@ -16,6 +16,14 @@ class FavsListViewController: UIViewController {
         contentView.backgroundColor = .yellow
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if AppDataSource.shared.isFavoritesWasChanged {
+            AppDataSource.shared.isFavoritesWasChanged = !AppDataSource.shared.isFavoritesWasChanged
+            contentView.favsListTableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.navBarBackground

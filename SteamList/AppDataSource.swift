@@ -12,6 +12,7 @@ class AppDataSource {
     
     var apps: [AppElement] = []
     var favApps: [AppElement] = []
+    var isFavoritesWasChanged: Bool = false
     
     func refreshData(apps: [AppElement]) {
         for app in apps {
@@ -25,5 +26,15 @@ class AppDataSource {
     
     func toggleFavorite(index: Int, favoriteState: Bool) {
         apps[index].isFavorite = favoriteState
+        favoriteState ? addToFavList(app: apps[index]) : removeFromFavList(app: apps[index])
+        isFavoritesWasChanged = true
+    }
+    
+    func addToFavList(app: AppElement) {
+        self.favApps.append(app)
+    }
+    
+    func removeFromFavList(app: AppElement) {
+        self.favApps.removeAll{ $0.appid == app.appid }
     }
 }
