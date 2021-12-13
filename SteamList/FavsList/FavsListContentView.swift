@@ -1,5 +1,5 @@
 //
-//  GamesListContentView.swift
+//  FavsListContentView.swift
 //  SteamList
 //
 //  Created by Liza Kryshkovskaya on 13.12.21.
@@ -8,23 +8,20 @@
 import Foundation
 import UIKit
 
-class GamesListContentView: UIView {
+class FavsListContentView: UIView {
     
     let searchView = SearchView()
-    var delegate = GamesListTableViewDelegate()
-
-    var gamesListTableView: TableView = {
+    
+    let favsListTableView: TableView = {
         let table = TableView()
-        table.register(GamesListTtableViewCell.self, forCellReuseIdentifier: GamesListTtableViewCell.reuseIdentifier)
+        table.register(FavsListTtableViewCell.self, forCellReuseIdentifier: FavsListTtableViewCell.reuseIdentifier)
         return table
     }()
     
     init() {
         super.init(frame: .zero)
-        gamesListTableView.delegate = delegate
-        gamesListTableView.dataSource = delegate
         addSubview(searchView)
-        addSubview(gamesListTableView)
+        addSubview(favsListTableView)
         addConstraints()
     }
     
@@ -37,10 +34,10 @@ class GamesListContentView: UIView {
             searchView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Offset.offset),
             searchView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Offset.offset),
-            gamesListTableView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
-            gamesListTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            gamesListTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            gamesListTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            favsListTableView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            favsListTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            favsListTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            favsListTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

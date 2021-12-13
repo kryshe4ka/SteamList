@@ -16,6 +16,9 @@ struct CellState {
 class GamesListTtableViewCell: UITableViewCell {
     static let reuseIdentifier = String(describing: GamesListTtableViewCell.self)
     
+    var isFavorite: Bool = false
+    var index = 0
+    
     let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -27,9 +30,10 @@ class GamesListTtableViewCell: UITableViewCell {
     let favoriteButton: UIButton = {
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.setImage(Icons.favorites, for: .normal)
-        favoriteButton.setImage(Icons.favoritesSelected, for: .highlighted)
-        favoriteButton.setImage(Icons.favoritesSelected, for: .focused)
+        favoriteButton.setImage(Icons.favUnchecked, for: .normal)
+        favoriteButton.setImage(Icons.favChecked, for: .highlighted)
+        favoriteButton.imageView?.isUserInteractionEnabled = false
+        favoriteButton.addTarget(self, action: #selector(toggleFavorite), for: .touchUpInside)
         return favoriteButton
     }()
     
@@ -42,6 +46,20 @@ class GamesListTtableViewCell: UITableViewCell {
     
     func update(state: CellState) {
         nameLabel.text = state.name
+        isFavorite = state.isFavorite
+        setFavoriteButtonState()
+    }
+    
+    @objc func toggleFavorite(sender: UIButton) {
+        isFavorite = !isFavorite
+        setFavoriteButtonState()
+        /// save favorite state in the data source
+        AppDataSource.shared.toggleFavorite(index: index, favoriteState: isFavorite)
+    }
+    
+    func setFavoriteButtonState() {
+        isFavorite ? favoriteButton.setImage(Icons.favChecked, for: .normal) : favoriteButton.setImage(Icons.favUnchecked, for: .normal)
+        isFavorite ? favoriteButton.setImage(Icons.favUnchecked, for: .highlighted) : favoriteButton.setImage(Icons.favChecked, for: .highlighted)
     }
     
     func addConstraints() {

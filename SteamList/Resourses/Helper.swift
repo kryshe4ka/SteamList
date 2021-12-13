@@ -24,6 +24,7 @@ enum Constants {
     static let gamesTabTitle = "Games"
     static let favsTabTitle = "Favorites"
     static let newsTabTitle = "News"
+    static let tableHeightForRow = 50.0
 }
 enum Colors {
     static let navBarBackground = UIColor(named: "navBarBackground")
@@ -44,7 +45,7 @@ enum Offset {
 }
 
 enum Icons {
-    static let favorites = UIImage(named: "star.empty")
-    static let favoritesSelected = UIImage(named: "star.fill")
+    static let favUnchecked = UIImage(named: "star.empty")
+    static let favChecked = UIImage(named: "star.fill")
 
 }

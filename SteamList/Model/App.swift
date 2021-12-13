@@ -21,4 +21,5 @@ struct Applist: Decodable {
 struct AppElement: Decodable {
     let appid: Int
     let name: String
+    var isFavorite: Bool? = false
 }

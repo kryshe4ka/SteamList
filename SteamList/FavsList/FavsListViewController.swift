@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 
 class FavsListViewController: UIViewController {
- 
+    let contentView = FavsListContentView()
+    
+    override func loadView() {
+        view = contentView
+        contentView.backgroundColor = .yellow
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.navBarBackground

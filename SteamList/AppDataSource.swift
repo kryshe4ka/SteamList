@@ -11,12 +11,19 @@ class AppDataSource {
     static let shared = AppDataSource()
     
     var apps: [AppElement] = []
+    var favApps: [AppElement] = []
     
     func refreshData(apps: [AppElement]) {
         for app in apps {
             if app.name != "" {
-                self.apps.append(app)
+                var newApp = app
+                newApp.isFavorite = false
+                self.apps.append(newApp)
             }
         }
+    }
+    
+    func toggleFavorite(index: Int, favoriteState: Bool) {
+        apps[index].isFavorite = favoriteState
     }
 }
