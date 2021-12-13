@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
+		3D34565A27671DC3005AC30F /* GamesListTtableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565927671DC3005AC30F /* GamesListTtableViewCell.swift */; };
+		3D34565C276721DE005AC30F /* GamesListTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */; };
+		3D34565E27672903005AC30F /* AppDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565D27672903005AC30F /* AppDataSource.swift */; };
 		3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */; };
 		3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */; };
 		3DC02A592761DEF6002F0028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A582761DEF6002F0028 /* Assets.xcassets */; };
@@ -47,6 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
+		3D34565927671DC3005AC30F /* GamesListTtableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListTtableViewCell.swift; sourceTree = "<group>"; };
+		3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListTableDelegate.swift; sourceTree = "<group>"; };
+		3D34565D27672903005AC30F /* AppDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataSource.swift; sourceTree = "<group>"; };
 		3DC02A492761DEF4002F0028 /* SteamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DC02A562761DEF4002F0028 /* SteamList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SteamList.xcdatamodel; sourceTree = "<group>"; };
@@ -133,6 +141,10 @@
 			children = (
 				3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */,
 				3DC02AA52762438F002F0028 /* GamesListViewController.swift */,
+				3D34565D27672903005AC30F /* AppDataSource.swift */,
+				3D34565727671C31005AC30F /* GamesListContentView.swift */,
+				3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */,
+				3D34565927671DC3005AC30F /* GamesListTtableViewCell.swift */,
 				3DC02AA927624518002F0028 /* FavsListViewController.swift */,
 				3DC02AAB2762454C002F0028 /* NewsListViewController.swift */,
 				3DC02A9727622AFD002F0028 /* Storage */,
@@ -334,8 +346,12 @@
 				3DC02A872761F990002F0028 /* APIRouter.swift in Sources */,
 				3DC02AAA27624518002F0028 /* FavsListViewController.swift in Sources */,
 				3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */,
+				3D34565C276721DE005AC30F /* GamesListTableDelegate.swift in Sources */,
+				3D34565E27672903005AC30F /* AppDataSource.swift in Sources */,
 				3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */,
+				3D34565A27671DC3005AC30F /* GamesListTtableViewCell.swift in Sources */,
 				3DC02A8D27621F4E002F0028 /* CoreDataManager.swift in Sources */,
+				3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */,
 				3DC02AA62762438F002F0028 /* GamesListViewController.swift in Sources */,
 				3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */,
 				3DC02AA827624420002F0028 /* Helper.swift in Sources */,

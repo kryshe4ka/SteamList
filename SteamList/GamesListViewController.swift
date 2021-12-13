@@ -9,8 +9,12 @@ import Foundation
 import UIKit
 
 class GamesListViewController: UIViewController {
+    let contentView = GamesListContentView()
     
-    var apps: [AppElement] = [] // возможно перенесется в data source
+    override func loadView() {
+        view = contentView
+        contentView.backgroundColor = .yellow
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +31,14 @@ class GamesListViewController: UIViewController {
     func getApps() {
         let request = NetworkDataManager.shared.buildRequestForFetchApps()
         let completion: (Result<App, Error>) -> Void = { [weak self] result in
+            guard let self = self else {return}
             // обновляем UI на главной очереди
             DispatchQueue.main.async {
                 switch result {
                 case .success(let app):
-                    // обновить массив с играми (возможно отфильтровать, убрав те, где нет имени)
-                    // тут -> ...
-                    print("getApps work")
-                    self?.apps = app.applist.apps
+                    /// update data source and reload table
+                    AppDataSource.shared.refreshData(apps: app.applist.apps)
+                    self.updateTable()
                     // спрятать индикатор загрузки
                     // тут -> ...
                 case .failure(let error):
@@ -54,5 +58,9 @@ class GamesListViewController: UIViewController {
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
         }
+    }
+    
+    func updateTable() {
+        contentView.gamesListTableView.reloadData()
     }
 }

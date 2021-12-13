@@ -30,3 +30,7 @@ enum Colors {
     static let tabBarBackground = UIColor(named: "tabBarBackground")
     static let content = UIColor.white
 }
+
+enum Font {
+    static let boldSystemFont = UIFont.boldSystemFont(ofSize: 16)
+}
