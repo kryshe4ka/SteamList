@@ -118,6 +118,17 @@
 			path = Resourses;
 			sourceTree = "<group>";
 		};
+		3D34566127675237005AC30F /* GamesList */ = {
+			isa = PBXGroup;
+			children = (
+				3DC02AA52762438F002F0028 /* GamesListViewController.swift */,
+				3D34565727671C31005AC30F /* GamesListContentView.swift */,
+				3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */,
+				3D34565927671DC3005AC30F /* GamesListTtableViewCell.swift */,
+			);
+			path = GamesList;
+			sourceTree = "<group>";
+		};
 		3DC02A402761DEF4002F0028 = {
 			isa = PBXGroup;
 			children = (
@@ -142,12 +153,9 @@
 			isa = PBXGroup;
 			children = (
 				3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */,
-				3DC02AA52762438F002F0028 /* GamesListViewController.swift */,
 				3D34565D27672903005AC30F /* AppDataSource.swift */,
-				3D34565727671C31005AC30F /* GamesListContentView.swift */,
-				3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */,
 				3D34565F27672E8E005AC30F /* SearchView.swift */,
-				3D34565927671DC3005AC30F /* GamesListTtableViewCell.swift */,
+				3D34566127675237005AC30F /* GamesList */,
 				3DC02AA927624518002F0028 /* FavsListViewController.swift */,
 				3DC02AAB2762454C002F0028 /* NewsListViewController.swift */,
 				3DC02A9727622AFD002F0028 /* Storage */,

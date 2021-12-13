@@ -1,8 +1,7 @@
 {
   "images" : [
     {
-      "compression-type" : "lossy",
-      "filename" : "test.pdf",
+      "filename" : "star.fill.pdf",
       "idiom" : "universal"
     }
   ],
@@ -11,9 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "auto-scaling" : "auto",
-    "compression-type" : "automatic",
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "template"
+    "auto-scaling" : "auto"
   }
 }

@@ -38,3 +38,13 @@ enum Colors {
 enum Font {
     static let boldSystemFont = UIFont.boldSystemFont(ofSize: 16)
 }
+
+enum Offset {
+    static let offset = 10.0
+}
+
+enum Icons {
+    static let favorites = UIImage(named: "star.empty")
+    static let favoritesSelected = UIImage(named: "star.fill")
+
+}
