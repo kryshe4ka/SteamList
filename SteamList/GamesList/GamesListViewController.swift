@@ -13,19 +13,22 @@ class GamesListViewController: UIViewController {
     
     override func loadView() {
         view = contentView
-        contentView.backgroundColor = .yellow
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.navBarBackground
         setUpNavigation()
+        contentView.delegate.controller = self /// pass GamesListViewController to GamesListTableViewDelegate
         getApps()
     }
     
     func setUpNavigation() {
         self.navigationItem.title = Constants.gamesTabTitle
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.content]
+        /// customize back bar button
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
     func getApps() {

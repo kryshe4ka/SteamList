@@ -9,8 +9,14 @@ import Foundation
 import UIKit
 
 class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
+    
+    var controller: GamesListViewController?
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // перейти на экран с деталями игры
+        /// display screen with app details
+        guard let controller = controller else { return }
+        let gameDetailsViewController = GameDetailsViewController()
+        controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
