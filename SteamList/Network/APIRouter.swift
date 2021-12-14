@@ -9,14 +9,20 @@ import Foundation
 import Alamofire
 
 enum APIRouter: URLRequestConvertible {
-        
-    enum APIConstants {
-        static let baseUrl = "https://api.steampowered.com"
-    }
-    
     case fetchAllApps
     case fetchAppDetails(Int)
     case fetchNewsForApp(Int, Int)
+    
+    var baseURL: URL {
+        switch self {
+        case .fetchAllApps:
+            return URL(string: "https://api.steampowered.com")!
+        case .fetchAppDetails:
+            return URL(string: "https://store.steampowered.com")!
+        case .fetchNewsForApp:
+            return URL(string: "https://api.steampowered.com")!
+        }
+    }
     
     var method: HTTPMethod {
         switch self {
@@ -52,7 +58,7 @@ enum APIRouter: URLRequestConvertible {
     }
     
     func asURLRequest() throws -> URLRequest {
-        let url = try APIConstants.baseUrl.asURL()
+        let url = try baseURL.asURL()
         var request = URLRequest(url: url.appendingPathComponent(path), cachePolicy: .returnCacheDataElseLoad)
         request.httpMethod = method.rawValue
         request.timeoutInterval = TimeInterval(10*1000)

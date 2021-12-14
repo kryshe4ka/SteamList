@@ -37,4 +37,8 @@ class AppDataSource {
     func removeFromFavList(app: AppElement) {
         self.favApps.removeAll{ $0.appid == app.appid }
     }
+    
+    func refreshData(appId: Int, appDetails: AppDetails) {
+        print("refreshData for appId = \(appId), index?")
+    }
 }

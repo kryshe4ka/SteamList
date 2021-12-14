@@ -18,7 +18,7 @@ class NetworkDataManager: NSObject {
     }
     
     static func request(_ convertible: URLRequestConvertible) -> DataRequest {
-      shared.session.request(convertible).validate()
+        shared.session.request(convertible).validate()
     }
 }
 
