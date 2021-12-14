@@ -15,7 +15,10 @@ class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         /// display screen with app details
         guard let controller = controller else { return }
-        let gameDetailsViewController = GameDetailsViewController()
+        let appId = AppDataSource.shared.apps[indexPath.row].appid
+        let appName = AppDataSource.shared.apps[indexPath.row].name
+        let isFavorite = AppDataSource.shared.apps[indexPath.row].isFavorite!
+        let gameDetailsViewController = GameDetailsViewController(appId: appId, appName: appName, isFavorite: isFavorite)
         controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
     
