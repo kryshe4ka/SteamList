@@ -5,7 +5,7 @@
 //  Created by Liza Kryshkovskaya on 9.12.21.
 //
 
-import Foundation
+import UIKit
 import Alamofire
 
 class NetworkDataManager: NSObject {
@@ -20,12 +20,32 @@ class NetworkDataManager: NSObject {
     static func request(_ convertible: URLRequestConvertible) -> DataRequest {
         shared.session.request(convertible).validate()
     }
+    
+    static func download(_ url: String) -> DownloadRequest {
+        shared.session.download(url).validate()
+    }
 }
 
 extension NetworkDataManager: NetworkManagerProtocol {
     
-    func get<T: Decodable>(request: URLRequestConvertible, completion: @escaping (Result<T, Error>) -> Void)
-    {
+    func loadImage(urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        NetworkDataManager.download(urlString).responseData { response in
+            switch response.result {
+            case .failure(let error):
+                print("Error while fetching the image: \(error)")
+                completion(.failure(error))
+            case .success(let data):
+                DispatchQueue.main.async {
+                    guard let downloadedImage = UIImage(data: data) else { return }
+                    // закешировать
+                    // передать картинку дальше
+                    completion(.success(downloadedImage))
+                }
+            }
+        }
+    }
+
+    func get<T: Decodable>(request: URLRequestConvertible, completion: @escaping (Result<T, Error>) -> Void) {
         NetworkDataManager.request(request).responseDecodable(of: T.self)
         { response in
             switch response.result {

@@ -40,15 +40,3 @@ struct Newsitem: Codable {
         case appid, tags
     }
 }
-
-//enum Author: String, Codable {
-//    case cyberStonka = "CyberStonka"
-//}
-
-//enum Feedlabel: String, Codable {
-//    case communityAnnouncements = "Community Announcements"
-//}
-
-//enum Feedname: String, Codable {
-//    case steamCommunityAnnouncements = "steam_community_announcements"
-//}

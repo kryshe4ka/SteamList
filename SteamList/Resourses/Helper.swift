@@ -32,12 +32,14 @@ enum Colors {
     static let content = UIColor.white
     static let searchBackground = UIColor(named: "searchBackground")
     static let searchContent = UIColor(named: "searchContent")
-
+    static let gradientTop = UIColor(named: "gradientTop")!
+    static let gradientBottom = UIColor(named: "gradientBottom")!
 
 }
 
 enum Font {
     static let boldSystemFont = UIFont.boldSystemFont(ofSize: 16)
+    static let boldTitleFont = UIFont.boldSystemFont(ofSize: 24)
 }
 
 enum Offset {
@@ -47,5 +49,4 @@ enum Offset {
 enum Icons {
     static let favUnchecked = UIImage(named: "star.empty")
     static let favChecked = UIImage(named: "star.fill")
-
 }

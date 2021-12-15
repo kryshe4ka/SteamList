@@ -35,7 +35,37 @@ extension CoreDataManager: Storage {
     }
     
     func fetchAppDetails(appId: Int) -> AppDetails {
-        return AppDetails(type: nil, name: nil, steamAppid: nil, requiredAge: nil, isFree: nil, detailedDescription: nil, aboutTheGame: nil, shortDescription: nil, supportedLanguages: nil, headerImage: nil, website: nil, pcRequirements: nil, macRequirements: nil, linuxRequirements: nil, legalNotice: nil, developers: nil, publishers: nil, priceOverview: nil, packages: nil, packageGroups: nil, platforms: nil, categories: nil, genres: nil, screenshots: nil, movies: nil, achievements: nil, releaseDate: nil, supportInfo: nil, background: nil, contentDescriptors: nil)
+        return AppDetails(type: nil,
+                          name: nil,
+                          steamAppid: nil,
+                          requiredAge: nil,
+                          isFree: nil,
+                          detailedDescription: nil,
+                          aboutTheGame: nil,
+                          shortDescription: nil,
+                          supportedLanguages: nil,
+                          headerImage: nil,
+                          website: nil,
+//                          pcRequirements: nil,
+//                          macRequirements: nil,
+//                          linuxRequirements: nil,
+                          legalNotice: nil,
+                          developers: nil,
+                          publishers: nil,
+                          priceOverview: nil,
+                          packages: nil,
+                          packageGroups: nil,
+                          platforms: nil,
+                          categories: nil,
+                          genres: nil,
+                          screenshots: nil,
+                          movies: nil,
+                          achievements: nil,
+                          releaseDate: nil,
+                          supportInfo: nil,
+                          background: nil
+//                          ,contentDescriptors: nil
+        )
     }
     
     func fetchAppNews(appId: Int, count: Int) -> [AppNews] {

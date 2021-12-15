@@ -7,12 +7,23 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class GamesListContentView: UIView {
     
     let searchView = SearchView()
     var delegate = GamesListTableViewDelegate()
 
+    private var gradientLayer: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            Colors.gradientTop.cgColor,
+            Colors.gradientBottom.cgColor
+        ]
+        gradient.locations = [0.5, 1];
+        return gradient
+    }()
+    
     var gamesListTableView: TableView = {
         let table = TableView()
         table.register(GamesListTtableViewCell.self, forCellReuseIdentifier: GamesListTtableViewCell.reuseIdentifier)
@@ -26,6 +37,12 @@ class GamesListContentView: UIView {
         addSubview(searchView)
         addSubview(gamesListTableView)
         addConstraints()
+        layer.insertSublayer(self.gradientLayer, at: 0)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = bounds
     }
     
     required init?(coder: NSCoder) {
@@ -33,14 +50,13 @@ class GamesListContentView: UIView {
     }
     
     func addConstraints() {
-        NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Offset.offset),
-            searchView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Offset.offset),
-            gamesListTableView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
-            gamesListTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            gamesListTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            gamesListTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        searchView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.trailing.equalToSuperview().inset(10)
+        }
+        gamesListTableView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(searchView.snp.bottom)
+        }
     }
 }

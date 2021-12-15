@@ -17,6 +17,9 @@
 		3D3456682767875C005AC30F /* FavsListTtableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3456672767875C005AC30F /* FavsListTtableViewCell.swift */; };
 		3D34566A27679777005AC30F /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34566927679777005AC30F /* TableView.swift */; };
 		3D34566C27687D46005AC30F /* GameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34566B27687D46005AC30F /* GameDetailsViewController.swift */; };
+		3D34566E2768E1EF005AC30F /* GameDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34566D2768E1EF005AC30F /* GameDetailsContentView.swift */; };
+		3D3456712769DB47005AC30F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D3456702769DB47005AC30F /* SnapKit */; };
+		3D345673276A23C3005AC30F /* NewsListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D345672276A23C3005AC30F /* NewsListContentView.swift */; };
 		3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */; };
 		3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */; };
 		3DC02A592761DEF6002F0028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A582761DEF6002F0028 /* Assets.xcassets */; };
@@ -67,6 +70,8 @@
 		3D3456672767875C005AC30F /* FavsListTtableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavsListTtableViewCell.swift; sourceTree = "<group>"; };
 		3D34566927679777005AC30F /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		3D34566B27687D46005AC30F /* GameDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewController.swift; sourceTree = "<group>"; };
+		3D34566D2768E1EF005AC30F /* GameDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsContentView.swift; sourceTree = "<group>"; };
+		3D345672276A23C3005AC30F /* NewsListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListContentView.swift; sourceTree = "<group>"; };
 		3DC02A492761DEF4002F0028 /* SteamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DC02A562761DEF4002F0028 /* SteamList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SteamList.xcdatamodel; sourceTree = "<group>"; };
@@ -98,6 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */,
+				3D3456712769DB47005AC30F /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +141,7 @@
 				3D34565727671C31005AC30F /* GamesListContentView.swift */,
 				3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */,
 				3D34565927671DC3005AC30F /* GamesListTtableViewCell.swift */,
-				3D34566B27687D46005AC30F /* GameDetailsViewController.swift */,
+				3D345675276A259F005AC30F /* GameDetails */,
 			);
 			path = GamesList;
 			sourceTree = "<group>";
@@ -149,6 +155,24 @@
 				3D3456672767875C005AC30F /* FavsListTtableViewCell.swift */,
 			);
 			path = FavsList;
+			sourceTree = "<group>";
+		};
+		3D345674276A2441005AC30F /* NewsList */ = {
+			isa = PBXGroup;
+			children = (
+				3DC02AAB2762454C002F0028 /* NewsListViewController.swift */,
+				3D345672276A23C3005AC30F /* NewsListContentView.swift */,
+			);
+			path = NewsList;
+			sourceTree = "<group>";
+		};
+		3D345675276A259F005AC30F /* GameDetails */ = {
+			isa = PBXGroup;
+			children = (
+				3D34566B27687D46005AC30F /* GameDetailsViewController.swift */,
+				3D34566D2768E1EF005AC30F /* GameDetailsContentView.swift */,
+			);
+			path = GameDetails;
 			sourceTree = "<group>";
 		};
 		3DC02A402761DEF4002F0028 = {
@@ -180,7 +204,7 @@
 				3D34566927679777005AC30F /* TableView.swift */,
 				3D34566127675237005AC30F /* GamesList */,
 				3D34566627678735005AC30F /* FavsList */,
-				3DC02AAB2762454C002F0028 /* NewsListViewController.swift */,
+				3D345674276A2441005AC30F /* NewsList */,
 				3DC02A9727622AFD002F0028 /* Storage */,
 				3DC02A882762127C002F0028 /* Network */,
 				3DC02A9627622755002F0028 /* Model */,
@@ -255,6 +279,7 @@
 			name = SteamList;
 			packageProductDependencies = (
 				3DC02A802761E9AA002F0028 /* Alamofire */,
+				3D3456702769DB47005AC30F /* SnapKit */,
 			);
 			productName = SteamList;
 			productReference = 3DC02A492761DEF4002F0028 /* SteamList.app */;
@@ -330,6 +355,7 @@
 			mainGroup = 3DC02A402761DEF4002F0028;
 			packageReferences = (
 				3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3DC02A4A2761DEF4002F0028 /* Products */;
 			projectDirPath = "";
@@ -374,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC02AAC2762454C002F0028 /* NewsListViewController.swift in Sources */,
+				3D34566E2768E1EF005AC30F /* GameDetailsContentView.swift in Sources */,
 				3D34566C27687D46005AC30F /* GameDetailsViewController.swift in Sources */,
 				3D34566027672E8E005AC30F /* SearchView.swift in Sources */,
 				3DC02A9327622724002F0028 /* AppDetails.swift in Sources */,
@@ -383,6 +410,7 @@
 				3DC02A872761F990002F0028 /* APIRouter.swift in Sources */,
 				3DC02AAA27624518002F0028 /* FavsListViewController.swift in Sources */,
 				3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */,
+				3D345673276A23C3005AC30F /* NewsListContentView.swift in Sources */,
 				3D34565C276721DE005AC30F /* GamesListTableDelegate.swift in Sources */,
 				3D34565E27672903005AC30F /* AppDataSource.swift in Sources */,
 				3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */,
@@ -756,6 +784,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -767,6 +803,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3D3456702769DB47005AC30F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		3DC02A802761E9AA002F0028 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */;

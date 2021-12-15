@@ -7,12 +7,22 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class FavsListContentView: UIView {
     
     let searchView = SearchView()
     var delegate = FavsListTableViewDelegate()
-
+    
+    private var gradientLayer: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            Colors.gradientTop.cgColor,
+            Colors.gradientBottom.cgColor
+        ]
+        gradient.locations = [0.5, 1];
+        return gradient
+    }()
     
     let favsListTableView: TableView = {
         let table = TableView()
@@ -27,6 +37,12 @@ class FavsListContentView: UIView {
         addSubview(searchView)
         addSubview(favsListTableView)
         addConstraints()
+        layer.insertSublayer(self.gradientLayer, at: 0)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = bounds
     }
     
     required init?(coder: NSCoder) {
@@ -34,14 +50,13 @@ class FavsListContentView: UIView {
     }
     
     func addConstraints() {
-        NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Offset.offset),
-            searchView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Offset.offset),
-            favsListTableView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
-            favsListTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            favsListTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            favsListTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        searchView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.trailing.equalToSuperview().inset(10)
+        }
+        favsListTableView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(searchView.snp.bottom)
+        }
     }
 }
