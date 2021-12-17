@@ -34,6 +34,7 @@ class GameDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.backgroundColor = Colors.navBarBackground
+        contentView.controller = self
         setUpNavigation()
         getAppDetails()
     }
@@ -59,7 +60,6 @@ class GameDetailsViewController: UIViewController {
             // а тут надо перейти на другую очередь?
             NetworkDataManager.shared.loadImage(urlString: url, completion: completion)
         }
-        
     }
     
     func getAppDetails() {    
@@ -76,7 +76,17 @@ class GameDetailsViewController: UIViewController {
                         /// update data source and reload view
                         AppDataSource.shared.refreshData(appId: self.appId, appDetails: detailsData)
                         
-                        self.detailsState = Details(headerImageUrl: detailsData.headerImage ?? "", title: detailsData.name ?? "", isFavorite: self.isFavorite, date: detailsData.releaseDate?.date ?? "", price: detailsData.priceOverview?.finalFormatted ?? "", linux: detailsData.platforms?.linux ?? false, windows: detailsData.platforms?.windows ?? false, mac: detailsData.platforms?.mac ?? false, tags: [], screenshotsUrl: [], description: detailsData.shortDescription ?? "")
+                        var tagsArray: [String]?
+                        tagsArray = detailsData.genres?.compactMap({ genre in
+                            genre.genreDescription
+                        })
+                        
+                        var screenshotsArray: [String]?
+                        screenshotsArray = detailsData.screenshots?.compactMap({ screenshot in
+                            screenshot.pathFull
+                        })
+                        
+                        self.detailsState = Details(appId: detailsData.steamAppid ?? 0, headerImageUrl: detailsData.headerImage ?? "", title: detailsData.name ?? "Unknown", isFavorite: self.isFavorite, isFree: detailsData.isFree ?? false, date: detailsData.releaseDate?.date ?? "-", price: detailsData.priceOverview?.finalFormatted ?? "$0.00", linux: detailsData.platforms?.linux ?? false, windows: detailsData.platforms?.windows ?? false, mac: detailsData.platforms?.mac ?? false, tags: tagsArray ?? ["Other"], screenshotsUrl: screenshotsArray ?? [], description: detailsData.shortDescription ?? "Unknown")
                         
                         self.contentView.update(details: self.detailsState!)
                         // после получения всех деталей загружаем картинку

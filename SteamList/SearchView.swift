@@ -16,7 +16,7 @@ class SearchView: UIView {
     let inputTextField: UITextField = {
         let inputTextField = UITextField(frame: .zero)
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
-        inputTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: Colors.searchContent ?? .lightGray])
+        inputTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: Colors.searchContent])
         inputTextField.textColor = Colors.searchContent
         return inputTextField
     }()

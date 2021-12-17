@@ -27,13 +27,15 @@ enum Constants {
     static let tableHeightForRow = 50.0
 }
 enum Colors {
-    static let navBarBackground = UIColor(named: "navBarBackground")
-    static let tabBarBackground = UIColor(named: "tabBarBackground")
+    static let navBarBackground = UIColor(named: "navBarBackground")!
+    static let tabBarBackground = UIColor(named: "tabBarBackground")!
     static let content = UIColor.white
-    static let searchBackground = UIColor(named: "searchBackground")
-    static let searchContent = UIColor(named: "searchContent")
+    static let searchBackground = UIColor(named: "searchBackground")!
+    static let searchContent = UIColor(named: "searchContent")!
     static let gradientTop = UIColor(named: "gradientTop")!
     static let gradientBottom = UIColor(named: "gradientBottom")!
+    static let green = UIColor(named: "green")!
+
 
 }
 
