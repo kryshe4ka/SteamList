@@ -24,7 +24,6 @@ class ScreenshotsCollectionViewDelegate: NSObject, UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! ScreenshotsCollectionViewCell
         guard let image = cell.screenshotImageView.image else { return }
         let zoomVC = ZoomViewController(image: image)
-//        zoomVC.image = image
         guard let controller = controller else { return }
         controller.present(zoomVC, animated: true, completion: nil)
     }
@@ -40,8 +39,7 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScreenshotsCollectionViewCell.reuseIdentifier, for: indexPath) as! ScreenshotsCollectionViewCell
         cell.setupCell()
         let urlString = screenshotUrls[indexPath.row]
-        
-        // load image for cell
+        /// load image for cell
         let completion: (Result<UIImage, Error>) -> Void = { [weak cell] result in
             guard let cell = cell else { return }
             /// update UI on the main queue
@@ -57,7 +55,6 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
         if !urlString.isEmpty {
             NetworkDataManager.shared.loadImage(urlString: urlString, completion: completion)
         }
-        
         return cell
     }
 }

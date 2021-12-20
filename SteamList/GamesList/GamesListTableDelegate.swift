@@ -33,7 +33,7 @@ extension GamesListTableViewDelegate: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: GamesListTtableViewCell.reuseIdentifier, for: indexPath) as? GamesListTtableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: GamesListTableViewCell.reuseIdentifier, for: indexPath) as? GamesListTableViewCell else {
             return UITableViewCell()
         }
         cell.index = indexPath.row

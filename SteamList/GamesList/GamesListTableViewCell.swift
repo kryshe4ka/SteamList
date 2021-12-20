@@ -7,19 +7,20 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 struct CellState {
     let name: String
     let isFavorite: Bool
 }
 
-class GamesListTtableViewCell: UITableViewCell {
-    static let reuseIdentifier = String(describing: GamesListTtableViewCell.self)
+class GamesListTableViewCell: UITableViewCell {
+    static let reuseIdentifier = String(describing: GamesListTableViewCell.self)
     
     var isFavorite: Bool = false
     var index = 0
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = Font.boldSystemFont
@@ -27,7 +28,7 @@ class GamesListTtableViewCell: UITableViewCell {
         return nameLabel
     }()
     
-    let favoriteButton: UIButton = {
+    private let favoriteButton: UIButton = {
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(Icons.favUnchecked, for: .normal)
@@ -63,19 +64,21 @@ class GamesListTtableViewCell: UITableViewCell {
         isFavorite ? favoriteButton.setImage(Icons.favUnchecked, for: .highlighted) : favoriteButton.setImage(Icons.favChecked, for: .highlighted)
     }
     
-    func addConstraints() {
+    private func addConstraints() {
         nameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         favoriteButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         favoriteButton.setContentCompressionResistancePriority(.init(rawValue: 1000.0), for: .horizontal)
 
-        NSLayoutConstraint.activate([
-            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Offset.offset * 2),
-            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Offset.offset * 2),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 30.0),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 30.0),
-            favoriteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -Offset.offset),
-        ])
+        nameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalTo(favoriteButton.snp.leading).offset(-10)
+        }
+        let buttonSize: CGFloat = 30
+        favoriteButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.width.equalTo(buttonSize)
+            make.centerY.equalToSuperview()
+        }
     }
 }

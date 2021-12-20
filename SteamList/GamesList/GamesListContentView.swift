@@ -12,9 +12,9 @@ import SnapKit
 class GamesListContentView: UIView {
     
     let searchView = SearchView()
-    var delegate = GamesListTableViewDelegate()
+    let delegate = GamesListTableViewDelegate()
 
-    private var gradientLayer: CAGradientLayer = {
+    private let gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
             Colors.gradientTop.cgColor,
@@ -24,9 +24,9 @@ class GamesListContentView: UIView {
         return gradient
     }()
     
-    var gamesListTableView: TableView = {
+    let gamesListTableView: TableView = {
         let table = TableView()
-        table.register(GamesListTtableViewCell.self, forCellReuseIdentifier: GamesListTtableViewCell.reuseIdentifier)
+        table.register(GamesListTableViewCell.self, forCellReuseIdentifier: GamesListTableViewCell.reuseIdentifier)
         return table
     }()
     

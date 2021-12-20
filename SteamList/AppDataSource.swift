@@ -13,6 +13,7 @@ class AppDataSource {
     var apps: [AppElement] = []
     var favApps: [AppElement] = []
     var isFavoritesWasChanged: Bool = false
+    var news: [Newsitem] = []
     
     func refreshData(apps: [AppElement]) {
         for app in apps {
@@ -36,9 +37,19 @@ class AppDataSource {
     
     func removeFromFavList(app: AppElement) {
         self.favApps.removeAll{ $0.appid == app.appid }
+        // !!! удалить и все сопутствующие новости удаляемой игры
     }
     
     func refreshData(appId: Int, appDetails: AppDetails) {
         print("refreshData for appId = \(appId), index?")
+    }
+    
+    func updateNews(with news: [Newsitem]) {
+        // добавить проверку на пустоту
+        self.news.append(contentsOf: news)
+    }
+    
+    func setChangesDone() {
+        isFavoritesWasChanged = false
     }
 }

@@ -35,13 +35,13 @@ enum Colors {
     static let gradientTop = UIColor(named: "gradientTop")!
     static let gradientBottom = UIColor(named: "gradientBottom")!
     static let green = UIColor(named: "green")!
-
-
 }
 
 enum Font {
     static let boldSystemFont = UIFont.boldSystemFont(ofSize: 16)
     static let boldTitleFont = UIFont.boldSystemFont(ofSize: 24)
+    static let regulareSystemFont = UIFont.systemFont(ofSize: 14)
+    static let italicSystemFont = UIFont.italicSystemFont(ofSize: 14)
 }
 
 enum Offset {
