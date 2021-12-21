@@ -13,7 +13,9 @@ class NewsListTableViewDelegate: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = controller else { return }
-        let newsDetailsViewController = NewsDetailsViewController()
+//        let url = AppDataSource.shared.news[indexPath.row].url
+        let content = AppDataSource.shared.news[indexPath.row].contents
+        let newsDetailsViewController = NewsDetailsViewController(content: content ?? "")
         controller.navigationController?.pushViewController(newsDetailsViewController, animated: true)
     }
     

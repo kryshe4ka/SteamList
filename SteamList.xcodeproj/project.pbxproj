@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
 		3D34565A27671DC3005AC30F /* GamesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565927671DC3005AC30F /* GamesListTableViewCell.swift */; };
 		3D34565C276721DE005AC30F /* GamesListTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
 		3D34565927671DC3005AC30F /* GamesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListTableViewCell.swift; sourceTree = "<group>"; };
 		3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListTableDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		3DC02A402761DEF4002F0028 = {
 			isa = PBXGroup;
 			children = (
+				3D27AC1327721798003E677F /* NewsDetailsStyle.css */,
 				3DC02A4B2761DEF4002F0028 /* SteamList */,
 				3DC02A652761DEF6002F0028 /* SteamListTests */,
 				3DC02A6F2761DEF6002F0028 /* SteamListUITests */,
@@ -413,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */,
 				3DC02A5C2761DEF6002F0028 /* LaunchScreen.storyboard in Resources */,
 				3DC02A592761DEF6002F0028 /* Assets.xcassets in Resources */,
 			);

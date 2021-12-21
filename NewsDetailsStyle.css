@@ -1,0 +1,38 @@
+html, body, div {
+    background-color: #3D6382;
+    background-image: linear-gradient(#183E58, #1C2B3D);
+    color: #fff;
+    font: inherit;
+    margin: 0;
+    padding: 10;
+    display: block;
+    line-height: 1.2;
+    font-size: 42;
+    text-align: left;
+    vertical-align: baseline;
+    width: auto;
+    
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    max-width: 100%;
+    margin-top: 50;
+    margin-bottom: 50;
+    padding: 0;
+}
+
+a {
+    color: #8397D2;
+    cursor: pointer;
+    display: inline;
+    text-decoration: underline;
+}
+
