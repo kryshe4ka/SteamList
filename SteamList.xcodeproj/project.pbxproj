@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
+		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
 		3D34565A27671DC3005AC30F /* GamesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565927671DC3005AC30F /* GamesListTableViewCell.swift */; };
 		3D34565C276721DE005AC30F /* GamesListTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
+		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
 		3D34565927671DC3005AC30F /* GamesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListTableViewCell.swift; sourceTree = "<group>"; };
 		3D34565B276721DE005AC30F /* GamesListTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListTableDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				3D345672276A23C3005AC30F /* NewsListContentView.swift */,
 				3D5BA4ED277088EF00336CE9 /* NewsListTableViewDelegate.swift */,
 				3D5BA4EB2770887000336CE9 /* NewsListTableViewCell.swift */,
+				3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */,
 				3D5BA4F327708AA400336CE9 /* NewsDetails */,
 			);
 			path = NewsList;
@@ -446,6 +449,7 @@
 				3D34567E276CA2B1005AC30F /* CloseButton.swift in Sources */,
 				3DC02AAC2762454C002F0028 /* NewsListViewController.swift in Sources */,
 				3D34566E2768E1EF005AC30F /* GameDetailsContentView.swift in Sources */,
+				3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */,
 				3D34566C27687D46005AC30F /* GameDetailsViewController.swift in Sources */,
 				3D34566027672E8E005AC30F /* SearchView.swift in Sources */,
 				3DC02A9327622724002F0028 /* AppDetails.swift in Sources */,

@@ -3,7 +3,6 @@ html, body, div {
     background-image: linear-gradient(#183E58, #1C2B3D);
     color: #fff;
     font: inherit;
-    margin: 0;
     padding: 10;
     display: block;
     line-height: 1.2;
@@ -11,7 +10,6 @@ html, body, div {
     text-align: left;
     vertical-align: baseline;
     width: auto;
-    
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 300;
 }
@@ -36,3 +34,6 @@ a {
     text-decoration: underline;
 }
 
+p {
+    margin-bottom: 10;
+}

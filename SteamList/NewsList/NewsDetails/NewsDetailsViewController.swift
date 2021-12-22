@@ -9,9 +9,13 @@ import UIKit
 import WebKit
 
 class NewsDetailsViewController: UIViewController, WKUIDelegate {
-    var webView: WKWebView!
-    let content: String
-    
+    private var webView: WKWebView!
+    private let content: String
+    private let newsShortDescriptionView = NewsShortDescriptionView()
+    private let viewForEmbeddingWebView = UIView()
+    private let scrollView = UIScrollView()
+
+
     init(content: String) {
         self.content = content
         super.init(nibName: nil, bundle: nil)
@@ -21,22 +25,49 @@ class NewsDetailsViewController: UIViewController, WKUIDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
-        view = webView
-    }
+//    override func loadView() {
+//        let webConfiguration = WKWebViewConfiguration()
+//        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+//        webView.uiDelegate = self
+//        view = webView
+//        webView.backgroundColor = Colors.navBarBackground
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // add newsShortDescriptionView
+        view.addSubview(newsShortDescriptionView)
+        newsShortDescriptionView.backgroundColor = Colors.gradientTop
+        let height: CGFloat = 90
+        newsShortDescriptionView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(height)
+            make.top.equalToSuperview()
+        }
+        
+        // add viewForEmbeddingWebView
+        view.addSubview(viewForEmbeddingWebView)
+        viewForEmbeddingWebView.backgroundColor = .red
+        viewForEmbeddingWebView.snp.makeConstraints { make in
+            make.top.equalTo(newsShortDescriptionView.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        // add and configure webview
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: viewForEmbeddingWebView.frame, configuration: webConfiguration)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webView.uiDelegate = self
+        webView.backgroundColor = Colors.navBarBackground
+        viewForEmbeddingWebView.addSubview(webView)
+    
+        
         loadContentWithString()
         injectToPage()
     }
     
     func loadContentWithString() {
         webView.loadHTMLString(content, baseURL: URL(string: "https://api.steampowered.com"))
-
     }
     
     // MARK: - Reading contents of files

@@ -52,10 +52,7 @@ class GameDetailsContentView: UIView {
         return gradient
     }()
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
+    private let scrollView = UIScrollView()
     
     lazy var headerImage: UIImageView = {
         let imageView = UIImageView()
@@ -212,9 +209,7 @@ class GameDetailsContentView: UIView {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.bottom.leading.trailing.equalToSuperview()
         }
         
         headerImage.snp.makeConstraints { make in
