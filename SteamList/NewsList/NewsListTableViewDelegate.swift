@@ -15,7 +15,8 @@ class NewsListTableViewDelegate: NSObject, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = controller else { return }
         let content = AppDataSource.shared.news[indexPath.row].contents
-        let newsDetailsViewController = NewsDetailsViewController(content: content ?? "", state: NewsCellState(appName: state.appName, title: state.title, author: state.author, date: state.date))
+        let newsDetailsViewController = NewsDetailsViewController(content: content ?? "", state: state)
+        newsDetailsViewController.navigationItem.title = state.title
         controller.navigationController?.pushViewController(newsDetailsViewController, animated: true)
     }
     

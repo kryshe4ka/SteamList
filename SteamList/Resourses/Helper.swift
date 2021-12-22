@@ -52,3 +52,21 @@ enum Icons {
     static let favUnchecked = UIImage(named: "star.empty")
     static let favChecked = UIImage(named: "star.fill")
 }
+
+extension String {
+    var toDateFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        let date = Date(timeIntervalSinceReferenceDate: TimeInterval(Int(self) ?? 0))
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000Z'"
+        let printFormatter = DateFormatter()
+        printFormatter.dateFormat = "dd MMM, yyyy"
+        printFormatter.locale = Locale(identifier: "en_US")
+        
+//        let usLocale = Locale(identifier: "en_US")
+//        let template = "dd MMM, yyyy"
+//        let usDateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: usLocale)!
+        
+        return printFormatter.string(from: date)
+    }
+}

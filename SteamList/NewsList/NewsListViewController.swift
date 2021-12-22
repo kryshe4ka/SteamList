@@ -32,6 +32,7 @@ class NewsListViewController: UIViewController {
     func setUpNavigation() {
         self.navigationItem.title = Constants.newsTabTitle
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: nil)
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
         
     let newsCount = 10
