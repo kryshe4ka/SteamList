@@ -9,21 +9,16 @@ import UIKit
 import WebKit
 
 class NewsDetailsViewController: UIViewController, WKUIDelegate {
-    private var webView: WKWebView!
+    let contentView: NewsDetailsContentView!
     private let content: String
-    private let newsShortDescriptionView = NewsShortDescriptionView()
-    private let viewForEmbeddingWebView = UIView()
-    private let state: NewsCellState
-    private let separateLineView: UIView = {
-        let lineView = UIView()
-        lineView.backgroundColor = Colors.content
-        return lineView
-    }()
-    private let contentView = UIView()
+
+    override func loadView() {
+        view = contentView
+    }
 
     init(content: String, state: NewsCellState) {
         self.content = content
-        self.state = state
+        contentView = NewsDetailsContentView(state: state)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,47 +28,13 @@ class NewsDetailsViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
-        }
-        view.addSubview(newsShortDescriptionView)
-        contentView.addSubview(separateLineView)
-        contentView.addSubview(viewForEmbeddingWebView)
-        newsShortDescriptionView.update(state: state)
-        newsShortDescriptionView.backgroundColor = Colors.gradientTop
-        let height: CGFloat = 90
-        newsShortDescriptionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(height)
-            make.top.equalToSuperview()
-        }
-        let separateLineViewHeight: CGFloat = 1
-        separateLineView.snp.makeConstraints { make in
-            make.top.equalTo(newsShortDescriptionView.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(separateLineViewHeight)
-        }
-        viewForEmbeddingWebView.snp.makeConstraints { make in
-            make.top.equalTo(separateLineView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
-        }
-        /// add and configure webview
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: viewForEmbeddingWebView.frame, configuration: webConfiguration)
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        webView.uiDelegate = self
-        viewForEmbeddingWebView.addSubview(webView)
-    
-        contentView.backgroundColor = Colors.gradientTop
-        webView.backgroundColor = Colors.gradientTop
-        
+        contentView.webView.uiDelegate = self
         loadContentWithString()
         injectToPage()
     }
     
     func loadContentWithString() {
-        webView.loadHTMLString(content, baseURL: URL(string: "https://api.steampowered.com"))
+        contentView.webView.loadHTMLString(content, baseURL: URL(string: "https://api.steampowered.com"))
     }
     
     // MARK: - Reading contents of files
@@ -103,7 +64,7 @@ class NewsDetailsViewController: UIViewController, WKUIDelegate {
                 """
         
         let cssScript = WKUserScript(source: cssStyle, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-        webView.configuration.userContentController.addUserScript(cssScript)
+        contentView.webView.configuration.userContentController.addUserScript(cssScript)
     }
     
     // MARK: - Encode string to base 64

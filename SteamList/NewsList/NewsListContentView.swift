@@ -51,5 +51,4 @@ class NewsListContentView: UIView {
             make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
-    
 }

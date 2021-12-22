@@ -25,6 +25,7 @@ enum Constants {
     static let favsTabTitle = "Favorites"
     static let newsTabTitle = "News"
     static let tableHeightForRow = 50.0
+    static let newsTableHeightForRow = 90.0
 }
 enum Colors {
     static let navBarBackground = UIColor(named: "navBarBackground")!
