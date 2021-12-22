@@ -36,7 +36,11 @@ extension NewsListTableViewDelegate: UITableViewDataSource {
         cell.setupCell()
         if AppDataSource.shared.news.count > indexPath.row {
             let news = AppDataSource.shared.news[indexPath.row]
-            self.state = NewsCellState(appName: "\(news.appid ?? 0)", title: news.title ?? "title", author: news.author ?? "some author", date: "\(news.date ?? 0)")
+            let date = "\(news.date ?? 0)".toDateFormat
+            let name = AppDataSource.shared.apps.first { app in
+                app.appid == news.appid
+            }?.name
+            self.state = NewsCellState(appName: name ?? "Unknown app", title: news.title ?? "Unknown title", author: news.author ?? "Unknown author", date: date)
             cell.update(state: state)
         }
         return cell

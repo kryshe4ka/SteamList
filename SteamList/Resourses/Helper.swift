@@ -60,13 +60,8 @@ extension String {
         let date = Date(timeIntervalSinceReferenceDate: TimeInterval(Int(self) ?? 0))
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000Z'"
         let printFormatter = DateFormatter()
-        printFormatter.dateFormat = "dd MMM, yyyy"
+        printFormatter.dateFormat = "d MMM, yyyy"
         printFormatter.locale = Locale(identifier: "en_US")
-        
-//        let usLocale = Locale(identifier: "en_US")
-//        let template = "dd MMM, yyyy"
-//        let usDateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: usLocale)!
-        
         return printFormatter.string(from: date)
     }
 }

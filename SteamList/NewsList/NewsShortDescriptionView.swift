@@ -85,7 +85,6 @@ class NewsShortDescriptionView: UIView {
         appNameLabel.text = state.appName
         authorLabel.text = state.author
         titleLabel.text = state.title
-        dateLabel.text = state.date.toDateFormat
-        print(state.date.toDateFormat)
+        dateLabel.text = state.date
     }
 }
