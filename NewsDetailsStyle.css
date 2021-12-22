@@ -3,7 +3,7 @@ html, body, div {
     background-image: linear-gradient(#183E58, #1C2B3D);
     color: #fff;
     font: inherit;
-    padding: 10;
+    padding: 11;
     display: block;
     line-height: 1.2;
     font-size: 42;
@@ -35,5 +35,9 @@ a {
 }
 
 p {
+    margin-bottom: 10;
+}
+
+div {
     margin-bottom: 10;
 }

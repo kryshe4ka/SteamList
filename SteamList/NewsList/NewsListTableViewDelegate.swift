@@ -10,12 +10,12 @@ import UIKit
 
 class NewsListTableViewDelegate: NSObject, UITableViewDelegate {
     var controller: NewsListViewController?
+    var state: NewsCellState!
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = controller else { return }
-//        let url = AppDataSource.shared.news[indexPath.row].url
         let content = AppDataSource.shared.news[indexPath.row].contents
-        let newsDetailsViewController = NewsDetailsViewController(content: content ?? "")
+        let newsDetailsViewController = NewsDetailsViewController(content: content ?? "", state: NewsCellState(appName: state.appName, title: state.title, author: state.author, date: state.date))
         controller.navigationController?.pushViewController(newsDetailsViewController, animated: true)
     }
     
@@ -35,7 +35,7 @@ extension NewsListTableViewDelegate: UITableViewDataSource {
         cell.setupCell()
         if AppDataSource.shared.news.count > indexPath.row {
             let news = AppDataSource.shared.news[indexPath.row]
-            let state = NewsCellState(appName: "\(news.appid ?? 0)", title: news.title ?? "title", author: news.author ?? "some author", date: "\(news.date ?? 0)")
+            self.state = NewsCellState(appName: "\(news.appid ?? 0)", title: news.title ?? "title", author: news.author ?? "some author", date: "\(news.date ?? 0)")
             cell.update(state: state)
         }
         return cell

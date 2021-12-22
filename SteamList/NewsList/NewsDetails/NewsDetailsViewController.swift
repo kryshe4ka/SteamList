@@ -13,11 +13,17 @@ class NewsDetailsViewController: UIViewController, WKUIDelegate {
     private let content: String
     private let newsShortDescriptionView = NewsShortDescriptionView()
     private let viewForEmbeddingWebView = UIView()
-    private let scrollView = UIScrollView()
+    private let state: NewsCellState
+    private let separateLineView: UIView = {
+        let lineView = UIView()
+        lineView.backgroundColor = Colors.content
+        return lineView
+    }()
+    private let contentView = UIView()
 
-
-    init(content: String) {
+    init(content: String, state: NewsCellState) {
         self.content = content
+        self.state = state
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,18 +31,16 @@ class NewsDetailsViewController: UIViewController, WKUIDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func loadView() {
-//        let webConfiguration = WKWebViewConfiguration()
-//        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-//        webView.uiDelegate = self
-//        view = webView
-//        webView.backgroundColor = Colors.navBarBackground
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // add newsShortDescriptionView
+        view.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
         view.addSubview(newsShortDescriptionView)
+        contentView.addSubview(separateLineView)
+        contentView.addSubview(viewForEmbeddingWebView)
+        newsShortDescriptionView.update(state: state)
         newsShortDescriptionView.backgroundColor = Colors.gradientTop
         let height: CGFloat = 90
         newsShortDescriptionView.snp.makeConstraints { make in
@@ -44,23 +48,25 @@ class NewsDetailsViewController: UIViewController, WKUIDelegate {
             make.height.equalTo(height)
             make.top.equalToSuperview()
         }
-        
-        // add viewForEmbeddingWebView
-        view.addSubview(viewForEmbeddingWebView)
-        viewForEmbeddingWebView.backgroundColor = .red
-        viewForEmbeddingWebView.snp.makeConstraints { make in
+        let separateLineViewHeight: CGFloat = 1
+        separateLineView.snp.makeConstraints { make in
             make.top.equalTo(newsShortDescriptionView.snp.bottom)
+            make.leading.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(separateLineViewHeight)
+        }
+        viewForEmbeddingWebView.snp.makeConstraints { make in
+            make.top.equalTo(separateLineView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
-        
-        // add and configure webview
+        /// add and configure webview
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: viewForEmbeddingWebView.frame, configuration: webConfiguration)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.uiDelegate = self
-        webView.backgroundColor = Colors.navBarBackground
         viewForEmbeddingWebView.addSubview(webView)
     
+        contentView.backgroundColor = Colors.gradientTop
+        webView.backgroundColor = Colors.gradientTop
         
         loadContentWithString()
         injectToPage()
