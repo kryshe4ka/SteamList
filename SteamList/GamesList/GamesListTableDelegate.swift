@@ -8,16 +8,21 @@
 import Foundation
 import UIKit
 
-class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
-    
+final class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
     var controller: GamesListViewController?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         /// display screen with app details
         guard let controller = controller else { return }
-        let appId = AppDataSource.shared.apps[indexPath.row].appid
-        let appName = AppDataSource.shared.apps[indexPath.row].name
-        let isFavorite = AppDataSource.shared.apps[indexPath.row].isFavorite!
+        let app: AppElement
+        if controller.isFiltering {
+            app = controller.filteredTableData[indexPath.row]
+        } else {
+            app = AppDataSource.shared.apps[indexPath.row]
+        }
+        let appId = app.appid
+        let appName = app.name
+        let isFavorite = app.isFavorite!
         let gameDetailsViewController = GameDetailsViewController(appId: appId, appName: appName, isFavorite: isFavorite)
         controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
@@ -28,7 +33,12 @@ class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
 }
 
 extension GamesListTableViewDelegate: UITableViewDataSource {
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let controller = controller else { return AppDataSource.shared.apps.count}
+        if controller.isFiltering {
+            return controller.filteredTableData.count
+          }
         return AppDataSource.shared.apps.count
     }
     
@@ -38,8 +48,15 @@ extension GamesListTableViewDelegate: UITableViewDataSource {
         }
         cell.index = indexPath.row
         cell.setupCell()
-        if AppDataSource.shared.apps.isEmpty { return UITableViewCell() }
-        let app = AppDataSource.shared.apps[indexPath.row]
+        let app: AppElement
+        if let controller = controller, controller.isFiltering {
+            if controller.filteredTableData.isEmpty { return cell }
+            app = controller.filteredTableData[indexPath.row]
+            
+        } else {
+            if AppDataSource.shared.apps.isEmpty { return cell }
+            app = AppDataSource.shared.apps[indexPath.row]
+        }
         let state = CellState(name: app.name, isFavorite: app.isFavorite!)
         cell.update(state: state)
         

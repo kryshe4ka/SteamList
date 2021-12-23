@@ -8,18 +8,36 @@
 import Foundation
 import UIKit
 
-class FavsListTableViewDelegate: NSObject, UITableViewDelegate {
+final class FavsListTableViewDelegate: NSObject, UITableViewDelegate {
+    var controller: FavsListViewController?
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.tableHeightForRow
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        /// display screen with app details
+        guard let controller = controller else { return }
+        let app: AppElement
+        if controller.isFiltering {
+            app = controller.filteredTableData[indexPath.row]
+        } else {
+            app = AppDataSource.shared.favApps[indexPath.row]
+        }
+        let appId = app.appid
+        let appName = app.name
+        let isFavorite = app.isFavorite!
+        let gameDetailsViewController = GameDetailsViewController(appId: appId, appName: appName, isFavorite: isFavorite)
+        controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
 }
 
 extension FavsListTableViewDelegate: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let controller = controller else { return AppDataSource.shared.favApps.count}
+        if controller.isFiltering {
+            return controller.filteredTableData.count
+          }
         return AppDataSource.shared.favApps.count
     }
     
@@ -28,12 +46,16 @@ extension FavsListTableViewDelegate: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.setupCell()
-        if AppDataSource.shared.favApps.isEmpty { return UITableViewCell() }
-        let app = AppDataSource.shared.favApps[indexPath.row]
+        let app: AppElement
+        if let controller = controller, controller.isFiltering {
+            if controller.filteredTableData.isEmpty { return cell }
+            app = controller.filteredTableData[indexPath.row]
+        } else {
+            if AppDataSource.shared.favApps.isEmpty { return cell }
+            app = AppDataSource.shared.favApps[indexPath.row]
+        }
         let state = CellState(name: app.name, isFavorite: false)
         cell.update(state: state)
         return cell
     }
-    
-    
 }

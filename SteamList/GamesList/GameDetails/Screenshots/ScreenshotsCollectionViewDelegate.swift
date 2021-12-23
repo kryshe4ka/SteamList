@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class ScreenshotsCollectionViewDelegate: NSObject, UICollectionViewDelegate {
-    let numberOfScreenshots: Int
-    let screenshotUrls: [String]
+final class ScreenshotsCollectionViewDelegate: NSObject, UICollectionViewDelegate {
+    private let numberOfScreenshots: Int
+    private let screenshotUrls: [String]
     var controller: GameDetailsViewController?
     
     init(numberOfScreenshots: Int, screenshotUrls: [String]) {

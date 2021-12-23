@@ -8,13 +8,12 @@
 import Foundation
 import UIKit
 
-class GameDetailsViewController: UIViewController {
-    
-    let contentView = GameDetailsContentView()
-    let appId: Int
-    let appName: String
-    var isFavorite: Bool
-    var detailsState: Details?
+final class GameDetailsViewController: UIViewController {
+    private let contentView = GameDetailsContentView()
+    private let appId: Int
+    private let appName: String
+    private var isFavorite: Bool
+    private var detailsState: Details?
     
     init(appId: Int, appName: String, isFavorite: Bool) {
         self.appId = appId
@@ -39,11 +38,11 @@ class GameDetailsViewController: UIViewController {
         getAppDetails()
     }
     
-    func setUpNavigation() {
+    private func setUpNavigation() {
         self.navigationItem.title = appName
     }
     
-    func loadTitleImage() {
+    private func loadTitleImage() {
         let completion: (Result<UIImage, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             /// update UI on the main queue
@@ -62,7 +61,7 @@ class GameDetailsViewController: UIViewController {
         }
     }
     
-    func getAppDetails() {    
+    private func getAppDetails() {    
         let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: appId)
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }

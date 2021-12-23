@@ -9,11 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class GamesListContentView: UIView {
-    
-    let searchView = SearchView()
-    let delegate = GamesListTableViewDelegate()
-
+final class GamesListContentView: UIView {
     private let gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -30,11 +26,12 @@ class GamesListContentView: UIView {
         return table
     }()
     
+    let delegate = GamesListTableViewDelegate()
+    
     init() {
         super.init(frame: .zero)
         gamesListTableView.delegate = delegate
         gamesListTableView.dataSource = delegate
-        addSubview(searchView)
         addSubview(gamesListTableView)
         addConstraints()
         layer.insertSublayer(self.gradientLayer, at: 0)
@@ -49,14 +46,10 @@ class GamesListContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addConstraints() {
-        searchView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.trailing.equalToSuperview().inset(10)
-        }
+    private func addConstraints() {
         gamesListTableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
         }
     }
 }

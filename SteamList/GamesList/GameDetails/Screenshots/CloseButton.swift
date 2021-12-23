@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CloseButton: UIButton {
+final class CloseButton: UIButton {
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         self.backgroundColor = .clear
@@ -19,10 +19,10 @@ class CloseButton: UIButton {
             self.setImage(image, for: .normal)
         }
         if let image = UIImage(named: "xmark-3.png") {
-            
             self.setImage(image, for: .highlighted)
         }
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

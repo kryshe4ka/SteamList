@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 
 class NewsListContentView: UIView {
-    let delegate = NewsListTableViewDelegate()
-    
     private var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -21,7 +19,7 @@ class NewsListContentView: UIView {
         gradient.locations = [0.5, 1];
         return gradient
     }()
-    
+    let delegate = NewsListTableViewDelegate()
     var newsListTableView: TableView = {
         let table = TableView()
         table.register(NewsListTableViewCell.self, forCellReuseIdentifier: NewsListTableViewCell.reuseIdentifier)
@@ -46,7 +44,7 @@ class NewsListContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addConstraints() {
+    private func addConstraints() {
         newsListTableView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }

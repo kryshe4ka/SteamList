@@ -65,4 +65,31 @@ extension String {
         printFormatter.locale = Locale(identifier: "en_US")
         return printFormatter.string(from: date)
     }
+    
+    var toEnDateFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.dateFormat = "d MMM. yyyy"
+        guard let date = dateFormatter.date(from: self) else {return self}
+        let printFormatter = DateFormatter()
+        printFormatter.locale = Locale(identifier: "en_US")
+        printFormatter.dateFormat = "d MMM, yyyy"
+        return printFormatter.string(from: date)
+    }
+}
+
+extension UISearchBar {
+    func setPlaceholderTextColorTo(color: UIColor) {
+        let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = color
+        let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
+        textFieldInsideSearchBarLabel?.textColor = color
+    }
+
+    func setMagnifyingGlassColorTo(color: UIColor) {
+        let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
+        let glassIconView = textFieldInsideSearchBar?.leftView as? UIImageView
+        glassIconView?.image = glassIconView?.image?.withRenderingMode(.alwaysTemplate)
+        glassIconView?.tintColor = color
+    }
 }

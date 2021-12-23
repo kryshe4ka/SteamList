@@ -5,7 +5,7 @@
 //  Created by Liza Kryshkovskaya on 13.12.21.
 //
 
-import Foundation
+import SnapKit
 import UIKit
 
 struct FavCellState {
@@ -14,10 +14,10 @@ struct FavCellState {
     let price: Float?
 }
 
-class FavsListTtableViewCell: UITableViewCell {
+final class FavsListTtableViewCell: UITableViewCell {
     static let reuseIdentifier = String(describing: FavsListTtableViewCell.self)
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = Font.boldSystemFont
@@ -25,7 +25,7 @@ class FavsListTtableViewCell: UITableViewCell {
         return nameLabel
     }()
     
-    let priceLabel: UILabel = {
+    private let priceLabel: UILabel = {
         let priceLabel = UILabel()
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = Font.boldSystemFont
@@ -46,18 +46,18 @@ class FavsListTtableViewCell: UITableViewCell {
         nameLabel.text = state.name
     }
     
-    func addConstraints() {
+    private func addConstraints() {
         nameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         priceLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         priceLabel.setContentCompressionResistancePriority(.init(rawValue: 1000.0), for: .horizontal)
-
-        NSLayoutConstraint.activate([
-            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Offset.offset * 2),
-            
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Offset.offset * 2),
-            priceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor, constant: -Offset.offset),
-        ])
+        nameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalTo(priceLabel.snp.leading).offset(-10)
+        }
+        priceLabel.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerY.equalToSuperview()
+        }
     }
 }

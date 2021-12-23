@@ -9,11 +9,9 @@ import Foundation
 import UIKit
 
 class TableView: UITableView {
-    
     init() {
         super.init(frame: .zero, style: .plain)
         separatorColor = Colors.tabBarBackground
-        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .clear
     }
     

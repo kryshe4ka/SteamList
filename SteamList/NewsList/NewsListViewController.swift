@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class NewsListViewController: UIViewController {
-    let contentView = NewsListContentView()
+    private let contentView = NewsListContentView()
     
     override func loadView() {
         view = contentView
@@ -25,19 +25,20 @@ class NewsListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if AppDataSource.shared.isFavoritesWasChanged {
+            print("--- раз")
             getNews()
         }
     }
     
-    func setUpNavigation() {
+    private func setUpNavigation() {
         self.navigationItem.title = Constants.newsTabTitle
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: nil)
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
         
-    let newsCount = 10
+    private let newsCount = 10
     
-    func getNews() {
+    private func getNews() {
         let appIdArray = AppDataSource.shared.favApps.compactMap { app in app.appid }  ///  create app id array
         
         appIdArray.forEach { appId in
@@ -66,7 +67,7 @@ class NewsListViewController: UIViewController {
         }
     }
     
-    func updateTable() {
+    private func updateTable() {
         contentView.newsListTableView.reloadData()
         print("update table")
     }

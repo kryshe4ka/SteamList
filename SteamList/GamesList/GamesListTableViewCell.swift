@@ -14,7 +14,7 @@ struct CellState {
     let isFavorite: Bool
 }
 
-class GamesListTableViewCell: UITableViewCell {
+final class GamesListTableViewCell: UITableViewCell {
     static let reuseIdentifier = String(describing: GamesListTableViewCell.self)
     
     var isFavorite: Bool = false

@@ -43,7 +43,7 @@ extension NewsListTableViewDelegate: UITableViewDataSource {
         return cell
     }
     
-    func getNewsCellStateFrom(news: Newsitem) -> NewsCellState {
+    private func getNewsCellStateFrom(news: Newsitem) -> NewsCellState {
         let date = "\(news.date ?? 0)".toDateFormat
         let name = AppDataSource.shared.apps.first { app in
             app.appid == news.appid

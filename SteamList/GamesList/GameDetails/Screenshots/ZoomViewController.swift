@@ -4,23 +4,11 @@
 //
 //  Created by Liza Kryshkovskaya on 17.12.21.
 //
-
-import Foundation
 import UIKit
 import SnapKit
 
-class ZoomViewController: UIViewController {
-    private var image: UIImage
-    
-    init(image: UIImage) {
-        self.image = image
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+final class ZoomViewController: UIViewController {
+    private let image: UIImage
     private var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -31,19 +19,19 @@ class ZoomViewController: UIViewController {
         return gradient
     }()
     
-    let closeButton: CloseButton = {
+    private let closeButton: CloseButton = {
         let closeButton = CloseButton.init()
         closeButton.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
         return closeButton
     }()
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsVerticalScrollIndicator = false
@@ -52,6 +40,15 @@ class ZoomViewController: UIViewController {
         scrollView.maximumZoomScale = 3
         return scrollView
     }()
+    
+    init(image: UIImage) {
+        self.image = image
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +63,7 @@ class ZoomViewController: UIViewController {
         addConstraints()
     }
     
-    func addConstraints() {
+    private func addConstraints() {
         /// constrain scrollview
         scrollView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
@@ -98,6 +95,6 @@ class ZoomViewController: UIViewController {
 
 extension ZoomViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-            return self.imageView
+        return self.imageView
     }
 }

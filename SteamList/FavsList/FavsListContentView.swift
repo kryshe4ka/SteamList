@@ -9,12 +9,8 @@ import Foundation
 import UIKit
 import SnapKit
 
-class FavsListContentView: UIView {
-    
-    let searchView = SearchView()
-    var delegate = FavsListTableViewDelegate()
-    
-    private var gradientLayer: CAGradientLayer = {
+final class FavsListContentView: UIView {
+    private let gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
             Colors.gradientTop.cgColor,
@@ -24,6 +20,7 @@ class FavsListContentView: UIView {
         return gradient
     }()
     
+    let delegate = FavsListTableViewDelegate()
     let favsListTableView: TableView = {
         let table = TableView()
         table.register(FavsListTtableViewCell.self, forCellReuseIdentifier: FavsListTtableViewCell.reuseIdentifier)
@@ -34,7 +31,6 @@ class FavsListContentView: UIView {
         super.init(frame: .zero)
         favsListTableView.delegate = delegate
         favsListTableView.dataSource = delegate
-        addSubview(searchView)
         addSubview(favsListTableView)
         addConstraints()
         layer.insertSublayer(self.gradientLayer, at: 0)
@@ -49,14 +45,10 @@ class FavsListContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addConstraints() {
-        searchView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.trailing.equalToSuperview().inset(10)
-        }
+    private func addConstraints() {
         favsListTableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
         }
     }
 }

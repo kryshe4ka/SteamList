@@ -4,8 +4,6 @@
 //
 //  Created by Liza Kryshkovskaya on 17.12.21.
 //
-
-import Foundation
 import UIKit
 import SnapKit
 

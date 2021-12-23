@@ -25,22 +25,12 @@ struct Details {
     let description: String
 }
 
-class GameDetailsContentView: UIView {
-    var isFavorite: Bool = false
-    var appId: Int = 0
-    var numberOfScreenshots: Int = 0
+final class GameDetailsContentView: UIView {
+    private var isFavorite: Bool = false
+    private var appId: Int = 0
+    private var numberOfScreenshots: Int = 0
     var delegate: ScreenshotsCollectionViewDelegate?
     var controller: GameDetailsViewController?
-    
-    lazy var screenshotsCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(ScreenshotsCollectionViewCell.self, forCellWithReuseIdentifier: ScreenshotsCollectionViewCell.reuseIdentifier)
-        collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
-        return collectionView
-    }()
     
     private var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
@@ -61,7 +51,7 @@ class GameDetailsContentView: UIView {
         return imageView
     }()
     
-    lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = Font.boldTitleFont
         label.textColor = Colors.content
@@ -69,92 +59,99 @@ class GameDetailsContentView: UIView {
         return label
     }()
     
-    lazy var favoriteButton: UIButton = {
+    private let favoriteButton: UIButton = {
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.addTarget(self, action: #selector(toggleFavorite), for: .touchUpInside)
         return favoriteButton
     }()
     
-    lazy var dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.content
         return label
     }()
     
-    lazy var priceLabel: UILabel = {
+    private let priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.green
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
-    lazy var windowsPlatformView: UIView = {
+    private let windowsPlatformView: UIView = {
         let view = UIView()
         view.isHidden = true
         return view
     }()
     
-    lazy var windowsPlatformImage: UIImageView = {
+    private let windowsPlatformImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "windows")
         imageView.isHidden = true
         return imageView
     }()
     
-    lazy var linuxPlatformView: UIView = {
+    private let linuxPlatformView: UIView = {
         let view = UIView()
         view.isHidden = true
         return view
     }()
-    lazy var linuxPlatformImage: UIImageView = {
+    private let linuxPlatformImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "linux")
         imageView.isHidden = true
         return imageView
     }()
     
-    lazy var macPlatformView: UIView = {
+    private let macPlatformView: UIView = {
         let view = UIView()
         view.isHidden = true
         return view
     }()
-    lazy var macPlatformImage: UIImageView = {
+    private let macPlatformImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "apple")
         imageView.isHidden = true
         return imageView
     }()
     
-    lazy var tagsLabel: UILabel = {
+    private let tagsLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.content
         return label
     }()
     
-    lazy var separateLineView: UIView = {
+    private let separateLineView: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = Colors.content
         return lineView
     }()
     
-    lazy var descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.content
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var container: UIView = {
-        let view = UIView(frame: .zero)
-        return view
-    }()
+    private lazy var container = UIView(frame: .zero)
     
-    lazy var platformsStackView: UIStackView = {
+    private lazy var platformsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.spacing = 16.0
         return stackView
+    }()
+    
+    private lazy var screenshotsCollection: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(ScreenshotsCollectionViewCell.self, forCellWithReuseIdentifier: ScreenshotsCollectionViewCell.reuseIdentifier)
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        return collectionView
     }()
     
     init() {
@@ -181,7 +178,6 @@ class GameDetailsContentView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = container.bounds
-        
         let height: CGFloat = CGFloat(200 * numberOfScreenshots + 10 * numberOfScreenshots - 1)
         screenshotsCollection.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
@@ -195,7 +191,7 @@ class GameDetailsContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addConstraints() {
+    private func addConstraints() {
         let headerImageHeight: CGFloat = 200
         let separateLineViewHeight: CGFloat = 1
         let buttonWidth: CGFloat = 30
@@ -265,12 +261,10 @@ class GameDetailsContentView: UIView {
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(separateLineViewHeight)
         }
-        
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(separateLineView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(10)
         }
-        
         linuxPlatformImage.snp.makeConstraints { make in
             make.height.width.equalTo(platformsWidth)
         }
@@ -292,19 +286,17 @@ extension GameDetailsContentView {
         delegate?.controller = self.controller
         titleLabel.text = details.title
         tagsLabel.text = details.tags.joined(separator: " ")
-        dateLabel.text = details.date
+        dateLabel.text = details.date.toEnDateFormat
         descriptionLabel.text = details.description
         setFavoriteButtonState(isFavorite: details.isFavorite)
+        self.isFavorite = details.isFavorite
+        self.appId = details.appId
         
         if details.isFree {
             priceLabel.text = "Free to Play"
         } else {
             priceLabel.text = details.price
         }
-        
-        self.isFavorite = details.isFavorite
-        self.appId = details.appId
-
         if details.linux {
             linuxPlatformView.isHidden = false
             linuxPlatformImage.isHidden = false

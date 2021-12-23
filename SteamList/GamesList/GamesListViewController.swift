@@ -8,28 +8,57 @@
 import Foundation
 import UIKit
 
-class GamesListViewController: UIViewController {
-    let contentView = GamesListContentView()
-    
+final class GamesListViewController: UIViewController {
+    private let contentView = GamesListContentView()
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
+    var filteredTableData: [AppElement] = []
+
     override func loadView() {
         view = contentView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.backgroundColor = Colors.navBarBackground
+        configureSearchController()
         setUpNavigation()
-        contentView.delegate.controller = self /// pass GamesListViewController to GamesListTableViewDelegate
+        contentView.delegate.controller = self
         getApps()
     }
     
-    func setUpNavigation() {
+    private func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        definesPresentationContext = true
+        contentView.gamesListTableView.tableHeaderView = searchController.searchBar
+        /// configure searchBar appearence
+        searchController.searchBar.tintColor = Colors.content
+        searchController.searchBar.barTintColor = Colors.gradientTop
+        searchController.searchBar.backgroundColor = Colors.gradientTop
+        searchController.searchBar.setPlaceholderTextColorTo(color: Colors.content)
+        searchController.searchBar.setMagnifyingGlassColorTo(color: Colors.searchContent)
+    }
+    
+    private func filterContentForSearchText(_ searchText: String) {
+        filteredTableData = AppDataSource.shared.apps.filter { (app: AppElement) -> Bool in
+            return app.name.lowercased().contains(searchText.lowercased())
+        }
+        contentView.gamesListTableView.reloadData()
+    }
+    
+    private func setUpNavigation() {
         self.navigationItem.title = Constants.gamesTabTitle
         /// customize back bar button
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
-    func getApps() {
+    private func getApps() {
         let request = NetworkDataManager.shared.buildRequestForFetchApps()
         let completion: (Result<App, Error>) -> Void = { [weak self] result in
             guard let self = self else {return}
@@ -61,7 +90,15 @@ class GamesListViewController: UIViewController {
         }
     }
     
-    func updateTable() {
+    private func updateTable() {
         contentView.gamesListTableView.reloadData()
     }
+}
+
+
+extension GamesListViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+      let searchBar = searchController.searchBar
+      filterContentForSearchText(searchBar.text!)
+  }
 }
