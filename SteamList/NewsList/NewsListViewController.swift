@@ -54,7 +54,7 @@ class NewsListViewController: UIViewController {
             switch result {
             case .success(let appNews):
                 if let newsItem = appNews.appnews?.newsitems {
-                    AppDataSource.shared.updateNews(with: newsItem, appId: app.appid)
+                    AppDataSource.shared.refreshData(with: newsItem, appId: app.appid)
                     self.updateTable()
                 }
             case .failure(let error):

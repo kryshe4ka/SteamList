@@ -7,14 +7,24 @@
 
 import Foundation
 
-class AppDataSource {
+protocol DataSource {
+    var apps: [AppElement] { get set }
+    var favApps: [AppElement] { get }
+    var news: [Newsitem] { get }
+    var needUpdateFavList: Bool { get set }
+    var needUpdateNewsList: Bool { get set }
+    func refreshData(apps: [AppElement])
+    func refreshData(appId: Int, appDetails: AppDetails)
+    func refreshData(with news: [Newsitem], appId: Int)
+    func toggleFavorite(index: Int, favoriteState: Bool)
+}
+
+class AppDataSource: DataSource {
     static let shared = AppDataSource()
     
     var apps: [AppElement] = []
     var needUpdateFavList = false
     var needUpdateNewsList = false
-    var news1: [Newsitem] = []
-    
     var favApps: [AppElement] {
         return apps.filter { $0.isFavorite! }
     }
@@ -37,6 +47,11 @@ class AppDataSource {
             }
         }
     }
+    func refreshData(appId: Int, appDetails: AppDetails) {
+        if let index = apps.firstIndex(where: { $0.appid == appId }) {
+            apps[index].appDetails = appDetails
+        }
+    }
     
     func toggleFavorite(index: Int, favoriteState: Bool) {
         apps[index].isFavorite = favoriteState
@@ -44,13 +59,7 @@ class AppDataSource {
         needUpdateNewsList = true
     }
     
-    func refreshData(appId: Int, appDetails: AppDetails) {
-        if let index = apps.firstIndex(where: { $0.appid == appId }) {
-            apps[index].appDetails = appDetails
-        }
-    }
-    
-    func updateNews(with news: [Newsitem], appId: Int) {
+    func refreshData(with news: [Newsitem], appId: Int) {
         if let index = apps.firstIndex(where: { $0.appid == appId }) {
             apps[index].news = news
         }
