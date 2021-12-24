@@ -28,7 +28,6 @@ class NewsListTableViewDelegate: NSObject, UITableViewDelegate {
 
 extension NewsListTableViewDelegate: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(AppDataSource.shared.news.count)
         return AppDataSource.shared.news.count
     }
     

@@ -11,9 +11,22 @@ class AppDataSource {
     static let shared = AppDataSource()
     
     var apps: [AppElement] = []
-    var favApps: [AppElement] = []
-    var isFavoritesWasChanged: Bool = false
-    var news: [Newsitem] = []
+    var needUpdateFavList = false
+    var needUpdateNewsList = false
+    var news1: [Newsitem] = []
+    
+    var favApps: [AppElement] {
+        return apps.filter { $0.isFavorite! }
+    }
+    var news: [Newsitem] {
+        var newsArray: [Newsitem] = []
+        favApps.forEach { 
+            if let news = $0.news, !news.isEmpty {
+                newsArray += news
+            }
+        }
+        return newsArray
+    }
     
     func refreshData(apps: [AppElement]) {
         for app in apps {
@@ -27,29 +40,19 @@ class AppDataSource {
     
     func toggleFavorite(index: Int, favoriteState: Bool) {
         apps[index].isFavorite = favoriteState
-        favoriteState ? addToFavList(app: apps[index]) : removeFromFavList(app: apps[index])
-        isFavoritesWasChanged = true
-    }
-    
-    func addToFavList(app: AppElement) {
-        self.favApps.append(app)
-    }
-    
-    func removeFromFavList(app: AppElement) {
-        self.favApps.removeAll{ $0.appid == app.appid }
-        // !!! удалить и все сопутствующие новости удаляемой игры
+        needUpdateFavList = true
+        needUpdateNewsList = true
     }
     
     func refreshData(appId: Int, appDetails: AppDetails) {
-        print("refreshData for appId = \(appId), index?")
+        if let index = apps.firstIndex(where: { $0.appid == appId }) {
+            apps[index].appDetails = appDetails
+        }
     }
     
-    func updateNews(with news: [Newsitem]) {
-        // добавить проверку на пустоту
-        self.news.append(contentsOf: news)
-    }
-    
-    func setChangesDone() {
-        isFavoritesWasChanged = false
+    func updateNews(with news: [Newsitem], appId: Int) {
+        if let index = apps.firstIndex(where: { $0.appid == appId }) {
+            apps[index].news = news
+        }
     }
 }

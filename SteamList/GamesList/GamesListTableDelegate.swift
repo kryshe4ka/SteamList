@@ -20,10 +20,7 @@ final class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
         } else {
             app = AppDataSource.shared.apps[indexPath.row]
         }
-        let appId = app.appid
-        let appName = app.name
-        let isFavorite = app.isFavorite!
-        let gameDetailsViewController = GameDetailsViewController(appId: appId, appName: appName, isFavorite: isFavorite)
+        let gameDetailsViewController = GameDetailsViewController(app: app)
         controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
     

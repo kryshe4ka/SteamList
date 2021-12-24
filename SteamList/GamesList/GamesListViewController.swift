@@ -36,6 +36,7 @@ final class GamesListViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         definesPresentationContext = true
+        searchController.searchBar.searchBarStyle = .minimal
         contentView.gamesListTableView.tableHeaderView = searchController.searchBar
         /// configure searchBar appearence
         searchController.searchBar.tintColor = Colors.content

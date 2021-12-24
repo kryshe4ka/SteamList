@@ -19,14 +19,23 @@ class NewsListViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigation()
         contentView.delegate.controller = self
-//        getNews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if AppDataSource.shared.isFavoritesWasChanged {
-            print("--- раз")
-            getNews()
+        if AppDataSource.shared.needUpdateNewsList {
+            AppDataSource.shared.needUpdateNewsList = false
+            if AppDataSource.shared.favApps.isEmpty {
+                self.updateTable()
+            } else {
+                let favoriteApps = AppDataSource.shared.favApps
+                favoriteApps.forEach { app in
+                    if app.news == nil {
+                        getNews(app: app)
+                    }
+                }
+                self.updateTable()
+            }
         }
     }
     
@@ -38,37 +47,26 @@ class NewsListViewController: UIViewController {
         
     private let newsCount = 10
     
-    private func getNews() {
-        let appIdArray = AppDataSource.shared.favApps.compactMap { app in app.appid }  ///  create app id array
-        
-        appIdArray.forEach { appId in
-            let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: appId, count: newsCount)
-            let completion: (Result<AppNews, Error>) -> Void = { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let appNews):
-                    
-                    if let newsItem =  appNews.appnews?.newsitems {
-                        AppDataSource.shared.updateNews(with: newsItem)
-                        // наверное нужно обновить таблицу уже после того как все запросы выполнятся
-                        self.updateTable()
-                        AppDataSource.shared.setChangesDone()
-                    }
-                    print("success")
-                    
-                case .failure(let error):
-                    print("failure \(error)")
+    private func getNews(app: AppElement) {
+        let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: app.appid, count: newsCount)
+        let completion: (Result<AppNews, Error>) -> Void = { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let appNews):
+                if let newsItem = appNews.appnews?.newsitems {
+                    AppDataSource.shared.updateNews(with: newsItem, appId: app.appid)
+                    self.updateTable()
                 }
+            case .failure(let error):
+                print("failure \(error)")
             }
-            // выполняем запрос на др.очереди
-            DispatchQueue.global(qos: .utility).async {
-                NetworkDataManager.shared.get(request: request, completion: completion)
-            }
+        }
+        DispatchQueue.global(qos: .utility).async {
+            NetworkDataManager.shared.get(request: request, completion: completion)
         }
     }
     
     private func updateTable() {
         contentView.newsListTableView.reloadData()
-        print("update table")
     }
 }

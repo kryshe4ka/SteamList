@@ -25,9 +25,39 @@ final class FavsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if AppDataSource.shared.isFavoritesWasChanged {
-            AppDataSource.shared.isFavoritesWasChanged = !AppDataSource.shared.isFavoritesWasChanged
+        if AppDataSource.shared.needUpdateFavList {
+            AppDataSource.shared.needUpdateFavList = false
+            AppDataSource.shared.favApps.forEach { app in
+                if app.appDetails == nil {
+                    getAppDetails(app: app)
+                }
+            }
             contentView.favsListTableView.reloadData()
+        }
+    }
+    
+    private func getAppDetails(app: AppElement) {
+        let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
+        let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let object):
+                    if object.decodedObject.success {
+                        guard let detailsData = object.decodedObject.data else { return }
+                        AppDataSource.shared.refreshData(appId: app.appid, appDetails: detailsData)
+                        self.contentView.favsListTableView.reloadData()
+                    } else {
+                        print("Bad success = \(object.decodedObject.success)")
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        /// perform request on another queue
+        DispatchQueue.global(qos: .utility).async {
+            NetworkDataManager.shared.get(request: request, completion: completion)
         }
     }
     
@@ -43,6 +73,7 @@ final class FavsListViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         definesPresentationContext = true
+        searchController.searchBar.searchBarStyle = .minimal
         contentView.favsListTableView.tableHeaderView = searchController.searchBar
         // appearence
         searchController.searchBar.tintColor = Colors.content

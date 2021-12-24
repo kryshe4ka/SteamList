@@ -8,11 +8,10 @@
 import SnapKit
 import UIKit
 
-struct FavCellState {
-    let name: String
-    let isFavorite: Bool
-    let price: Float?
-}
+//struct FavCellState {
+//    let name: String
+//    let price: String
+//}
 
 final class FavsListTtableViewCell: UITableViewCell {
     static let reuseIdentifier = String(describing: FavsListTtableViewCell.self)
@@ -30,7 +29,7 @@ final class FavsListTtableViewCell: UITableViewCell {
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = Font.boldSystemFont
         priceLabel.textColor = Colors.content
-        priceLabel.text = "$9.99"
+        priceLabel.text = "-"
         return priceLabel
     }()
     
@@ -42,8 +41,10 @@ final class FavsListTtableViewCell: UITableViewCell {
         addConstraints()
     }
     
-    func update(state: CellState) {
-        nameLabel.text = state.name
+    func update(name: String, price: String, haveDiscount: Bool) {
+        nameLabel.text = name
+        priceLabel.text = price
+        priceLabel.textColor = haveDiscount ? Colors.green : Colors.content
     }
     
     private func addConstraints() {

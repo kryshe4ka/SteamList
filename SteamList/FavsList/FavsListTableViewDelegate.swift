@@ -24,10 +24,7 @@ final class FavsListTableViewDelegate: NSObject, UITableViewDelegate {
         } else {
             app = AppDataSource.shared.favApps[indexPath.row]
         }
-        let appId = app.appid
-        let appName = app.name
-        let isFavorite = app.isFavorite!
-        let gameDetailsViewController = GameDetailsViewController(appId: appId, appName: appName, isFavorite: isFavorite)
+        let gameDetailsViewController = GameDetailsViewController(app: app) // еще можно передать детали
         controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
 }
@@ -54,8 +51,19 @@ extension FavsListTableViewDelegate: UITableViewDataSource {
             if AppDataSource.shared.favApps.isEmpty { return cell }
             app = AppDataSource.shared.favApps[indexPath.row]
         }
-        let state = CellState(name: app.name, isFavorite: false)
-        cell.update(state: state)
+        var price: String
+        if let isFree = app.appDetails?.isFree, isFree {
+            price = "Free"
+        } else {
+            price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
+        }
+        var haveDiscount = false
+        if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
+            price += " (-\(discount)%)"
+            haveDiscount = true
+        }
+        
+        cell.update(name: app.name, price: price, haveDiscount: haveDiscount)
         return cell
     }
 }
