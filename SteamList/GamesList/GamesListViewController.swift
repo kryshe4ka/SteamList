@@ -32,13 +32,14 @@ final class GamesListViewController: UIViewController {
         getApps()
     }
     
-    func getAppsFromStorage() {
+    private func getAppsFromStorage() {
         CoreDataManager.shared.fetchApps { result in
             switch result {
             case .success(let apps):
                 print(apps.count)
                 AppDataSource.shared.refreshData(apps: apps)
                 self.updateTable()
+                print("UI обновился From Storage")
             case .failure(let error):
                 print(error)
             }
@@ -76,44 +77,16 @@ final class GamesListViewController: UIViewController {
     private func getApps() {
         let request = NetworkDataManager.shared.buildRequestForFetchApps()
         let completion: (Result<App, Error>) -> Void = { [weak self] result in
-            guard let self = self else {return}
-            // обновляем UI на главной очереди
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let app):
-                    /// update data source and reload table
-                    AppDataSource.shared.refreshData(apps: app.applist.apps)
-                    self.updateTable()
-                    CoreDataManager.shared.deleteApps { result in
-                        switch result {
-                        case .failure(let error):
-                            print(error)
-                        case .success(_):
-                            print("Success deleting")
-                        }
-                    }
-                    CoreDataManager.shared.saveApps(app.applist.apps) { result in
-                        switch result {
-                        case .failure(let error):
-                            print(error)
-                        case .success(_):
-                            print("Success saving")
-                        }
-                    }
-                    // спрятать индикатор загрузки
-                    // тут -> ...
-                case .failure(let error):
-                    // спрятать индикатор загрузки
-                    // тут -> ...
-                    // повторить попытку загрузки, текущее значение попытки увеличить
-                    // если кол-во попыток исчерпано, то отобразить error alert
-                    // тут -> ...
-                    print(error)
-                }
+            guard let self = self else { return }
+            switch result {
+            case .success(let app):
+                self.deleteAppsFromStorage()
+                self.saveAppsToStorage(apps: app.applist.apps)
+                self.updateDataAndUI(apps: app.applist.apps)
+            case .failure(let error):
+                print(error)
             }
         }
-        // отобразить индикатор загрузки
-        // тут -> ...
         
         // выполняем запрос на др.очереди
         DispatchQueue.global(qos: .utility).async {
@@ -123,6 +96,35 @@ final class GamesListViewController: UIViewController {
     
     private func updateTable() {
         contentView.gamesListTableView.reloadData()
+    }
+    
+    private func deleteAppsFromStorage() {
+        CoreDataManager.shared.deleteApps { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("Success deleting")
+            }
+        }
+    }
+    private func saveAppsToStorage(apps: [AppElement]) {
+        CoreDataManager.shared.saveApps(apps) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("Success saving")
+            }
+        }
+    }
+    
+    private func updateDataAndUI(apps: [AppElement]) {
+        DispatchQueue.main.async {
+            AppDataSource.shared.refreshData(apps: apps)
+            self.updateTable()
+            print("UI обновился из Сети")
+        }
     }
 }
 

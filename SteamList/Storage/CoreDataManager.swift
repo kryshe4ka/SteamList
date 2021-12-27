@@ -10,13 +10,11 @@ import CoreData
 
 class CoreDataManager {
     static let shared = CoreDataManager()
-    let modelName = "SteamList"
-    
-    var fetchedResultsController: NSFetchedResultsController<AppEntity>!
-
+    private let modelName = "SteamList"
+    private var fetchedResultsController: NSFetchedResultsController<AppEntity>!
     
     /// Persistent Container
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
       let container = NSPersistentContainer(name: modelName)
       container.loadPersistentStores(completionHandler: { (storeDescription, error) in
         if let error = error as NSError? {
@@ -27,7 +25,7 @@ class CoreDataManager {
     }()
     
     /// Get the managed Object Context
-    lazy var managedContext: NSManagedObjectContext = {
+    private lazy var managedContext: NSManagedObjectContext = {
       return self.persistentContainer.viewContext
     }()
     
@@ -55,7 +53,7 @@ extension CoreDataManager: Storage {
         }
     }
     
-    func convertFromDBEntityToApp(fetchedObjects: [AppEntity]) -> [AppElement] {
+    private func convertFromDBEntityToApp(fetchedObjects: [AppEntity]) -> [AppElement] {
         var apps: [AppElement] = []
         for object in fetchedObjects {
             let app = AppElement(appid: Int(object.id), name: object.name ?? "", isFavorite: false)
@@ -83,27 +81,19 @@ extension CoreDataManager: Storage {
         return []
     }
     
-    // Save the data in Database
     func saveApps(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void){
-        
         let context = managedContext
-        
         for app in apps {
             let newAppEntity = AppEntity(context: context)
             newAppEntity.id = Int32(app.appid)
             newAppEntity.name = app.name
             newAppEntity.isFavorite = app.isFavorite ?? false
         }
-        
         if context.hasChanges {
             do {
                 try context.save()
                 completion(.success(true))
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
                 completion(.failure(error))
             }
         }
@@ -121,8 +111,7 @@ extension CoreDataManager: Storage {
         }
     }
     
-    
-    func saveApps2(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void) {
+    func _saveApps_NOTWORKING(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void) {
         // get main context
         let mainQueueContext = managedContext
         // get private context
