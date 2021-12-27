@@ -8,8 +8,10 @@
 import Foundation
 
 protocol Storage {
-    func fetchApps() -> [App]
     func fetchAppDetails(appId: Int) -> AppDetails
-    func fetchAppNews(appId: Int, count: Int) -> [AppNews]
+    func fetchAppNews(appId: Int, count: Int) -> [Newsitem]
     func saveContext()
+    
+    func fetchApps(completion: @escaping (Result<[AppElement], Error>) -> Void)
+//    func fetchAppDetails(appId: Int, completion: @escaping (Result<[AppDetails], Error>) -> Void)
 }

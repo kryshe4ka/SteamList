@@ -28,7 +28,19 @@ final class GamesListViewController: UIViewController {
         configureSearchController()
         setUpNavigation()
         contentView.delegate.controller = self
+        getAppsFromStorage()
         getApps()
+    }
+    
+    func getAppsFromStorage() {
+        CoreDataManager.shared.fetchApps { result in
+            switch result {
+            case .success(let apps):
+                print(apps.count)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func configureSearchController() {
@@ -70,6 +82,14 @@ final class GamesListViewController: UIViewController {
                     /// update data source and reload table
                     AppDataSource.shared.refreshData(apps: app.applist.apps)
                     self.updateTable()
+                    CoreDataManager.shared.saveApps(app.applist.apps) { result in
+                        switch result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(_):
+                            print("Success saving")
+                        }
+                    }
                     // спрятать индикатор загрузки
                     // тут -> ...
                 case .failure(let error):
