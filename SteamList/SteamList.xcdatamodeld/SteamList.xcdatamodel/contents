@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AppDetailsEntity" representedClassName="AppDetailsEntity" syncable="YES" codeGenerationType="class">
+    <entity name="AppDetailsEntity" representedClassName="AppDetailsEntity" syncable="YES">
         <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="headerImage" optional="YES" attributeType="Binary"/>
         <attribute name="isFree" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -10,26 +10,24 @@
         <attribute name="releaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="shortdescription" optional="YES" attributeType="String"/>
         <attribute name="windows" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity" inverseName="appDetails" inverseEntity="AppEntity"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity"/>
     </entity>
-    <entity name="AppEntity" representedClassName="AppEntity" syncable="YES" codeGenerationType="class">
+    <entity name="AppEntity" representedClassName="AppEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="appDetails" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppDetailsEntity" inverseName="app" inverseEntity="AppDetailsEntity"/>
-        <relationship name="news" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AppNewsEntity" inverseName="app" inverseEntity="AppNewsEntity"/>
     </entity>
-    <entity name="AppNewsEntity" representedClassName="AppNewsEntity" syncable="YES" codeGenerationType="class">
+    <entity name="AppNewsEntity" representedClassName="AppNewsEntity" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="contents" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity" inverseName="news" inverseEntity="AppEntity"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity"/>
     </entity>
     <elements>
         <element name="AppDetailsEntity" positionX="-36" positionY="9" width="128" height="179"/>
-        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="104"/>
+        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="74"/>
         <element name="AppNewsEntity" positionX="-18" positionY="27" width="128" height="119"/>
     </elements>
 </model>

@@ -37,6 +37,8 @@ final class GamesListViewController: UIViewController {
             switch result {
             case .success(let apps):
                 print(apps.count)
+                AppDataSource.shared.refreshData(apps: apps)
+                self.updateTable()
             case .failure(let error):
                 print(error)
             }
@@ -82,6 +84,14 @@ final class GamesListViewController: UIViewController {
                     /// update data source and reload table
                     AppDataSource.shared.refreshData(apps: app.applist.apps)
                     self.updateTable()
+                    CoreDataManager.shared.deleteApps { result in
+                        switch result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(_):
+                            print("Success deleting")
+                        }
+                    }
                     CoreDataManager.shared.saveApps(app.applist.apps) { result in
                         switch result {
                         case .failure(let error):
