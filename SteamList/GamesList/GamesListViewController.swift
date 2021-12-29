@@ -18,9 +18,18 @@ final class GamesListViewController: UIViewController {
       return searchController.isActive && !isSearchBarEmpty
     }
     var filteredTableData: [AppElement] = []
-
+    var needUpdateFavorites: Bool = false
+    
     override func loadView() {
         view = contentView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if needUpdateFavorites {
+            updateTable()
+            needUpdateFavorites = false
+        }
     }
     
     override func viewDidLoad() {
@@ -32,27 +41,14 @@ final class GamesListViewController: UIViewController {
         getApps()
     }
     
-    private func getAppsFromStorage() {
-        CoreDataManager.shared.fetchApps { result in
-            switch result {
-            case .success(let apps):
-                print(apps.count)
-                AppDataSource.shared.refreshData(apps: apps)
-                self.updateTable()
-                print("UI обновился From Storage")
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     private func configureSearchController() {
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         definesPresentationContext = true
         searchController.searchBar.searchBarStyle = .minimal
         contentView.gamesListTableView.tableHeaderView = searchController.searchBar
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.definesPresentationContext = true
         /// configure searchBar appearence
         searchController.searchBar.tintColor = Colors.content
         searchController.searchBar.barTintColor = Colors.gradientTop
@@ -87,7 +83,6 @@ final class GamesListViewController: UIViewController {
                 print(error)
             }
         }
-        
         // выполняем запрос на др.очереди
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
@@ -96,6 +91,19 @@ final class GamesListViewController: UIViewController {
     
     private func updateTable() {
         contentView.gamesListTableView.reloadData()
+    }
+    
+    private func getAppsFromStorage() {
+        CoreDataManager.shared.fetchApps { result in
+            switch result {
+            case .success(let apps):
+                AppDataSource.shared.refreshData(apps: apps)
+                self.updateTable()
+                print("UI обновился From Storage")
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func deleteAppsFromStorage() {

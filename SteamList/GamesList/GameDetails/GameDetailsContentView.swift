@@ -326,6 +326,7 @@ extension GameDetailsContentView {
         }) {
             AppDataSource.shared.toggleFavorite(index: index, favoriteState: isFavorite)
             // а еще нужно обновить таблицу (значение уже установлено)
+            self.controller?.delegate?.needUpdateFavorites = true
         }
     }
 }

@@ -13,9 +13,11 @@
         <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity"/>
     </entity>
     <entity name="AppEntity" representedClassName="AppEntity" syncable="YES">
+        <attribute name="haveDiscount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="String"/>
     </entity>
     <entity name="AppNewsEntity" representedClassName="AppNewsEntity" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String"/>
@@ -25,9 +27,16 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity"/>
     </entity>
+    <entity name="FavoriteEntity" representedClassName="FavoriteEntity" syncable="YES">
+        <attribute name="haveDiscount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="AppDetailsEntity" positionX="-36" positionY="9" width="128" height="179"/>
-        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="74"/>
+        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="104"/>
         <element name="AppNewsEntity" positionX="-18" positionY="27" width="128" height="119"/>
+        <element name="FavoriteEntity" positionX="-36" positionY="81" width="128" height="89"/>
     </elements>
 </model>

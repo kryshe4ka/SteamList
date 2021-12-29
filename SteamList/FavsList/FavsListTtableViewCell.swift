@@ -29,7 +29,7 @@ final class FavsListTtableViewCell: UITableViewCell {
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = Font.boldSystemFont
         priceLabel.textColor = Colors.content
-        priceLabel.text = "-"
+//        priceLabel.text = "-"
         return priceLabel
     }()
     

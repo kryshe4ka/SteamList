@@ -11,6 +11,7 @@ import UIKit
 final class GameDetailsViewController: UIViewController {
     private let contentView = GameDetailsContentView()
     private var app: AppElement
+    var delegate: GamesListViewController?
     
     init(app: AppElement) {
         self.app = app
@@ -91,6 +92,12 @@ final class GameDetailsViewController: UIViewController {
                         guard let detailsData = object.decodedObject.data else { return }
                         /// update data source and reload view
                         AppDataSource.shared.refreshData(appId: self.app.appid, appDetails: detailsData)
+                        
+                        // тут обновить price и дискаунт
+                        // и наверное вызвать обновление данных у фаворитов
+                        AppDataSource.shared.updateFavAppsData()
+                        
+                        
                         self.updateContentViewWith(appDetails: detailsData)
                     } else {
                         print("Bad success = \(object.decodedObject.success)")

@@ -51,17 +51,19 @@ extension FavsListTableViewDelegate: UITableViewDataSource {
             if AppDataSource.shared.favApps.isEmpty { return cell }
             app = AppDataSource.shared.favApps[indexPath.row]
         }
-        var price: String
-        if let isFree = app.appDetails?.isFree, isFree {
-            price = "Free"
-        } else {
-            price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
-        }
-        var haveDiscount = false
-        if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
-            price += " (-\(discount)%)"
-            haveDiscount = true
-        }
+        let price = app.price ?? "-"
+        let haveDiscount = app.haveDiscount ?? false
+//        var price: String
+//        if let isFree = app.appDetails?.isFree, isFree {
+//            price = "Free"
+//        } else {
+//            price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
+//        }
+//        var haveDiscount = false
+//        if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
+//            price += " (-\(discount)%)"
+//            haveDiscount = true
+//        }
         
         cell.update(name: app.name, price: price, haveDiscount: haveDiscount)
         return cell

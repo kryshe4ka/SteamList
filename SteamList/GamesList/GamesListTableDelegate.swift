@@ -21,6 +21,7 @@ final class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
             app = AppDataSource.shared.apps[indexPath.row]
         }
         let gameDetailsViewController = GameDetailsViewController(app: app)
+        gameDetailsViewController.delegate = controller
         controller.navigationController?.pushViewController(gameDetailsViewController, animated: true)
     }
     

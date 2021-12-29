@@ -25,15 +25,19 @@ final class FavsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if AppDataSource.shared.needUpdateFavList {
-            AppDataSource.shared.needUpdateFavList = false
-            AppDataSource.shared.favApps.forEach { app in
-                if app.appDetails == nil {
-                    getAppDetails(app: app)
-                }
-            }
-            contentView.favsListTableView.reloadData()
-        }
+        
+        contentView.favsListTableView.reloadData()
+        
+//        if AppDataSource.shared.needUpdateFavList {
+//            AppDataSource.shared.needUpdateFavList = false
+//            
+////            AppDataSource.shared.favApps.forEach { app in
+////                if app.appDetails == nil {
+////                    getAppDetails(app: app)
+////                }
+////            }
+//            contentView.favsListTableView.reloadData()
+//        }
     }
     
     private func getAppDetails(app: AppElement) {
@@ -63,9 +67,32 @@ final class FavsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        AppDataSource.shared.updateFavAppsData()
+        
         setUpNavigation()
         configureSearchController()
-        contentView.delegate.controller = self 
+        contentView.delegate.controller = self
+        
+//        getFavoriteApps()
+    }
+    
+//    private func getFavoriteApps() {
+//        CoreDataManager.shared.fetchFavoriteApps { result in
+//            switch result {
+//            case .failure(let error):
+//                print(error)
+//            case .success(let favApps):
+//                print(favApps.count)
+//                AppDataSource.shared.refreshFavoriteData(favApps: favApps)
+//                self.updateTable()
+//                print("UI обновился From Storage")
+//            }
+//        }
+//    }
+    
+    private func updateTable() {
+        contentView.favsListTableView.reloadData()
     }
     
     private func configureSearchController() {

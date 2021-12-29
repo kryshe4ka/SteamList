@@ -24,4 +24,6 @@ struct AppElement: Decodable {
     var isFavorite: Bool? = false
     var appDetails: AppDetails?
     var news: [Newsitem]?
+    var price: String?
+    var haveDiscount: Bool?
 }

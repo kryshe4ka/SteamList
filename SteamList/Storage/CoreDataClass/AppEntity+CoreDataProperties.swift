@@ -19,6 +19,9 @@ extension AppEntity {
     @NSManaged public var id: Int32
     @NSManaged public var isFavorite: Bool
     @NSManaged public var name: String?
+    
+    @NSManaged public var price: String?
+    @NSManaged public var haveDiscount: Bool
 //    @NSManaged public var appDetails: AppDetailsEntity?
 //    @NSManaged public var news: [AppNewsEntity]?
 

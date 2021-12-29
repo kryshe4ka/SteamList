@@ -88,6 +88,8 @@ extension CoreDataManager: Storage {
             newAppEntity.id = Int32(app.appid)
             newAppEntity.name = app.name
             newAppEntity.isFavorite = app.isFavorite ?? false
+            newAppEntity.price = app.price
+            newAppEntity.haveDiscount = app.haveDiscount ?? false
         }
         if context.hasChanges {
             do {
@@ -141,5 +143,81 @@ extension CoreDataManager: Storage {
         } catch {
             completion(.failure(error))
         }
+    }
+}
+
+extension CoreDataManager {
+    func addAppToFavorites(app: AppElement) {
+        let context = managedContext
+        let newFavoriteEntity = FavoriteEntity(context: context)
+        newFavoriteEntity.id = Int32(app.appid)
+        newFavoriteEntity.name = app.name
+        
+        /// create price string:
+        var price: String
+        if let isFree = app.appDetails?.isFree, isFree {
+            price = "Free"
+        } else {
+            price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
+        }
+        var haveDiscount: Bool = false
+        if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
+            price += " (-\(discount)%)"
+            haveDiscount = true
+        }
+        newFavoriteEntity.price = price
+        newFavoriteEntity.haveDiscount = haveDiscount
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+//                completion(.success(true))
+            } catch {
+//                completion(.failure(error))
+                print(error)
+            }
+        }
+    }
+    
+    func removeAppFromFavorites(app: AppElement) { //}(completion: @escaping (Result<Bool, Error>) -> Void) {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteEntity")
+        deleteFetch.predicate = NSPredicate(format: "id == %d", app.appid)
+        
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+//            completion(.success(true))
+        } catch {
+//            completion(.failure(error))
+        }
+    }
+    
+    func fetchFavoriteApps() -> [AppElement] { // }(completion: @escaping (Result<[FavoriteEntity], Error>) -> Void) {
+        let fetchRequest: NSFetchRequest<FavoriteEntity> = FavoriteEntity.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+            guard let fetchedObjects = fetchedResultsController.fetchedObjects else { return [] }
+            let apps = convertFromFavoriteEntityToApp(fetchedObjects: fetchedObjects)
+            return apps
+//            completion(.success(fetchedObjects))
+        } catch {
+//            completion(.failure(error))
+            print(error)
+        }
+        return []
+    }
+    
+    private func convertFromFavoriteEntityToApp(fetchedObjects: [FavoriteEntity]) -> [AppElement] {        
+        var apps: [AppElement] = []
+        for object in fetchedObjects {
+            let app = AppElement(appid: Int(object.id), name: object.name ?? "", isFavorite: true, price: object.price, haveDiscount: object.haveDiscount)
+            apps.append(app)
+        }
+        return apps
     }
 }
