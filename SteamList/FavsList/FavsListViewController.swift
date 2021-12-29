@@ -40,6 +40,16 @@ final class FavsListViewController: UIViewController {
 //        }
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        print("setEditing")
+        
+        // Takes care of toggling the button's title.
+        super.setEditing(editing, animated: true)
+
+        // Toggle table view editing.
+        contentView.favsListTableView.setEditing(editing, animated: true)
+    }
+    
     private func getAppDetails(app: AppElement) {
         let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
@@ -112,10 +122,14 @@ final class FavsListViewController: UIViewController {
     
     private func setUpNavigation() {
         self.navigationItem.title = Constants.favsTabTitle
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: Selector("showEditing:"))
+        self.navigationItem.rightBarButtonItem = editButtonItem
         /// customize back bar button
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+    }
+    
+    func showSortingOptions(_ sender: UIBarButtonItem) {
+        
     }
     
     private func filterContentForSearchText(_ searchText: String) {
