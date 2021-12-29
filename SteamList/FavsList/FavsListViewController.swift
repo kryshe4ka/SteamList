@@ -122,14 +122,27 @@ final class FavsListViewController: UIViewController {
     
     private func setUpNavigation() {
         self.navigationItem.title = Constants.favsTabTitle
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: Selector("showEditing:"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(self.showSortOptions(_:)))
         self.navigationItem.rightBarButtonItem = editButtonItem
         /// customize back bar button
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
-    func showSortingOptions(_ sender: UIBarButtonItem) {
-        
+    @objc func showSortOptions(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Choose your option", message: nil, preferredStyle: .actionSheet)
+        alertController.view.tintColor = Colors.gradientBottom
+        let titleAlertAction = UIAlertAction(title: "Sort by Title", style: .default) {_ in
+            print("Sort by Title")
+        }
+        let priceAlertAction = UIAlertAction(title: "Sort by Price", style: .default) {_ in
+            print("Sort by Price")
+        }
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        cancelAlertAction.setValue(UIColor(red: 0.922, green: 0.341, blue: 0.341, alpha: 1), forKey: "titleTextColor")
+        alertController.addAction(priceAlertAction)
+        alertController.addAction(titleAlertAction)
+        alertController.addAction(cancelAlertAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func filterContentForSearchText(_ searchText: String) {
