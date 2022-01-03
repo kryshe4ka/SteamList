@@ -19,24 +19,62 @@ class NewsListViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigation()
         contentView.delegate.controller = self
+        getNewsFromStorage()
+        getNews()
+        
+        
+//        if AppDataSource.shared.favApps.isEmpty {
+//            self.updateTable()
+//        } else {
+//            let favoriteApps = AppDataSource.shared.favApps
+//            favoriteApps.forEach { app in
+//                if app.news == nil {
+//                    getNews(app: app)
+//                }
+//            }
+//            self.updateTable()
+//        }
+    }
+    
+    private func getNewsFromStorage() {
+        let apps = AppDataSource.shared.favApps
+        apps.forEach { app in
+            CoreDataManager.shared.fetchAppNews(app: app, count: newsCount) { result in
+                switch result {
+                case .success(let news):
+                    AppDataSource.shared.refreshData(with: news, appId: app.appid)
+                    self.updateTable()
+                    print("UI обновился From Storage")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func getNews() {
+        let apps = AppDataSource.shared.favApps
+        apps.forEach { app in
+            getNews(app: app)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if AppDataSource.shared.needUpdateNewsList {
-            AppDataSource.shared.needUpdateNewsList = false
-            if AppDataSource.shared.favApps.isEmpty {
-                self.updateTable()
-            } else {
-                let favoriteApps = AppDataSource.shared.favApps
-                favoriteApps.forEach { app in
-                    if app.news == nil {
-                        getNews(app: app)
-                    }
-                }
-                self.updateTable()
-            }
-        }
+//        if AppDataSource.shared.needUpdateNewsList {
+//            AppDataSource.shared.needUpdateNewsList = false
+//            if AppDataSource.shared.favApps.isEmpty {
+//                self.updateTable()
+//            } else {
+//                let favoriteApps = AppDataSource.shared.favApps
+//                favoriteApps.forEach { app in
+//                    if app.news == nil {
+//                        getNews(app: app)
+//                    }
+//                }
+//                self.updateTable()
+//            }
+//        }
     }
     
     private func setUpNavigation() {
@@ -53,8 +91,9 @@ class NewsListViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let appNews):
-                if let newsItem = appNews.appnews?.newsitems {
-                    AppDataSource.shared.refreshData(with: newsItem, appId: app.appid)
+                if let newsItems = appNews.appnews?.newsitems {
+                    self.saveNewsToStorage(news: newsItems)
+                    AppDataSource.shared.refreshData(with: newsItems, appId: app.appid)
                     self.updateTable()
                 }
             case .failure(let error):
@@ -63,6 +102,12 @@ class NewsListViewController: UIViewController {
         }
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
+        }
+    }
+    
+    private func saveNewsToStorage(news: [Newsitem]) {
+        news.forEach { newsItem in
+            CoreDataManager.shared.addToNews(news: newsItem)
         }
     }
     

@@ -119,5 +119,8 @@ class AppDataSource: DataSource {
         if let index = apps.firstIndex(where: { $0.appid == appId }) {
             apps[index].news = news
         }
+        if let index = favApps.firstIndex(where: { $0.appid == appId }) {
+            favApps[index].news = news
+        }
     }
 }

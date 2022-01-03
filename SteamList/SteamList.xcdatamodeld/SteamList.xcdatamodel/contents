@@ -10,7 +10,7 @@
         <attribute name="releaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="shortdescription" optional="YES" attributeType="String"/>
         <attribute name="windows" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity" inverseName="details" inverseEntity="AppEntity"/>
     </entity>
     <entity name="AppEntity" representedClassName="AppEntity" syncable="YES">
         <attribute name="haveDiscount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -18,14 +18,16 @@
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppDetailsEntity" inverseName="app" inverseEntity="AppDetailsEntity"/>
+        <relationship name="news" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AppNewsEntity" inverseName="app" inverseEntity="AppNewsEntity"/>
     </entity>
     <entity name="AppNewsEntity" representedClassName="AppNewsEntity" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="contents" optional="YES" attributeType="String"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity"/>
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppEntity" inverseName="news" inverseEntity="AppEntity"/>
     </entity>
     <entity name="FavoriteEntity" representedClassName="FavoriteEntity" syncable="YES">
         <attribute name="haveDiscount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -35,7 +37,7 @@
     </entity>
     <elements>
         <element name="AppDetailsEntity" positionX="-36" positionY="9" width="128" height="179"/>
-        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="104"/>
+        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="134"/>
         <element name="AppNewsEntity" positionX="-18" positionY="27" width="128" height="119"/>
         <element name="FavoriteEntity" positionX="-36" positionY="81" width="128" height="89"/>
     </elements>

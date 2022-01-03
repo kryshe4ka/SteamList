@@ -2,7 +2,7 @@
 //  AppEntity+CoreDataProperties.swift
 //  SteamList
 //
-//  Created by Liza Kryshkovskaya on 27.12.21.
+//  Created by Liza Kryshkovskaya on 3.01.22.
 //
 //
 
@@ -19,11 +19,10 @@ extension AppEntity {
     @NSManaged public var id: Int32
     @NSManaged public var isFavorite: Bool
     @NSManaged public var name: String?
-    
-    @NSManaged public var price: String?
     @NSManaged public var haveDiscount: Bool
-//    @NSManaged public var appDetails: AppDetailsEntity?
-//    @NSManaged public var news: [AppNewsEntity]?
+    @NSManaged public var price: String?
+    @NSManaged public var news: NSOrderedSet?
+    @NSManaged public var details: AppDetailsEntity?
 
 }
 
@@ -37,9 +36,9 @@ extension AppEntity {
     @NSManaged public func removeFromNews(_ value: AppNewsEntity)
 
     @objc(addNews:)
-    @NSManaged public func addToNews(_ values: NSSet)
+    @NSManaged public func addToNews(_ values: NSOrderedSet)
 
     @objc(removeNews:)
-    @NSManaged public func removeFromNews(_ values: NSSet)
+    @NSManaged public func removeFromNews(_ values: NSOrderedSet)
 
 }

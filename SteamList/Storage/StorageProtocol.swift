@@ -14,6 +14,12 @@ protocol Storage {
 
     
     func fetchAppDetails(appId: Int) -> AppDetails
-    func fetchAppNews(appId: Int, count: Int) -> [Newsitem]
+//    func fetchAppNews(appId: Int, count: Int, completion: @escaping (Result<[Newsitem], Error>) -> Void) 
 //    func fetchAppDetails(appId: Int, completion: @escaping (Result<[AppDetails], Error>) -> Void)
+    
+    
+//    func fetchNews(app: AppElement) -> [Newsitem]
+    
+    func fetchAppNews(app: AppElement, count: Int, completion: @escaping (Result<[Newsitem], Error>) -> Void)
+
 }

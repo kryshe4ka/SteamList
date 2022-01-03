@@ -2,7 +2,7 @@
 //  FavoriteEntity+CoreDataProperties.swift
 //  SteamList
 //
-//  Created by Liza Kryshkovskaya on 28.12.21.
+//  Created by Liza Kryshkovskaya on 3.01.22.
 //
 //
 

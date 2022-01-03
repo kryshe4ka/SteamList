@@ -76,9 +76,60 @@ extension CoreDataManager: Storage {
             releaseDate: nil
         )
     }
+
+    func fetchAppNews(app: AppElement, count: Int, completion: @escaping (Result<[Newsitem], Error>) -> Void) {
+        guard let appEntity = fetchedResultsController.fetchedObjects?.first(where: { appEntity in
+            appEntity.id == Int32(app.appid)
+        }) else {
+            print("fetchAppNews error 1")
+            return
+        }
+        guard let fetchedObjects = appEntity.news?.array as? [AppNewsEntity] else {
+            print("fetchAppNews error 2")
+            return
+        }
+        if fetchedObjects.isEmpty {
+            print("empty")
+        }
+        let news = convertFromNewsEntityToAppNews(fetchedObjects: fetchedObjects)
+        completion(.success(news))
+    }
     
-    func fetchAppNews(appId: Int, count: Int) -> [Newsitem] {
-        return []
+    func addToNews(news: Newsitem) {
+        guard let appId = news.appid else { return }
+        guard let appEntity = fetchedResultsController.fetchedObjects?.first(where: { appEntity in
+            appEntity.id == Int32(appId)
+        }) else {
+            print("fetchAppNews error 1")
+            return
+        }
+
+        let newsEntity = AppNewsEntity(context: managedContext)
+        newsEntity.id = news.gid
+        newsEntity.author = news.author
+        newsEntity.contents = news.contents
+        newsEntity.title = news.title
+        newsEntity.app = appEntity
+        newsEntity.date = Int32(news.date ?? 0)
+        appEntity.addToNews(newsEntity)
+        
+        if managedContext.hasChanges {
+            do {
+                try managedContext.save()
+                print("save")
+            } catch {
+                print("error")
+            }
+        }    }
+    
+    private func convertFromNewsEntityToAppNews(fetchedObjects: [AppNewsEntity]) -> [Newsitem] {
+        var news: [Newsitem] = []
+        for object in fetchedObjects {
+            let appId = Int(object.app?.id ?? 0)
+            let oneNews = Newsitem(gid: object.id, title: object.title, author: object.author, contents: object.contents, date: Int(object.date), appid: appId)
+            news.append(oneNews)
+        }
+        return news
     }
     
     func saveApps(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void){

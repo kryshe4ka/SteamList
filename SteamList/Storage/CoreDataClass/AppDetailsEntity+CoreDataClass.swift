@@ -2,7 +2,7 @@
 //  AppDetailsEntity+CoreDataClass.swift
 //  SteamList
 //
-//  Created by Liza Kryshkovskaya on 27.12.21.
+//  Created by Liza Kryshkovskaya on 3.01.22.
 //
 //
 
