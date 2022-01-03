@@ -28,10 +28,6 @@ class AppDataSource: DataSource {
     
     var favApps: [AppElement] = []
     
-//    var favApps: [AppElement] {
-////        return apps.filter { $0.isFavorite! }
-//        return CoreDataManager.shared.fetchFavoriteApps()
-//    }
     var news: [Newsitem] {
         var newsArray: [Newsitem] = []
         favApps.forEach { 

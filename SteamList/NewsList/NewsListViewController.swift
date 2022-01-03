@@ -10,6 +10,11 @@ import UIKit
 
 class NewsListViewController: UIViewController {
     private let contentView = NewsListContentView()
+    var filteredTableData: [Newsitem] = []
+    var isFiltering: Bool = false
+    private let newsCount = 10
+    var blurAnimator: UIViewPropertyAnimator!
+    var isBlurAnimatorActive = false
     
     override func loadView() {
         view = contentView
@@ -21,8 +26,6 @@ class NewsListViewController: UIViewController {
         contentView.delegate.controller = self
         getNewsFromStorage()
         getNews()
-        
-        
 //        if AppDataSource.shared.favApps.isEmpty {
 //            self.updateTable()
 //        } else {
@@ -34,6 +37,10 @@ class NewsListViewController: UIViewController {
 //            }
 //            self.updateTable()
 //        }
+        
+        // tap to close filter window
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeFilterView))
+        view.addGestureRecognizer(tap)
     }
     
     private func getNewsFromStorage() {
@@ -79,11 +86,40 @@ class NewsListViewController: UIViewController {
     
     private func setUpNavigation() {
         self.navigationItem.title = Constants.newsTabTitle
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(self.showFilterOptions(_:)))
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
+    
+    @objc private func showFilterOptions(_ sender: UIBarButtonItem) {
+        print("filter")
         
-    private let newsCount = 10
+        if !isBlurAnimatorActive {
+            let blurEffectView = UIVisualEffectView()
+            blurEffectView.backgroundColor = .clear
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            view.addSubview(blurEffectView)
+            blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: { [blurEffectView] in
+                blurEffectView.effect = UIBlurEffect(style: .light)
+            })
+            blurAnimator.fractionComplete = 0.15
+            isBlurAnimatorActive = true
+        } else {
+            print("ничего не делаем")
+            closeFilterView()
+        }
+    }
+    
+    @objc func closeFilterView() {
+        isBlurAnimatorActive = false
+        for subview in view.subviews {
+            if subview is UIVisualEffectView {
+                subview.removeFromSuperview() // to remove blur
+            }
+        }
+//        filterView.removeFromSuperview()
+    }
     
     private func getNews(app: AppElement) {
         let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: app.appid, count: newsCount)
