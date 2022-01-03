@@ -130,17 +130,24 @@ final class FavsListViewController: UIViewController {
     
     @objc func showSortOptions(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Choose your option", message: nil, preferredStyle: .actionSheet)
-        alertController.view.tintColor = Colors.gradientBottom
-        let titleAlertAction = UIAlertAction(title: "Sort by Title", style: .default) {_ in
+        let titleAlertAction = UIAlertAction(title: "Sort by Title", style: .default) { [weak self] _ in
             print("Sort by Title")
+            AppDataSource.shared.currentSortKey = "name"
+            AppDataSource.shared.updateFavAppsData()
+            self!.contentView.favsListTableView.reloadData()
         }
-        let priceAlertAction = UIAlertAction(title: "Sort by Price", style: .default) {_ in
+        let priceAlertAction = UIAlertAction(title: "Sort by Price", style: .default) { [weak self] _ in
             print("Sort by Price")
+            AppDataSource.shared.currentSortKey = "price"
+            AppDataSource.shared.updateFavAppsData()
+            self!.contentView.favsListTableView.reloadData()
         }
         let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        cancelAlertAction.setValue(UIColor(red: 0.922, green: 0.341, blue: 0.341, alpha: 1), forKey: "titleTextColor")
-        alertController.addAction(priceAlertAction)
+        /// set text color
+//        alertController.view.tintColor = Colors.gradientBottom
+//        cancelAlertAction.setValue(UIColor(red: 0.922, green: 0.341, blue: 0.341, alpha: 1), forKey: "titleTextColor")
         alertController.addAction(titleAlertAction)
+        alertController.addAction(priceAlertAction)
         alertController.addAction(cancelAlertAction)
         present(alertController, animated: true, completion: nil)
     }

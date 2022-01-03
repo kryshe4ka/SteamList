@@ -176,6 +176,7 @@
 		3D34565627636BC0005AC30F /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
+				3D27AC1327721798003E677F /* NewsDetailsStyle.css */,
 				3DC02AA727624420002F0028 /* Helper.swift */,
 				3DC02A582761DEF6002F0028 /* Assets.xcassets */,
 				3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */,
@@ -260,7 +261,6 @@
 		3DC02A402761DEF4002F0028 = {
 			isa = PBXGroup;
 			children = (
-				3D27AC1327721798003E677F /* NewsDetailsStyle.css */,
 				3DC02A4B2761DEF4002F0028 /* SteamList */,
 				3DC02A652761DEF6002F0028 /* SteamListTests */,
 				3DC02A6F2761DEF6002F0028 /* SteamListUITests */,

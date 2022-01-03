@@ -41,9 +41,12 @@ class AppDataSource: DataSource {
         }
         return newsArray
     }
+
+    var currentSortKey = "name"
+
     
     func updateFavAppsData() {
-        self.favApps = CoreDataManager.shared.fetchFavoriteApps()
+        self.favApps = CoreDataManager.shared.fetchFavoriteApps(sortKey: currentSortKey)
     }
     
     func refreshData(apps: [AppElement]) {
