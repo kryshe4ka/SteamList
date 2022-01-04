@@ -11,7 +11,7 @@ import UIKit
 final class ScreenshotsCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     private let numberOfScreenshots: Int
     private let screenshotUrls: [String]
-    var controller: GameDetailsViewController?
+    weak var controller: GameDetailsViewController?
     
     init(numberOfScreenshots: Int, screenshotUrls: [String]) {
         self.numberOfScreenshots = numberOfScreenshots

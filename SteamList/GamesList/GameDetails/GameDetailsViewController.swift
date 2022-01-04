@@ -11,7 +11,7 @@ import UIKit
 final class GameDetailsViewController: UIViewController {
     private let contentView = GameDetailsContentView()
     private var app: AppElement
-    var delegate: GamesListViewController?
+    weak var delegate: GamesListViewController?
     
     init(app: AppElement) {
         self.app = app

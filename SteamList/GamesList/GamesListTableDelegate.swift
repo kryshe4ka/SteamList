@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
-    var controller: GamesListViewController?
+    weak var controller: GamesListViewController?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         /// display screen with app details

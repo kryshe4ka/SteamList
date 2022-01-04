@@ -30,7 +30,7 @@ final class GameDetailsContentView: UIView {
     private var appId: Int = 0
     private var numberOfScreenshots: Int = 0
     var delegate: ScreenshotsCollectionViewDelegate?
-    var controller: GameDetailsViewController?
+    weak var controller: GameDetailsViewController?
     
     private var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()

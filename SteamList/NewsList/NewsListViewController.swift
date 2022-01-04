@@ -11,10 +11,10 @@ import UIKit
 class NewsListViewController: UIViewController {
     private let contentView = NewsListContentView()
     var filteredTableData: [Newsitem] = []
-    var isFiltering: Bool = false
+//    var isFiltering: Bool = false
     private let newsCount = 10
-    var blurAnimator: UIViewPropertyAnimator!
-    var isBlurAnimatorActive = false
+    private var blurAnimator: UIViewPropertyAnimator!
+    private var isBlurAnimatorActive = false
     
     override func loadView() {
         view = contentView
@@ -25,24 +25,21 @@ class NewsListViewController: UIViewController {
         setUpNavigation()
         contentView.delegate.controller = self
         contentView.saveButton.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
-        // добавить проверку на не пустой список фаваритов???
-        getNewsFromStorage()
-        getNews()
-    }
-    
-    @objc private func applyFilter() {
-        closeFilterView()
-        updateTable()
+        if !AppDataSource.shared.favApps.isEmpty {
+            getNewsFromStorage()
+            getNews()
+        }
     }
     
     private func getNewsFromStorage() {
-        let apps = AppDataSource.shared.favApps
-        apps.forEach { app in
+        let favApps = AppDataSource.shared.favApps
+        favApps.forEach { app in
             CoreDataManager.shared.fetchAppNews(app: app, count: newsCount) { result in
                 switch result {
                 case .success(let news):
-                    AppDataSource.shared.refreshData(with: news, appId: app.appid)
-                    self.updateTable()
+                    self.updateDataAndUI(newsItems: news, appId: app.appid)
+//                    AppDataSource.shared.refreshData(with: news, appId: app.appid)
+//                    self.updateTable()
                     print("UI обновился From Storage")
                 case .failure(let error):
                     print(error)
@@ -52,28 +49,53 @@ class NewsListViewController: UIViewController {
     }
     
     private func getNews() {
+        print("getNews")
         let apps = AppDataSource.shared.favApps
         apps.forEach { app in
             getNews(app: app)
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        if AppDataSource.shared.needUpdateNewsList {
-//            AppDataSource.shared.needUpdateNewsList = false
-//            if AppDataSource.shared.favApps.isEmpty {
-//                self.updateTable()
-//            } else {
-//                let favoriteApps = AppDataSource.shared.favApps
-//                favoriteApps.forEach { app in
-//                    if app.news == nil {
-//                        getNews(app: app)
-//                    }
-//                }
-//                self.updateTable()
-//            }
-//        }
+    private func getNews(app: AppElement) {
+        let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: app.appid, count: newsCount)
+        let completion: (Result<AppNews, Error>) -> Void = { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let appNews):
+                if let newsItems = appNews.appnews?.newsitems {
+                    self.deleteAppsFromStorage()
+                    self.saveNewsToStorage(news: newsItems)
+                    self.updateDataAndUI(newsItems: newsItems, appId: app.appid)
+                }
+            case .failure(let error):
+                print("failure \(error)")
+            }
+        }
+        DispatchQueue.global(qos: .utility).async {
+            NetworkDataManager.shared.get(request: request, completion: completion)
+        }
+    }
+    
+    private func deleteAppsFromStorage() {
+        print("deleteAppsFromStorage")
+    }
+    
+    private func saveNewsToStorage(news: [Newsitem]) {
+        news.forEach { newsItem in
+            CoreDataManager.shared.addToNews(news: newsItem)
+        }
+    }
+    
+    private func updateDataAndUI(newsItems: [Newsitem], appId: Int) {
+        DispatchQueue.main.async {
+            AppDataSource.shared.refreshData(with: newsItems, appId: appId)
+            self.updateTable()
+            print("UI обновился - updateDataAndUI")
+        }
+    }
+    
+    private func updateTable() {
+        contentView.newsListTableView.reloadData()
     }
     
     private func setUpNavigation() {
@@ -81,7 +103,9 @@ class NewsListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(self.showFilterOptions(_:)))
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
-    
+}
+
+extension NewsListViewController {
     @objc private func showFilterOptions(_ sender: UIBarButtonItem) {
         if !isBlurAnimatorActive {
             let blurEffectView = UIVisualEffectView()
@@ -108,39 +132,34 @@ class NewsListViewController: UIViewController {
         isBlurAnimatorActive = false
         for subview in view.subviews {
             if subview is UIVisualEffectView {
-                subview.removeFromSuperview() // to remove blur
+                subview.removeFromSuperview() /// to remove blur
             }
         }
         contentView.filterView.removeFromSuperview()
     }
     
-    private func getNews(app: AppElement) {
-        let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: app.appid, count: newsCount)
-        let completion: (Result<AppNews, Error>) -> Void = { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let appNews):
-                if let newsItems = appNews.appnews?.newsitems {
-                    self.saveNewsToStorage(news: newsItems)
-                    AppDataSource.shared.refreshData(with: newsItems, appId: app.appid)
-                    self.updateTable()
-                }
-            case .failure(let error):
-                print("failure \(error)")
-            }
-        }
-        DispatchQueue.global(qos: .utility).async {
-            NetworkDataManager.shared.get(request: request, completion: completion)
-        }
-    }
-    
-    private func saveNewsToStorage(news: [Newsitem]) {
-        news.forEach { newsItem in
-            CoreDataManager.shared.addToNews(news: newsItem)
-        }
-    }
-    
-    private func updateTable() {
-        contentView.newsListTableView.reloadData()
+    @objc private func applyFilter() {
+        closeFilterView()
+        updateTable()
     }
 }
+
+
+
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        if AppDataSource.shared.needUpdateNewsList {
+//            AppDataSource.shared.needUpdateNewsList = false
+//            if AppDataSource.shared.favApps.isEmpty {
+//                self.updateTable()
+//            } else {
+//                let favoriteApps = AppDataSource.shared.favApps
+//                favoriteApps.forEach { app in
+//                    if app.news == nil {
+//                        getNews(app: app)
+//                    }
+//                }
+//                self.updateTable()
+//            }
+//        }
+//    }
