@@ -15,6 +15,8 @@
 		3D0F23EF278310EC00AD83AE /* AppDetailsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23E7278310EC00AD83AE /* AppDetailsEntity+CoreDataProperties.swift */; };
 		3D0F23F0278310EC00AD83AE /* FavoriteEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23E8278310EC00AD83AE /* FavoriteEntity+CoreDataClass.swift */; };
 		3D0F23F1278310EC00AD83AE /* FavoriteEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23E9278310EC00AD83AE /* FavoriteEntity+CoreDataProperties.swift */; };
+		3D0F23F32783515300AD83AE /* FilterTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23F22783515300AD83AE /* FilterTableViewDelegate.swift */; };
+		3D0F23F5278351BF00AD83AE /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23F4278351BF00AD83AE /* FilterTableViewCell.swift */; };
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
@@ -85,6 +87,8 @@
 		3D0F23E7278310EC00AD83AE /* AppDetailsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDetailsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3D0F23E8278310EC00AD83AE /* FavoriteEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3D0F23E9278310EC00AD83AE /* FavoriteEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3D0F23F22783515300AD83AE /* FilterTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewDelegate.swift; sourceTree = "<group>"; };
+		3D0F23F4278351BF00AD83AE /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 			children = (
 				3DC02AAB2762454C002F0028 /* NewsListViewController.swift */,
 				3D345672276A23C3005AC30F /* NewsListContentView.swift */,
+				3D0F23F22783515300AD83AE /* FilterTableViewDelegate.swift */,
+				3D0F23F4278351BF00AD83AE /* FilterTableViewCell.swift */,
 				3D5BA4ED277088EF00336CE9 /* NewsListTableViewDelegate.swift */,
 				3D5BA4EB2770887000336CE9 /* NewsListTableViewCell.swift */,
 				3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */,
@@ -520,9 +526,11 @@
 				3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */,
 				3D5BA4F227708A6000336CE9 /* NewsDetailsContentView.swift in Sources */,
 				3DC02AA827624420002F0028 /* Helper.swift in Sources */,
+				3D0F23F32783515300AD83AE /* FilterTableViewDelegate.swift in Sources */,
 				3DC02A952762273B002F0028 /* AppNews.swift in Sources */,
 				3D3456632767864B005AC30F /* FavsListContentView.swift in Sources */,
 				3DC02A8F2762210B002F0028 /* StorageProtocol.swift in Sources */,
+				3D0F23F5278351BF00AD83AE /* FilterTableViewCell.swift in Sources */,
 				3D0F23EC278310EC00AD83AE /* AppNewsEntity+CoreDataClass.swift in Sources */,
 				3D345665276786F2005AC30F /* FavsListTableViewDelegate.swift in Sources */,
 			);

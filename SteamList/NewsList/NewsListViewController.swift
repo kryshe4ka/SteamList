@@ -24,23 +24,15 @@ class NewsListViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigation()
         contentView.delegate.controller = self
+        contentView.saveButton.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
+        // добавить проверку на не пустой список фаваритов???
         getNewsFromStorage()
         getNews()
-//        if AppDataSource.shared.favApps.isEmpty {
-//            self.updateTable()
-//        } else {
-//            let favoriteApps = AppDataSource.shared.favApps
-//            favoriteApps.forEach { app in
-//                if app.news == nil {
-//                    getNews(app: app)
-//                }
-//            }
-//            self.updateTable()
-//        }
-        
-        // tap to close filter window
-        let tap = UITapGestureRecognizer(target: self, action: #selector(closeFilterView))
-        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func applyFilter() {
+        closeFilterView()
+        updateTable()
     }
     
     private func getNewsFromStorage() {
@@ -91,22 +83,23 @@ class NewsListViewController: UIViewController {
     }
     
     @objc private func showFilterOptions(_ sender: UIBarButtonItem) {
-        print("filter")
-        
         if !isBlurAnimatorActive {
             let blurEffectView = UIVisualEffectView()
             blurEffectView.backgroundColor = .clear
             blurEffectView.frame = view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
+            /// add tap to close filter window
+            let tap = UITapGestureRecognizer(target: self, action: #selector(closeFilterView))
+            blurEffectView.addGestureRecognizer(tap)
             view.addSubview(blurEffectView)
             blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: { [blurEffectView] in
                 blurEffectView.effect = UIBlurEffect(style: .light)
             })
             blurAnimator.fractionComplete = 0.15
             isBlurAnimatorActive = true
+            contentView.addSubview(contentView.filterView)
+            contentView.addConstraintsToFilterView()
         } else {
-            print("ничего не делаем")
             closeFilterView()
         }
     }
@@ -118,7 +111,7 @@ class NewsListViewController: UIViewController {
                 subview.removeFromSuperview() // to remove blur
             }
         }
-//        filterView.removeFromSuperview()
+        contentView.filterView.removeFromSuperview()
     }
     
     private func getNews(app: AppElement) {

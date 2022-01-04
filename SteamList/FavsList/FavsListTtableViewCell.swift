@@ -18,7 +18,7 @@ final class FavsListTtableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = Font.boldSystemFont
         nameLabel.textColor = Colors.content
         return nameLabel
@@ -26,7 +26,7 @@ final class FavsListTtableViewCell: UITableViewCell {
     
     private let priceLabel: UILabel = {
         let priceLabel = UILabel()
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+//        priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = Font.boldSystemFont
         priceLabel.textColor = Colors.content
 //        priceLabel.text = "-"
