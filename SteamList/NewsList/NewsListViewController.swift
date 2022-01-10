@@ -9,24 +9,42 @@ import Foundation
 import UIKit
 
 class NewsListViewController: UIViewController {
+    private let group = DispatchGroup()
     private let contentView = NewsListContentView()
-    var filteredTableData: [Newsitem] = []
-//    var isFiltering: Bool = false
     private let newsCount = 10
     private var blurAnimator: UIViewPropertyAnimator!
     private var isBlurAnimatorActive = false
+    var filteredFavApps: [AppElement] = []
+    var filteredNews: [Newsitem] {
+        var newsArray: [Newsitem] = []
+        filteredFavApps.forEach {
+            if let news = $0.news, !news.isEmpty {
+                newsArray += news
+            }
+        }
+        return newsArray
+    }
     
     override func loadView() {
         view = contentView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        filteredFavApps = AppDataSource.shared.favApps
+        contentView.filterTableView.reloadData()
+        getNews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView.filterDelegate.controller = self
         setUpNavigation()
         contentView.delegate.controller = self
         contentView.saveButton.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
         if !AppDataSource.shared.favApps.isEmpty {
-            getNewsFromStorage()
+            filteredFavApps = AppDataSource.shared.favApps /// add all favorites to filtered list by default
+//            getNewsFromStorage()
             getNews()
         }
     }
@@ -37,9 +55,8 @@ class NewsListViewController: UIViewController {
             CoreDataManager.shared.fetchAppNews(app: app, count: newsCount) { result in
                 switch result {
                 case .success(let news):
-                    self.updateDataAndUI(newsItems: news, appId: app.appid)
-//                    AppDataSource.shared.refreshData(with: news, appId: app.appid)
-//                    self.updateTable()
+                    self.updateData(newsItems: news, appId: app.appid)
+                    self.updateTable()
                     print("UI обновился From Storage")
                 case .failure(let error):
                     print(error)
@@ -47,12 +64,15 @@ class NewsListViewController: UIViewController {
             }
         }
     }
-    
+        
     private func getNews() {
-        print("getNews")
         let apps = AppDataSource.shared.favApps
         apps.forEach { app in
+            group.enter()
             getNews(app: app)
+        }
+        group.notify(queue: .main) {
+            self.updateTable()
         }
     }
     
@@ -65,10 +85,12 @@ class NewsListViewController: UIViewController {
                 if let newsItems = appNews.appnews?.newsitems {
                     self.deleteAppsFromStorage()
                     self.saveNewsToStorage(news: newsItems)
-                    self.updateDataAndUI(newsItems: newsItems, appId: app.appid)
+                    self.updateData(newsItems: newsItems, appId: app.appid)
                 }
+                self.group.leave()
             case .failure(let error):
                 print("failure \(error)")
+                self.group.leave()
             }
         }
         DispatchQueue.global(qos: .utility).async {
@@ -86,11 +108,14 @@ class NewsListViewController: UIViewController {
         }
     }
     
-    private func updateDataAndUI(newsItems: [Newsitem], appId: Int) {
-        DispatchQueue.main.async {
-            AppDataSource.shared.refreshData(with: newsItems, appId: appId)
-            self.updateTable()
-            print("UI обновился - updateDataAndUI")
+    private func updateData(newsItems: [Newsitem], appId: Int) {
+        AppDataSource.shared.refreshData(with: newsItems, appId: appId)
+        updateFilteredList(newsItems: newsItems, appId: appId)
+    }
+    
+    private func updateFilteredList(newsItems: [Newsitem], appId: Int) {
+        if let index = filteredFavApps.firstIndex(where: { $0.appid == appId }) {
+            self.filteredFavApps[index].news = newsItems
         }
     }
     
@@ -138,9 +163,10 @@ extension NewsListViewController {
         contentView.filterView.removeFromSuperview()
     }
     
+    /// press save button
     @objc private func applyFilter() {
-        closeFilterView()
         updateTable()
+        closeFilterView()
     }
 }
 

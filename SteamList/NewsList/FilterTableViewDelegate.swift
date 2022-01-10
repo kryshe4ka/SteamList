@@ -8,14 +8,27 @@
 import UIKit
 
 class FilterTableViewDelegate: NSObject, UITableViewDelegate {
+    weak var controller: NewsListViewController?
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.tableHeightForRow
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let controller = controller else { return }
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = (cell.accessoryType == .checkmark) ? .none : .checkmark
+            if cell.accessoryType == .none {
+                /// remove from filtered list
+                let appItem = AppDataSource.shared.favApps[indexPath.row]
+                controller.filteredFavApps.removeAll { app in
+                    app.appid == appItem.appid
+                }
+            } else {
+                /// add to filtered list
+                let appItem = AppDataSource.shared.favApps[indexPath.row]
+                controller.filteredFavApps.append(appItem)
+            }
         }
     }
 }
