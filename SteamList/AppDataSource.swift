@@ -21,13 +21,11 @@ protocol DataSource {
 
 class AppDataSource: DataSource {
     static let shared = AppDataSource()
-    
     var apps: [AppElement] = []
     var needUpdateFavList = false
     var needUpdateNewsList = false
-    
+    var currentSortKey = "name"
     var favApps: [AppElement] = []
-    
     var news: [Newsitem] {
         var newsArray: [Newsitem] = []
         favApps.forEach { 
@@ -38,23 +36,18 @@ class AppDataSource: DataSource {
         return newsArray
     }
 
-    var currentSortKey = "name"
-
-    
     func updateFavAppsData() {
         self.favApps = CoreDataManager.shared.fetchFavoriteApps(sortKey: currentSortKey)
     }
     
     func refreshData(apps: [AppElement]) {
-        // получить список фаваритов из БД
-        updateFavAppsData()
-        
+        self.apps.removeAll()
+        updateFavAppsData() /// get favorites list from DB
         for app in apps {
             if app.name != "" {
                 var newApp = app
                 newApp.price = app.price
                 newApp.haveDiscount = app.haveDiscount
-                // если newApp.id есть в списке, то isFavorite = true
                 if favApps.contains(where: { favApp in
                     if favApp.appid == app.appid {
                         newApp.haveDiscount = favApp.haveDiscount
@@ -71,6 +64,7 @@ class AppDataSource: DataSource {
             }
         }
     }
+    
     func refreshData(appId: Int, appDetails: AppDetails) {
         if let index = apps.firstIndex(where: { $0.appid == appId }) {
             var app = apps[index]
@@ -93,15 +87,10 @@ class AppDataSource: DataSource {
         }
     }
     
-    func refreshFavoriteData(favApps: [AppElement]) {
-        
-    }
-    
     func toggleFavorite(index: Int, favoriteState: Bool) {
         apps[index].isFavorite = favoriteState
         needUpdateFavList = true
         needUpdateNewsList = true
-        
         if favoriteState {
             CoreDataManager.shared.addAppToFavorites(app: apps[index])
             updateFavAppsData()

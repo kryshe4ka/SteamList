@@ -169,23 +169,3 @@ extension NewsListViewController {
         closeFilterView()
     }
 }
-
-
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        if AppDataSource.shared.needUpdateNewsList {
-//            AppDataSource.shared.needUpdateNewsList = false
-//            if AppDataSource.shared.favApps.isEmpty {
-//                self.updateTable()
-//            } else {
-//                let favoriteApps = AppDataSource.shared.favApps
-//                favoriteApps.forEach { app in
-//                    if app.news == nil {
-//                        getNews(app: app)
-//                    }
-//                }
-//                self.updateTable()
-//            }
-//        }
-//    }

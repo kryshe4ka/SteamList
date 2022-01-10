@@ -103,7 +103,6 @@ extension CoreDataManager: Storage {
             print("fetchAppNews error 1")
             return
         }
-
         let newsEntity = AppNewsEntity(context: managedContext)
         newsEntity.id = news.gid
         newsEntity.author = news.author

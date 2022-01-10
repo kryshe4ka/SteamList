@@ -83,7 +83,6 @@ final class GamesListViewController: UIViewController {
                 print(error)
             }
         }
-        // выполняем запрос на др.очереди
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
         }
@@ -97,9 +96,8 @@ final class GamesListViewController: UIViewController {
         CoreDataManager.shared.fetchApps { result in
             switch result {
             case .success(let apps):
-                AppDataSource.shared.refreshData(apps: apps)
+                self.updateDataSource(apps: apps)
                 self.updateTable()
-                print("UI обновился From Storage")
             case .failure(let error):
                 print(error)
             }
@@ -116,6 +114,7 @@ final class GamesListViewController: UIViewController {
             }
         }
     }
+    
     private func saveAppsToStorage(apps: [AppElement]) {
         CoreDataManager.shared.saveApps(apps) { result in
             switch result {
@@ -129,13 +128,15 @@ final class GamesListViewController: UIViewController {
     
     private func updateDataAndUI(apps: [AppElement]) {
         DispatchQueue.main.async {
-            AppDataSource.shared.refreshData(apps: apps)
+            self.updateDataSource(apps: apps)
             self.updateTable()
-            print("UI обновился из Сети")
         }
     }
+    
+    private func updateDataSource(apps: [AppElement]) {
+        AppDataSource.shared.refreshData(apps: apps)
+    }
 }
-
 
 extension GamesListViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
