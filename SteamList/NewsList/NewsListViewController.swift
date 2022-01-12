@@ -33,6 +33,7 @@ class NewsListViewController: UIViewController {
         super.viewWillAppear(animated)
         filteredFavApps = AppDataSource.shared.favApps
         contentView.filterTableView.reloadData()
+        getNewsFromStorage()
         getNews()
     }
     
@@ -42,69 +43,91 @@ class NewsListViewController: UIViewController {
         setUpNavigation()
         contentView.delegate.controller = self
         contentView.saveButton.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
-        if !AppDataSource.shared.favApps.isEmpty {
-            filteredFavApps = AppDataSource.shared.favApps /// add all favorites to filtered list by default
-//            getNewsFromStorage()
-            getNews()
+        filteredFavApps = AppDataSource.shared.favApps /// add all favorites to filtered list by default
+    }
+        
+    private func getNewsFromStorage() {
+        CoreDataManager.shared.fetchNews { result in
+            switch result {
+            case .success(let news):
+                self.updateDataAndUI(news: news)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
-    private func getNewsFromStorage() {
-        let favApps = AppDataSource.shared.favApps
-        favApps.forEach { app in
-            CoreDataManager.shared.fetchAppNews(app: app, count: newsCount) { result in
-                switch result {
-                case .success(let news):
-                    self.updateData(newsItems: news, appId: app.appid)
-                    self.updateTable()
-                    print("UI обновился From Storage")
-                case .failure(let error):
-                    print(error)
-                }
+    private func updateDataAndUI(news: [Newsitem]) {
+        for i in 0..<filteredFavApps.count {
+            let newsArray = news.filter { newsitem in
+                newsitem.appid == filteredFavApps[i].appid
             }
+            AppDataSource.shared.favApps[i].news = newsArray
+            filteredFavApps[i].news = newsArray
+        }
+        DispatchQueue.main.async {
+            self.updateTable()
         }
     }
         
     private func getNews() {
+//        let group = DispatchGroup()
         let apps = AppDataSource.shared.favApps
         apps.forEach { app in
             group.enter()
-            getNews(app: app)
+            getNews(app: app, group: group)
         }
+        
+        group.notify(queue: .global()) {
+            let news = AppDataSource.shared.news
+            self.deleteNewsFromStorage()
+            self.saveNewsToStorage(news: news)
+        }
+        
         group.notify(queue: .main) {
             self.updateTable()
         }
     }
     
-    private func getNews(app: AppElement) {
+    private func getNews(app: AppElement, group: DispatchGroup) {
         let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: app.appid, count: newsCount)
         let completion: (Result<AppNews, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let appNews):
                 if let newsItems = appNews.appnews?.newsitems {
-                    self.deleteAppsFromStorage()
-                    self.saveNewsToStorage(news: newsItems)
                     self.updateData(newsItems: newsItems, appId: app.appid)
                 }
-                self.group.leave()
+                group.leave()
             case .failure(let error):
-                print("failure \(error)")
-                self.group.leave()
+                print(error)
+                group.leave()
             }
         }
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
         }
     }
-    
-    private func deleteAppsFromStorage() {
-        print("deleteAppsFromStorage")
+
+    private func saveNewsToStorage(news: [Newsitem]) {
+        CoreDataManager.shared.saveNews(news) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("Success saving")
+            }
+        }
     }
     
-    private func saveNewsToStorage(news: [Newsitem]) {
-        news.forEach { newsItem in
-            CoreDataManager.shared.addToNews(news: newsItem)
+    private func deleteNewsFromStorage() {
+        CoreDataManager.shared.deleteNews { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("Success deleting")
+            }
         }
     }
     

@@ -30,11 +30,10 @@ final class FavsListTableViewDelegate: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            /// Delete the row from the data source
             CoreDataManager.shared.removeAppFromFavorites(app: AppDataSource.shared.favApps[indexPath.row])
             AppDataSource.shared.favApps.remove(at: indexPath.row)
-
-             // Delete the row from the TableView
+            /// Delete the row from the TableView
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

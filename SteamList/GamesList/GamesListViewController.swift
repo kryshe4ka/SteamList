@@ -127,8 +127,8 @@ final class GamesListViewController: UIViewController {
     }
     
     private func updateDataAndUI(apps: [AppElement]) {
+        self.updateDataSource(apps: apps)
         DispatchQueue.main.async {
-            self.updateDataSource(apps: apps)
             self.updateTable()
         }
     }

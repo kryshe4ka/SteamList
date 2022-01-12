@@ -13,6 +13,7 @@ class CoreDataManager {
     private let modelName = "SteamList"
     private var fetchedResultsController: NSFetchedResultsController<AppEntity>!
     
+    
     /// Persistent Container
     private lazy var persistentContainer: NSPersistentContainer = {
       let container = NSPersistentContainer(name: modelName)
@@ -53,6 +54,29 @@ extension CoreDataManager: Storage {
         }
     }
     
+    func fetchNews(completion: @escaping (Result<[Newsitem], Error>) -> Void) {
+        let fetchRequest: NSFetchRequest<AppNewsEntity> = AppNewsEntity.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try fetchedResultsController.performFetch()
+            guard let fetchedObjects = fetchedResultsController.fetchedObjects else { return }
+            let news = convertFromDBEntityToNews(fetchedObjects: fetchedObjects)
+            completion(.success(news))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    private func convertFromDBEntityToNews(fetchedObjects: [AppNewsEntity]) -> [Newsitem] {
+        var news: [Newsitem] = []
+        for object in fetchedObjects {
+            let newsItem = Newsitem(gid: object.gid, title: object.title, author: object.author, contents: object.contents, date: Int(object.date), appid: Int(object.appId))
+            news.append(newsItem)
+        }
+        return news
+    }
+    
     private func convertFromDBEntityToApp(fetchedObjects: [AppEntity]) -> [AppElement] {
         var apps: [AppElement] = []
         for object in fetchedObjects {
@@ -78,7 +102,7 @@ extension CoreDataManager: Storage {
     }
 
     func fetchAppNews(app: AppElement, count: Int, completion: @escaping (Result<[Newsitem], Error>) -> Void) {
-        guard let appEntity = fetchedResultsController.fetchedObjects?.first(where: { appEntity in
+         guard let appEntity = fetchedResultsController.fetchedObjects?.first(where: { appEntity in
             appEntity.id == Int32(app.appid)
         }) else {
             print("fetchAppNews error 1")
@@ -90,13 +114,62 @@ extension CoreDataManager: Storage {
         }
         if fetchedObjects.isEmpty {
             print("empty")
+        } else {
+            let news = convertFromNewsEntityToAppNews(fetchedObjects: fetchedObjects)
+            completion(.success(news))
         }
-        let news = convertFromNewsEntityToAppNews(fetchedObjects: fetchedObjects)
-        completion(.success(news))
+        
     }
     
-    func addToNews(news: Newsitem) {
-        guard let appId = news.appid else { return }
+    func saveNews(_ news: [Newsitem], completion: @escaping (Result<Bool, Error>) -> Void)  {
+        /// get main context
+        let mainQueueContext = managedContext
+        /// get private context
+        let privateChildContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        /// make main context as a parent of child
+        privateChildContext.parent = mainQueueContext
+        privateChildContext.perform {
+            for newsItem in news {
+                let newsEntity = AppNewsEntity(context: privateChildContext)
+                newsEntity.gid = newsItem.gid
+                newsEntity.author = newsItem.author
+                newsEntity.contents = newsItem.contents
+                newsEntity.title = newsItem.title
+                newsEntity.appId = Int32(newsItem.appid ?? 0)
+                newsEntity.date = Int32(newsItem.date ?? 0)
+            }
+            /// merge changes to main context
+            do {
+                try privateChildContext.save()
+            } catch {
+                completion(.failure(error))
+            }
+            
+            mainQueueContext.performAndWait {
+                do {
+                    try mainQueueContext.save()
+                    completion(.success(true))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func deleteNews(completion: @escaping (Result<Bool, Error>) -> Void) {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AppNewsEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+            completion(.success(true))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func addToNews(newsItem: Newsitem) {
+        guard let appId = newsItem.appid else { return }
         guard let appEntity = fetchedResultsController.fetchedObjects?.first(where: { appEntity in
             appEntity.id == Int32(appId)
         }) else {
@@ -104,52 +177,56 @@ extension CoreDataManager: Storage {
             return
         }
         let newsEntity = AppNewsEntity(context: managedContext)
-        newsEntity.id = news.gid
-        newsEntity.author = news.author
-        newsEntity.contents = news.contents
-        newsEntity.title = news.title
-        newsEntity.app = appEntity
-        newsEntity.date = Int32(news.date ?? 0)
+        newsEntity.gid = newsItem.gid
+        newsEntity.author = newsItem.author
+        newsEntity.contents = newsItem.contents
+        newsEntity.title = newsItem.title
+//        newsEntity.app = appEntity
+        newsEntity.appId = Int32(newsItem.appid ?? 0)
+        newsEntity.date = Int32(newsItem.date ?? 0)
         appEntity.addToNews(newsEntity)
         
         if managedContext.hasChanges {
             do {
                 try managedContext.save()
-                print("save")
             } catch {
-                print("error")
+                print(error)
             }
-        }    }
+        }
+    }
     
     private func convertFromNewsEntityToAppNews(fetchedObjects: [AppNewsEntity]) -> [Newsitem] {
         var news: [Newsitem] = []
         for object in fetchedObjects {
-            let appId = Int(object.app?.id ?? 0)
-            let oneNews = Newsitem(gid: object.id, title: object.title, author: object.author, contents: object.contents, date: Int(object.date), appid: appId)
+//            let appId = Int(object.app?.id ?? 0)
+//            let oneNews = Newsitem(gid: object.id, title: object.title, author: object.author, contents: object.contents, date: Int(object.date), appid: appId)
+            
+            let oneNews = Newsitem(gid: object.gid, title: object.title, author: object.author, contents: object.contents, date: Int(object.date), appid: Int(object.appId))
+            
             news.append(oneNews)
         }
         return news
     }
     
-    func saveApps(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void){
-        let context = managedContext
-        for app in apps {
-            let newAppEntity = AppEntity(context: context)
-            newAppEntity.id = Int32(app.appid)
-            newAppEntity.name = app.name
-            newAppEntity.isFavorite = app.isFavorite ?? false
-            newAppEntity.price = app.price
-            newAppEntity.haveDiscount = app.haveDiscount ?? false
-        }
-        if context.hasChanges {
-            do {
-                try context.save()
-                completion(.success(true))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
+//    func saveApps2(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void){
+//        let context = managedContext
+//        for app in apps {
+//            let newAppEntity = AppEntity(context: context)
+//            newAppEntity.id = Int32(app.appid)
+//            newAppEntity.name = app.name
+//            newAppEntity.isFavorite = app.isFavorite ?? false
+//            newAppEntity.price = app.price
+//            newAppEntity.haveDiscount = app.haveDiscount ?? false
+//        }
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//                completion(.success(true))
+//            } catch {
+//                completion(.failure(error))
+//            }
+//        }
+//    }
     
     func deleteApps(completion: @escaping (Result<Bool, Error>) -> Void) {
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AppEntity")
@@ -163,7 +240,7 @@ extension CoreDataManager: Storage {
         }
     }
     
-    func _saveApps_NOTWORKING(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void) {
+    func saveApps(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void) {
         // get main context
         let mainQueueContext = managedContext
         // get private context
@@ -176,22 +253,24 @@ extension CoreDataManager: Storage {
                 newAppEntity.id = Int32(app.appid)
                 newAppEntity.name = app.name
                 newAppEntity.isFavorite = app.isFavorite ?? false
+                newAppEntity.price = app.price
+                newAppEntity.haveDiscount = app.haveDiscount ?? false
             }
-        }
-        // merge changes to main context
-        privateChildContext.perform {
+            // merge changes to main context
             do {
                 try privateChildContext.save()
             } catch {
                 completion(.failure(error))
             }
-        }
-        
-        do {
-            try mainQueueContext.save()
-            completion(.success(true))
-        } catch {
-            completion(.failure(error))
+            
+            mainQueueContext.performAndWait {
+                do {
+                    try mainQueueContext.save()
+                    completion(.success(true))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
         }
     }
 }
@@ -240,6 +319,7 @@ extension CoreDataManager {
 //            completion(.success(true))
         } catch {
 //            completion(.failure(error))
+            print(error)
         }
     }
     
@@ -262,7 +342,7 @@ extension CoreDataManager {
         return []
     }
     
-    private func convertFromFavoriteEntityToApp(fetchedObjects: [FavoriteEntity]) -> [AppElement] {        
+    private func convertFromFavoriteEntityToApp(fetchedObjects: [FavoriteEntity]) -> [AppElement] {
         var apps: [AppElement] = []
         for object in fetchedObjects {
             let app = AppElement(appid: Int(object.id), name: object.name ?? "", isFavorite: true, price: object.price, haveDiscount: object.haveDiscount)

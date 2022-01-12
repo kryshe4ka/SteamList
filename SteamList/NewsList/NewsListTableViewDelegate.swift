@@ -13,10 +13,7 @@ class NewsListTableViewDelegate: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = controller else { return }
-//        let news = AppDataSource.shared.news[indexPath.row]
         let news = controller.filteredNews[indexPath.row]
-
-        
         let state = getNewsCellStateFrom(news: news)
         let content = news.contents
         let newsDetailsViewController = NewsDetailsViewController(content: content ?? "", state: state)
@@ -31,7 +28,6 @@ class NewsListTableViewDelegate: NSObject, UITableViewDelegate {
 
 extension NewsListTableViewDelegate: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return AppDataSource.shared.news.count
         guard let controller = controller else { return 0 }
         let numberOfRows = controller.filteredNews.count
         return numberOfRows
