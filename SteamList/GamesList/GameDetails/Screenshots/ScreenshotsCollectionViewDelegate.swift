@@ -46,14 +46,20 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let image):
+                    cell.activityIndicator.stopAnimating()
                     cell.screenshotImageView.image = image
                 case .failure(let error):
+                    cell.activityIndicator.stopAnimating()
                     print(error)
                 }
             }
         }
+        
         if !urlString.isEmpty {
-            NetworkDataManager.shared.loadImage(urlString: urlString, completion: completion)
+            cell.activityIndicator.startAnimating()
+            DispatchQueue.global(qos: .utility).async {
+                NetworkDataManager.shared.loadImage(urlString: urlString, completion: completion)
+            }
         }
         return cell
     }

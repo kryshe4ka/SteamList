@@ -68,11 +68,9 @@ struct AppDetails: Codable {
 
 // MARK: - Genre
 struct Genre: Codable {
-//    let id: String?
     let genreDescription: String?
 
     enum CodingKeys: String, CodingKey {
-//        case id
         case genreDescription = "description"
     }
 }
@@ -99,24 +97,18 @@ struct PriceOverview: Codable {
 
 // MARK: - ReleaseDate
 struct ReleaseDate: Codable {
-//    let comingSoon: Bool?
     let date: String?
 
     enum CodingKeys: String, CodingKey {
-//        case comingSoon = "coming_soon"
         case date
     }
 }
 
 // MARK: - Screenshot
 struct Screenshot: Codable {
-//    let id: Int?
-//    let pathThumbnail: String?
     let pathFull: String?
 
     enum CodingKeys: String, CodingKey {
-//        case id
-//        case pathThumbnail = "path_thumbnail"
         case pathFull = "path_full"
     }
 }

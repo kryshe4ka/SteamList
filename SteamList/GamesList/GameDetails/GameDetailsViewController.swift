@@ -26,12 +26,22 @@ final class GameDetailsViewController: UIViewController {
         view = contentView
     }
     
+    var activityIndicator = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.activityIndicator = UIActivityIndicatorView(style: .white)
+        self.activityIndicator.frame = CGRect(x: 0, y: 0, width: 56, height: 56)
+        self.activityIndicator.hidesWhenStopped = true
+        contentView.headerImage.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
         contentView.backgroundColor = Colors.navBarBackground
         contentView.controller = self
         setUpNavigation()
-        
         getAppDetailsFromStorage(for: app)
         getAppDetails()
     }
@@ -80,12 +90,17 @@ final class GameDetailsViewController: UIViewController {
                 switch result {
                 case .success(let image):
                     self.contentView.headerImage.image = image
+                    self.activityIndicator.stopAnimating()
                 case .failure(let error):
+                    self.activityIndicator.stopAnimating()
                     print(error)
                 }
             }
         }
-        NetworkDataManager.shared.loadImage(urlString: url, completion: completion)
+        self.activityIndicator.startAnimating()
+        DispatchQueue.global(qos: .utility).async {
+            NetworkDataManager.shared.loadImage(urlString: url, completion: completion)
+        }
     }
     
     private func getAppDetails() {    
@@ -96,14 +111,11 @@ final class GameDetailsViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let object):
-                    
                     if object.decodedObject.success {
                         guard let detailsData = object.decodedObject.data else { return }
                         /// update data source and reload view
                         AppDataSource.shared.refreshData(appId: self.app.appid, appDetails: detailsData)
-                        
                         // тут обновить price и дискаунт
-                        // и наверное вызвать обновление данных у фаворитов
                         AppDataSource.shared.updateFavAppsData()
                         self.deleteAppDetailsFromStorage(appId: self.app.appid)
                         self.saveAppDetailsToStorage(appDetails: detailsData)
@@ -111,21 +123,11 @@ final class GameDetailsViewController: UIViewController {
                     } else {
                         print("Bad success = \(object.decodedObject.success)")
                     }
-                    // спрятать индикатор загрузки
-                    // тут -> ...
                 case .failure(let error):
-                    // спрятать индикатор загрузки
-                    // тут -> ...
-                    // повторить попытку загрузки, текущее значение попытки увеличить
-                    // если кол-во попыток исчерпано, то отобразить error alert
-                    // тут -> ...
                     print(error)
                 }
             }
         }
-        // отобразить индикатор загрузки
-        // тут -> ...
-        
         /// perform request on another queue
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
@@ -153,5 +155,4 @@ final class GameDetailsViewController: UIViewController {
             }
         }
     }
-
 }

@@ -46,7 +46,6 @@ final class GameDetailsContentView: UIView {
     
     lazy var headerImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "loadInd")
         imageView.contentMode = .scaleToFill
         return imageView
     }()

@@ -20,5 +20,4 @@ extension FavoriteEntity {
     @NSManaged public var name: String?
     @NSManaged public var price: String?
     @NSManaged public var haveDiscount: Bool
-
 }

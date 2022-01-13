@@ -22,7 +22,4 @@ extension AppNewsEntity {
     @NSManaged public var gid: String?
     @NSManaged public var title: String?
     @NSManaged public var appId: Int32
-    
-    @NSManaged public var app: AppEntity?
-
 }

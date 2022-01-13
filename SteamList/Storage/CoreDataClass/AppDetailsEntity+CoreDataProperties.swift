@@ -29,6 +29,4 @@ extension AppDetailsEntity {
     @NSManaged public var name: String?
     @NSManaged public var screenshots: [String]?
     @NSManaged public var genre: [String]?
-//    @NSManaged public var app: AppEntity?
-
 }

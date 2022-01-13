@@ -37,8 +37,6 @@ extension NetworkDataManager: NetworkManagerProtocol {
             case .success(let data):
                 DispatchQueue.main.async {
                     guard let downloadedImage = UIImage(data: data) else { return }
-                    // закешировать
-                    // передать картинку дальше
                     completion(.success(downloadedImage))
                 }
             }
