@@ -30,6 +30,10 @@ final class GamesListViewController: UIViewController {
             updateTable()
             needUpdateFavorites = false
         }
+        if AppDataSource.shared.needUpdateGamesList {
+            updateTable()
+            AppDataSource.shared.needUpdateGamesList = false
+        }
     }
     
     override func viewDidLoad() {
@@ -38,7 +42,7 @@ final class GamesListViewController: UIViewController {
         setUpNavigation()
         contentView.delegate.controller = self
         getAppsFromStorage()
-//        getApps()
+        getApps()
     }
     
     private func configureSearchController() {

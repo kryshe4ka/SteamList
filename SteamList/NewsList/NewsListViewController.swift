@@ -31,12 +31,9 @@ class NewsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if isBlurAnimatorActive {
             closeFilterView()
         }
-        
-//        filteredFavApps = AppDataSource.shared.favApps
         contentView.filterTableView.reloadData()
         getNewsFromStorage()
         getNews()
@@ -63,9 +60,9 @@ class NewsListViewController: UIViewController {
     }
     
     private func updateDataAndUI(news: [Newsitem]) {
-        for i in 0..<filteredFavApps.count {
+        for i in 0..<AppDataSource.shared.favApps.count {
             let newsArray = news.filter { newsitem in
-                newsitem.appid == filteredFavApps[i].appid
+                newsitem.appid == AppDataSource.shared.favApps[i].appid
             }
             AppDataSource.shared.favApps[i].news = newsArray
             filteredFavApps[i].news = newsArray
@@ -166,9 +163,6 @@ extension NewsListViewController {
             let tap = UITapGestureRecognizer(target: self, action: #selector(applyFilter))
             blurEffectView.addGestureRecognizer(tap)
             view.addSubview(blurEffectView)
-//            blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: { [blurEffectView] in
-//                blurEffectView.effect = UIBlurEffect(style: .light)
-//            })
             blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: {
                 blurEffectView.effect = UIBlurEffect(style: .light)
             })
@@ -191,7 +185,7 @@ extension NewsListViewController {
         contentView.filterView.removeFromSuperview()
     }
     
-    /// press save button
+    /// press "Save" button or tap around or press "Filter" bar button
     @objc private func applyFilter() {
         updateTable()
         closeFilterView()

@@ -31,8 +31,13 @@ final class FavsListTableViewDelegate: NSObject, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             /// Delete the row from the data source
-            CoreDataManager.shared.removeAppFromFavorites(app: AppDataSource.shared.favApps[indexPath.row])
+            let app = AppDataSource.shared.favApps[indexPath.row]
+            CoreDataManager.shared.removeAppFromFavorites(app: app)
             AppDataSource.shared.favApps.remove(at: indexPath.row)
+            if let index = AppDataSource.shared.apps.firstIndex(where: { $0.appid == app.appid }) {
+                AppDataSource.shared.apps[index].isFavorite = false
+            }
+            AppDataSource.shared.needUpdateGamesList = true
             /// Delete the row from the TableView
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -63,18 +68,6 @@ extension FavsListTableViewDelegate: UITableViewDataSource {
         }
         let price = app.price ?? "-"
         let haveDiscount = app.haveDiscount ?? false
-//        var price: String
-//        if let isFree = app.appDetails?.isFree, isFree {
-//            price = "Free"
-//        } else {
-//            price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
-//        }
-//        var haveDiscount = false
-//        if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
-//            price += " (-\(discount)%)"
-//            haveDiscount = true
-//        }
-        
         cell.update(name: app.name, price: price, haveDiscount: haveDiscount)
         return cell
     }

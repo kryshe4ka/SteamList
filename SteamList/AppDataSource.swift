@@ -24,6 +24,7 @@ class AppDataSource: DataSource {
     var apps: [AppElement] = []
     var needUpdateFavList = false
     var needUpdateNewsList = false
+    var needUpdateGamesList = false
     var currentSortKey = "name"
     var favApps: [AppElement] = []
     var news: [Newsitem] {
