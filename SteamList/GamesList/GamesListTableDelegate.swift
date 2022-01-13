@@ -57,14 +57,6 @@ extension GamesListTableViewDelegate: UITableViewDataSource {
         }
         let state = CellState(name: app.name, isFavorite: app.isFavorite!)
         cell.update(state: state)
-        
-//        // если игра в любимых, то установить картинку полной звезды
-//        if AppDataSource.shared.favApps содержит ячейку с id ячейки то  {
-//            cell.addTOFVrtBtn.setImage("-", forState: UIControlState.Normal)
-//        } else {
-//            cell.addTOFVrtBtn.setImage("+", forState: UIControlState.Normal)
-//        }
-        
         return cell
     }
 }

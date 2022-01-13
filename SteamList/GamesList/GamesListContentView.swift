@@ -27,19 +27,12 @@ final class GamesListContentView: UIView {
         return table
     }()
     
-//    lazy var topView: UIView = {
-//        let topView = UIView()
-//        topView.backgroundColor = .clear
-//        return topView
-//    }()
-    
     let delegate = GamesListTableViewDelegate()
     
     init() {
         super.init(frame: .zero)
         gamesListTableView.delegate = delegate
         gamesListTableView.dataSource = delegate
-//        addSubview(topView)
         addSubview(gamesListTableView)
         addConstraints()
         layer.insertSublayer(self.gradientLayer, at: 0)

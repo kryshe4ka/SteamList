@@ -327,7 +327,7 @@ extension GameDetailsContentView {
             return app.appid == self.appId
         }) {
             AppDataSource.shared.toggleFavorite(index: index, favoriteState: isFavorite)
-            self.controller?.delegate?.needUpdateFavorites = true
+            AppDataSource.shared.needUpdateGamesList = true
         }
     }
 }

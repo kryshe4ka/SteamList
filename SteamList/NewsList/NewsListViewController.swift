@@ -22,6 +22,7 @@ class NewsListViewController: UIViewController {
                 newsArray += news
             }
         }
+        newsArray.sort { $0.date! > $1.date! }
         return newsArray
     }
     
@@ -65,8 +66,9 @@ class NewsListViewController: UIViewController {
                 newsitem.appid == AppDataSource.shared.favApps[i].appid
             }
             AppDataSource.shared.favApps[i].news = newsArray
-            filteredFavApps[i].news = newsArray
         }
+        filteredFavApps = AppDataSource.shared.favApps
+
         DispatchQueue.main.async {
             self.updateTable()
         }
