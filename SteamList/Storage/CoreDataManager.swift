@@ -42,7 +42,6 @@ class CoreDataManager {
 }
 
 extension CoreDataManager: Storage {
-    
     func fetchApps(completion: @escaping (Result<[AppElement], Error>) -> Void) {
         do {
             try fetchedResultsController.performFetch()
@@ -85,20 +84,41 @@ extension CoreDataManager: Storage {
         }
         return apps
     }
+
+    func fetchAppDetails(appId: Int, completion: @escaping (Result<AppDetails?, Error>) -> Void) {
+        let fetchRequest: NSFetchRequest<AppDetailsEntity> = AppDetailsEntity.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "releaseDate", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try fetchedResultsController.performFetch()
+            guard let fetchedObjects = fetchedResultsController.fetchedObjects else { return }
+            let appDetailsEntity = fetchedObjects.first { appDetailsEntity in
+                appDetailsEntity.appId == appId
+            }
+            if appDetailsEntity != nil {
+                let appDetails = convertFromDBEntityToAppDetails(object: appDetailsEntity!)
+                completion(.success(appDetails))
+            } else {
+                return
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
     
-    func fetchAppDetails(appId: Int) -> AppDetails {
-        return AppDetails(
-            name: nil,
-            steamAppid: nil,
-            isFree: nil,
-            shortDescription: nil,
-            headerImage: nil,
-            priceOverview: nil,
-            platforms: nil,
-            genres: nil,
-            screenshots: nil,
-            releaseDate: nil
-        )
+    private func convertFromDBEntityToAppDetails(object: AppDetailsEntity) -> AppDetails? {
+        let platforms = Platforms(windows: object.windows, mac: object.mac, linux: object.linux)
+        var genres: [Genre] = []
+        object.genre?.forEach({ genreDescription in
+            genres.append(Genre(genreDescription: genreDescription))
+        })
+        var screenshots: [Screenshot] = []
+        object.screenshots?.forEach({ fullPath in
+            screenshots.append(Screenshot(pathFull: fullPath))
+        })
+        let detailsItem = AppDetails(name: object.name, steamAppid: Int(object.appId), isFree: object.isFree, shortDescription: object.shortdescription, headerImage: object.headerImage, priceOverview: PriceOverview(currency: "", initial: 0, priceOverviewFinal: 0, discountPercent: Int(object.discount), initialFormatted: "", finalFormatted: object.price), platforms: platforms, genres: genres, screenshots: screenshots, releaseDate: ReleaseDate(date: object.releaseDate))
+        return detailsItem
     }
 
     func fetchAppNews(app: AppElement, count: Int, completion: @escaping (Result<[Newsitem], Error>) -> Void) {
@@ -158,6 +178,19 @@ extension CoreDataManager: Storage {
     
     func deleteNews(completion: @escaping (Result<Bool, Error>) -> Void) {
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AppNewsEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+            completion(.success(true))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func deleteAppDetails(appId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AppDetailsEntity")
+        deleteFetch.predicate = NSPredicate(format: "appId == %d", appId)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         do {
             try managedContext.execute(deleteRequest)
@@ -270,6 +303,35 @@ extension CoreDataManager: Storage {
                 } catch {
                     completion(.failure(error))
                 }
+            }
+        }
+    }
+    
+    func saveAppDetails(_ appDetails: AppDetails, completion: @escaping (Result<Bool, Error>) -> Void) {
+        let detailsEntity = AppDetailsEntity(context: managedContext)
+        detailsEntity.price = appDetails.priceOverview?.finalFormatted ?? ""
+        detailsEntity.releaseDate = appDetails.releaseDate?.date ?? ""
+        detailsEntity.headerImage = appDetails.headerImage ?? ""
+        detailsEntity.shortdescription = appDetails.shortDescription
+        detailsEntity.isFree = appDetails.isFree ?? false
+        detailsEntity.linux = appDetails.platforms?.linux ?? false
+        detailsEntity.mac = appDetails.platforms?.mac ?? false
+        detailsEntity.windows = appDetails.platforms?.windows ?? false
+        detailsEntity.discount = Int32(appDetails.priceOverview?.discountPercent ?? 0)
+        detailsEntity.appId = Int32(appDetails.steamAppid ?? 0)
+        
+        detailsEntity.name = appDetails.name
+        // формируем массив строк жанров
+        detailsEntity.genre = appDetails.genres?.compactMap({ $0.genreDescription })
+        // формируем массив строк url скриншотов
+        detailsEntity.screenshots = appDetails.screenshots?.compactMap({ $0.pathFull })
+        
+        if managedContext.hasChanges {
+            do {
+                try managedContext.save()
+                completion(.success(true))
+            } catch {
+                completion(.failure(error))
             }
         }
     }

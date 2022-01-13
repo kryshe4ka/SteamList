@@ -22,7 +22,7 @@ extension AppEntity {
     @NSManaged public var haveDiscount: Bool
     @NSManaged public var price: String?
     @NSManaged public var news: NSOrderedSet?
-    @NSManaged public var details: AppDetailsEntity?
+//    @NSManaged public var details: AppDetailsEntity?
 //    @NSManaged var newsArray: [Newsitem]?
 
 }

@@ -32,10 +32,21 @@ final class GameDetailsViewController: UIViewController {
         contentView.controller = self
         setUpNavigation()
         
-        if app.appDetails != nil {
-            updateContentViewWith(appDetails: app.appDetails!)
-        } else {
-            getAppDetails()
+        getAppDetailsFromStorage(for: app)
+        getAppDetails()
+    }
+    
+    private func getAppDetailsFromStorage(for app: AppElement) {
+        CoreDataManager.shared.fetchAppDetails(appId: app.appid) { result in
+            switch result {
+            case .success(let appDetails):
+                if let appDetails = appDetails {
+                    self.app.appDetails = appDetails
+                    self.updateContentViewWith(appDetails: appDetails)
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
@@ -50,7 +61,7 @@ final class GameDetailsViewController: UIViewController {
             screenshot.pathFull
         })
         
-        let detailsState = Details(appId: appDetails.steamAppid ?? 0, headerImageUrl: appDetails.headerImage ?? "", title: appDetails.name ?? "Unknown", isFavorite: app.isFavorite!, isFree: appDetails.isFree ?? false, date: appDetails.releaseDate?.date ?? "-", price: appDetails.priceOverview?.finalFormatted ?? "$0.00", linux: appDetails.platforms?.linux ?? false, windows: appDetails.platforms?.windows ?? false, mac: appDetails.platforms?.mac ?? false, tags: tagsArray ?? ["Other"], screenshotsUrl: screenshotsArray ?? [], description: appDetails.shortDescription ?? "Unknown")
+        let detailsState = Details(appId: appDetails.steamAppid ?? 0, headerImageUrl: appDetails.headerImage ?? "", title: appDetails.name ?? "Unknown", isFavorite: app.isFavorite!, isFree: appDetails.isFree ?? false, date: appDetails.releaseDate?.date ?? "-", price: appDetails.priceOverview?.finalFormatted ?? "Unknown", linux: appDetails.platforms?.linux ?? false, windows: appDetails.platforms?.windows ?? false, mac: appDetails.platforms?.mac ?? false, tags: tagsArray ?? ["Other"], screenshotsUrl: screenshotsArray ?? [], description: appDetails.shortDescription ?? "Unknown")
 
         self.contentView.update(details: detailsState)
         /// load header image if url exist
@@ -96,8 +107,8 @@ final class GameDetailsViewController: UIViewController {
                         // тут обновить price и дискаунт
                         // и наверное вызвать обновление данных у фаворитов
                         AppDataSource.shared.updateFavAppsData()
-                        
-                        
+                        self.deleteAppDetailsFromStorage(appId: self.app.appid)
+                        self.saveAppDetailsToStorage(appDetails: detailsData)
                         self.updateContentViewWith(appDetails: detailsData)
                     } else {
                         print("Bad success = \(object.decodedObject.success)")
@@ -122,4 +133,27 @@ final class GameDetailsViewController: UIViewController {
             NetworkDataManager.shared.get(request: request, completion: completion)
         }
     }
+    
+    private func saveAppDetailsToStorage(appDetails: AppDetails) {
+        CoreDataManager.shared.saveAppDetails(appDetails) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("сохранили детали")
+            }
+        }
+    }
+    
+    private func deleteAppDetailsFromStorage(appId: Int) {
+        CoreDataManager.shared.deleteAppDetails(appId: appId) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("удалили детали")
+            }
+        }
+    }
+
 }

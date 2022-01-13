@@ -13,9 +13,10 @@ protocol Storage {
     func deleteApps(completion: @escaping (Result<Bool, Error>) -> Void)
 
     
-    func fetchAppDetails(appId: Int) -> AppDetails
+//    func fetchAppDetails(appId: Int) -> AppDetails
 //    func fetchAppNews(appId: Int, count: Int, completion: @escaping (Result<[Newsitem], Error>) -> Void) 
-//    func fetchAppDetails(appId: Int, completion: @escaping (Result<[AppDetails], Error>) -> Void)
+   
+    func fetchAppDetails(appId: Int, completion: @escaping (Result<AppDetails?, Error>) -> Void)
     
     
 //    func fetchNews(app: AppElement) -> [Newsitem]
