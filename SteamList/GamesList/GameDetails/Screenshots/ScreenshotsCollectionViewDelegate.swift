@@ -54,7 +54,6 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
                 }
             }
         }
-        
         if !urlString.isEmpty {
             cell.activityIndicator.startAnimating()
             DispatchQueue.global(qos: .utility).async {

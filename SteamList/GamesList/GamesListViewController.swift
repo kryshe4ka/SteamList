@@ -38,6 +38,8 @@ final class GamesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         configureSearchController()
         setUpNavigation()
         contentView.delegate.controller = self
