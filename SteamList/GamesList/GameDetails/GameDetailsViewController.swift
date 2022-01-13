@@ -55,12 +55,10 @@ final class GameDetailsViewController: UIViewController {
         tagsArray = appDetails.genres?.compactMap({ genre in
             genre.genreDescription
         })
-        
         var screenshotsArray: [String]?
         screenshotsArray = appDetails.screenshots?.compactMap({ screenshot in
             screenshot.pathFull
         })
-        
         let detailsState = Details(appId: appDetails.steamAppid ?? 0, headerImageUrl: appDetails.headerImage ?? "", title: appDetails.name ?? "Unknown", isFavorite: app.isFavorite!, isFree: appDetails.isFree ?? false, date: appDetails.releaseDate?.date ?? "-", price: appDetails.priceOverview?.finalFormatted ?? "Unknown", linux: appDetails.platforms?.linux ?? false, windows: appDetails.platforms?.windows ?? false, mac: appDetails.platforms?.mac ?? false, tags: tagsArray ?? ["Other"], screenshotsUrl: screenshotsArray ?? [], description: appDetails.shortDescription ?? "Unknown")
 
         self.contentView.update(details: detailsState)

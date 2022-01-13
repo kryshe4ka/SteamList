@@ -12,7 +12,7 @@ class NewsShortDescriptionView: UIView {
         
     private let appNameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.font = Font.regulareSystemFont
+        nameLabel.font = Font.smallSystemFont
         nameLabel.textColor = Colors.content
         nameLabel.text = "-"
         return nameLabel
@@ -29,7 +29,7 @@ class NewsShortDescriptionView: UIView {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.regulareSystemFont
+        label.font = Font.smallSystemFont
         label.textColor = Colors.content
         return label
     }()

@@ -39,10 +39,12 @@ enum Colors {
 }
 
 enum Font {
-    static let boldSystemFont = UIFont.boldSystemFont(ofSize: 16)
+    static let boldSystemFont = UIFont.boldSystemFont(ofSize: 18)
     static let boldTitleFont = UIFont.boldSystemFont(ofSize: 24)
-    static let regulareSystemFont = UIFont.systemFont(ofSize: 14)
+    static let regulareSystemFont = UIFont.systemFont(ofSize: 16)
     static let italicSystemFont = UIFont.italicSystemFont(ofSize: 14)
+    static let smallSystemFont = UIFont.systemFont(ofSize: 14)
+
 }
 
 enum Offset {

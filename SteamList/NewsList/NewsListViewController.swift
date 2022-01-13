@@ -31,7 +31,12 @@ class NewsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        filteredFavApps = AppDataSource.shared.favApps
+        
+        if isBlurAnimatorActive {
+            closeFilterView()
+        }
+        
+//        filteredFavApps = AppDataSource.shared.favApps
         contentView.filterTableView.reloadData()
         getNewsFromStorage()
         getNews()
@@ -71,19 +76,16 @@ class NewsListViewController: UIViewController {
     }
         
     private func getNews() {
-//        let group = DispatchGroup()
         let apps = AppDataSource.shared.favApps
         apps.forEach { app in
             group.enter()
             getNews(app: app, group: group)
         }
-        
         group.notify(queue: .global()) {
             let news = AppDataSource.shared.news
             self.deleteNewsFromStorage()
             self.saveNewsToStorage(news: news)
         }
-        
         group.notify(queue: .main) {
             self.updateTable()
         }
@@ -161,10 +163,13 @@ extension NewsListViewController {
             blurEffectView.frame = view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             /// add tap to close filter window
-            let tap = UITapGestureRecognizer(target: self, action: #selector(closeFilterView))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(applyFilter))
             blurEffectView.addGestureRecognizer(tap)
             view.addSubview(blurEffectView)
-            blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: { [blurEffectView] in
+//            blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: { [blurEffectView] in
+//                blurEffectView.effect = UIBlurEffect(style: .light)
+//            })
+            blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: {
                 blurEffectView.effect = UIBlurEffect(style: .light)
             })
             blurAnimator.fractionComplete = 0.15
@@ -172,7 +177,7 @@ extension NewsListViewController {
             contentView.addSubview(contentView.filterView)
             contentView.addConstraintsToFilterView()
         } else {
-            closeFilterView()
+            applyFilter()
         }
     }
     

@@ -38,7 +38,7 @@ final class GamesListViewController: UIViewController {
         setUpNavigation()
         contentView.delegate.controller = self
         getAppsFromStorage()
-        getApps()
+//        getApps()
     }
     
     private func configureSearchController() {

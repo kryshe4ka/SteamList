@@ -118,6 +118,8 @@ final class GameDetailsContentView: UIView {
     private let tagsLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.content
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
@@ -229,8 +231,8 @@ final class GameDetailsContentView: UIView {
         }
         
         tagsLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(10)
         }
         
         priceLabel.snp.makeConstraints { make in
@@ -285,7 +287,7 @@ extension GameDetailsContentView {
         screenshotsCollection.dataSource = delegate
         delegate?.controller = self.controller
         titleLabel.text = details.title
-        tagsLabel.text = details.tags.joined(separator: " ")
+        tagsLabel.text = details.tags.joined(separator: "    ")
         dateLabel.text = details.date.toEnDateFormat
         descriptionLabel.text = details.description
         setFavoriteButtonState(isFavorite: details.isFavorite)
@@ -325,7 +327,6 @@ extension GameDetailsContentView {
             return app.appid == self.appId
         }) {
             AppDataSource.shared.toggleFavorite(index: index, favoriteState: isFavorite)
-            // а еще нужно обновить таблицу (значение уже установлено)
             self.controller?.delegate?.needUpdateFavorites = true
         }
     }

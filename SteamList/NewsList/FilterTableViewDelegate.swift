@@ -44,7 +44,14 @@ extension FilterTableViewDelegate: UITableViewDataSource {
         if AppDataSource.shared.favApps.isEmpty { return cell }
         let app = AppDataSource.shared.favApps[indexPath.row]
         cell.update(name: app.name)
-        cell.accessoryType = .checkmark
+        
+        guard let controller = controller else { return cell }
+        if controller.filteredFavApps.contains(where: { $0.appid == app.appid }) {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
         return cell
     }
 }

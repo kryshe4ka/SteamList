@@ -23,8 +23,15 @@ final class GamesListContentView: UIView {
     let gamesListTableView: TableView = {
         let table = TableView()
         table.register(GamesListTableViewCell.self, forCellReuseIdentifier: GamesListTableViewCell.reuseIdentifier)
+        table.backgroundColor = .clear
         return table
     }()
+    
+//    lazy var topView: UIView = {
+//        let topView = UIView()
+//        topView.backgroundColor = .clear
+//        return topView
+//    }()
     
     let delegate = GamesListTableViewDelegate()
     
@@ -32,6 +39,7 @@ final class GamesListContentView: UIView {
         super.init(frame: .zero)
         gamesListTableView.delegate = delegate
         gamesListTableView.dataSource = delegate
+//        addSubview(topView)
         addSubview(gamesListTableView)
         addConstraints()
         layer.insertSublayer(self.gradientLayer, at: 0)

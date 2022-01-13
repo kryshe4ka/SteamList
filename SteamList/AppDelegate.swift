@@ -48,13 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        // UINavigationBar Appearance
+        /// UINavigationBar Appearance
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = Colors.navBarBackground
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.content]
         UINavigationBar.appearance().tintColor = Colors.content
-        
         let window = UIWindow()
         window.backgroundColor = Colors.navBarBackground
         window.rootViewController = tabBarController

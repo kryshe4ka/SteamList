@@ -13,7 +13,7 @@ final class FavsListTtableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.font = Font.boldSystemFont
+        nameLabel.font = Font.regulareSystemFont
         nameLabel.textColor = Colors.content
         return nameLabel
     }()

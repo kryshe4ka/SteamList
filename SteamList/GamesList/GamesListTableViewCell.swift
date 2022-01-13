@@ -23,7 +23,7 @@ final class GamesListTableViewCell: UITableViewCell {
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = Font.boldSystemFont
+        nameLabel.font = Font.regulareSystemFont
         nameLabel.textColor = Colors.content
         return nameLabel
     }()

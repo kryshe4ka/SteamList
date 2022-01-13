@@ -51,11 +51,18 @@ class NewsListContentView: UIView {
         return filterTableView
     }()
     
+    lazy var topView: UIView = {
+        let topView = UIView()
+        topView.backgroundColor = .clear
+        return topView
+    }()
+    
     init() {
         super.init(frame: .zero)
         layer.insertSublayer(self.gradientLayer, at: 0)
         newsListTableView.delegate = delegate
         newsListTableView.dataSource = delegate
+        addSubview(topView)
         addSubview(newsListTableView)
         filterView.addSubview(saveButton)
         filterTableView.delegate = filterDelegate
