@@ -41,7 +41,11 @@ struct DataClass: Codable {
 }
 
 // MARK: - DataClass
-struct AppDetails: Codable {
+struct AppDetails: Codable, Equatable {
+    static func == (lhs: AppDetails, rhs: AppDetails) -> Bool {
+        lhs.steamAppid == rhs.steamAppid
+    }
+    
     let name: String?
     let steamAppid: Int?
     let isFree: Bool?

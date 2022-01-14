@@ -17,6 +17,10 @@
 		3D0F23F5278351BF00AD83AE /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23F4278351BF00AD83AE /* FilterTableViewCell.swift */; };
 		3D0F2400278D6CF700AD83AE /* AppNewsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23FE278D6CF700AD83AE /* AppNewsEntity+CoreDataClass.swift */; };
 		3D0F2401278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23FF278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift */; };
+		3D0F24082791B15500AD83AE /* Mocker in Frameworks */ = {isa = PBXBuildFile; productRef = 3D0F24072791B15500AD83AE /* Mocker */; };
+		3D0F240C2791DFE500AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
+		3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
+		3D0F24102791E49300AD83AE /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 3D0F240F2791E49300AD83AE /* SwiftyJSON */; };
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
@@ -89,6 +93,7 @@
 		3D0F23F4278351BF00AD83AE /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		3D0F23FE278D6CF700AD83AE /* AppNewsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNewsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3D0F23FF278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNewsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3D0F240A2791B5D000AD83AE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
@@ -140,8 +145,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */,
 				3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */,
 				3D3456712769DB47005AC30F /* SnapKit in Frameworks */,
+				3D0F24102791E49300AD83AE /* SwiftyJSON in Frameworks */,
+				3D0F24082791B15500AD83AE /* Mocker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0F240C2791DFE500AD83AE /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +184,14 @@
 				3D0F23E9278310EC00AD83AE /* FavoriteEntity+CoreDataProperties.swift */,
 			);
 			path = CoreDataClass;
+			sourceTree = "<group>";
+		};
+		3D0F24092791B5D000AD83AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D0F240A2791B5D000AD83AE /* XCTest.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3D34565627636BC0005AC30F /* Resourses */ = {
@@ -271,6 +288,7 @@
 				3DC02A652761DEF6002F0028 /* SteamListTests */,
 				3DC02A6F2761DEF6002F0028 /* SteamListUITests */,
 				3DC02A4A2761DEF4002F0028 /* Products */,
+				3D0F24092791B5D000AD83AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -369,6 +387,8 @@
 			packageProductDependencies = (
 				3DC02A802761E9AA002F0028 /* Alamofire */,
 				3D3456702769DB47005AC30F /* SnapKit */,
+				3D0F24072791B15500AD83AE /* Mocker */,
+				3D0F240F2791E49300AD83AE /* SwiftyJSON */,
 			);
 			productName = SteamList;
 			productReference = 3DC02A492761DEF4002F0028 /* SteamList.app */;
@@ -445,6 +465,8 @@
 			packageReferences = (
 				3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3D0F24062791B15500AD83AE /* XCRemoteSwiftPackageReference "Mocker" */,
+				3D0F240E2791E49300AD83AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 3DC02A4A2761DEF4002F0028 /* Products */;
 			projectDirPath = "";
@@ -717,6 +739,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-weak_framework",
+					"\"XCTest\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kryshe4ka.SteamList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -746,6 +772,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-weak_framework",
+					"\"XCTest\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kryshe4ka.SteamList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -892,6 +922,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3D0F24062791B15500AD83AE /* XCRemoteSwiftPackageReference "Mocker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WeTransfer/Mocker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		3D0F240E2791E49300AD83AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -911,6 +957,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3D0F24072791B15500AD83AE /* Mocker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D0F24062791B15500AD83AE /* XCRemoteSwiftPackageReference "Mocker" */;
+			productName = Mocker;
+		};
+		3D0F240F2791E49300AD83AE /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D0F240E2791E49300AD83AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
 		3D3456702769DB47005AC30F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */;

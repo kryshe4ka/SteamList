@@ -9,27 +9,35 @@ import UIKit
 import Alamofire
 
 class NetworkDataManager: NSObject {
-    static let shared = NetworkDataManager()
+//    static let shared = NetworkDataManager()
+    static let shared = NetworkDataManager(configuration: URLSessionConfiguration.af.default)
     let session: Session
     
-    override init() {
-        self.session = Session()
+    init(configuration: URLSessionConfiguration) {
+//        self.session = Session()
+        self.session = Session(configuration: configuration)
         super.init()
     }
     
-    static func request(_ convertible: URLRequestConvertible) -> DataRequest {
-        shared.session.request(convertible).validate()
+    func request(_ convertible: URLRequestConvertible) -> DataRequest {
+        session.request(convertible).validate()
     }
     
-    static func download(_ url: String) -> DownloadRequest {
-        shared.session.download(url).validate()
+    func download(_ url: String) -> DownloadRequest {
+        session.download(url).validate()
     }
+    
+//    static func request(_ convertible: URLRequestConvertible) -> DataRequest {
+//        shared.session.request(convertible).validate()
+//    }
+//    static func download(_ url: String) -> DownloadRequest {
+//        shared.session.download(url).validate()
+//    }
 }
 
 extension NetworkDataManager: NetworkManagerProtocol {
-    
     func loadImage(urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        NetworkDataManager.download(urlString).responseData { response in
+        NetworkDataManager.shared.download(urlString).responseData { response in
             switch response.result {
             case .failure(let error):
                 print("Error while fetching the image: \(error)")
@@ -44,7 +52,7 @@ extension NetworkDataManager: NetworkManagerProtocol {
     }
 
     func get<T: Decodable>(request: URLRequestConvertible, completion: @escaping (Result<T, Error>) -> Void) {
-        NetworkDataManager.request(request).responseDecodable(of: T.self)
+        NetworkDataManager.shared.request(request).responseDecodable(of: T.self)
         { response in
             switch response.result {
             case .success(let responseObjects):

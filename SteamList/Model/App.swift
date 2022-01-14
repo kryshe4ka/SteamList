@@ -8,17 +8,25 @@
 import Foundation
 
 // MARK: - App
-struct App: Decodable {
+struct App: Codable, Equatable {
+    static func == (lhs: App, rhs: App) -> Bool {
+        lhs.applist.apps == rhs.applist.apps
+    }
+    
     let applist: Applist
 }
 
 // MARK: - Applist
-struct Applist: Decodable {
+struct Applist: Codable {
     let apps: [AppElement]
 }
 
 // MARK: - AppElement
-struct AppElement: Decodable {
+struct AppElement: Codable, Equatable {
+    static func == (lhs: AppElement, rhs: AppElement) -> Bool {
+        lhs.appid == rhs.appid
+    }
+    
     let appid: Int
     let name: String
     var isFavorite: Bool? = false
