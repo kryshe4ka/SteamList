@@ -8,7 +8,13 @@
 import Foundation
 
 // MARK: - App
-struct AppNews: Codable {
+struct AppNews: Codable, Equatable {
+    static func == (lhs: AppNews, rhs: AppNews) -> Bool {
+        lhs.appnews?.appid == rhs.appnews?.appid &&
+        lhs.appnews?.newsitems == rhs.appnews?.newsitems &&
+        lhs.appnews?.count == rhs.appnews?.count
+    }
+    
     let appnews: Appnews?
 }
 

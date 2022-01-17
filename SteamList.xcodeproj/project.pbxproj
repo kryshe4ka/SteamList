@@ -21,6 +21,7 @@
 		3D0F240C2791DFE500AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
 		3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
 		3D0F24102791E49300AD83AE /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 3D0F240F2791E49300AD83AE /* SwiftyJSON */; };
+		3D0F24122792C51600AD83AE /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F24112792C51600AD83AE /* MockedData.swift */; };
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
@@ -94,6 +95,7 @@
 		3D0F23FE278D6CF700AD83AE /* AppNewsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNewsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3D0F23FF278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNewsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3D0F240A2791B5D000AD83AE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		3D0F24112792C51600AD83AE /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				3DC02A662761DEF6002F0028 /* SteamListTests.swift */,
+				3D0F24112792C51600AD83AE /* MockedData.swift */,
 			);
 			path = SteamListTests;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC02A672761DEF6002F0028 /* SteamListTests.swift in Sources */,
+				3D0F24122792C51600AD83AE /* MockedData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
