@@ -3,7 +3,7 @@
     <entity name="AppDetailsEntity" representedClassName="AppDetailsEntity" syncable="YES">
         <attribute name="appId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="discount" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="genre" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="genre" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="headerImage" optional="YES" attributeType="String"/>
         <attribute name="isFree" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="linux" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -11,7 +11,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="releaseDate" optional="YES" attributeType="String"/>
-        <attribute name="screenshots" optional="YES" attributeType="Transformable" customClassName="[String]?"/>
+        <attribute name="screenshots" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]?"/>
         <attribute name="shortdescription" optional="YES" attributeType="String"/>
         <attribute name="windows" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>

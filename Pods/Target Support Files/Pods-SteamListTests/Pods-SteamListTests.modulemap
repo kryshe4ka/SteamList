@@ -1,0 +1,6 @@
+framework module Pods_SteamListTests {
+  umbrella header "Pods-SteamListTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

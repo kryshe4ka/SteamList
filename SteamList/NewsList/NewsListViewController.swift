@@ -54,8 +54,8 @@ class NewsListViewController: UIViewController {
             switch result {
             case .success(let news):
                 self.updateDataAndUI(news: news)
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to update data from local storage", presenter: self)
             }
         }
     }
@@ -100,8 +100,8 @@ class NewsListViewController: UIViewController {
                     self.updateData(newsItems: newsItems, appId: app.appid)
                 }
                 group.leave()
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to update data from internet. Please try again later...", presenter: self)
                 group.leave()
             }
         }
@@ -113,10 +113,10 @@ class NewsListViewController: UIViewController {
     private func saveNewsToStorage(news: [Newsitem]) {
         CoreDataManager.shared.saveNews(news) { result in
             switch result {
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to save data to local storage", presenter: self)
             case .success(_):
-                print("Success saving")
+                print("SaveNewsToStorage: success")
             }
         }
     }
@@ -124,10 +124,10 @@ class NewsListViewController: UIViewController {
     private func deleteNewsFromStorage() {
         CoreDataManager.shared.deleteNews { result in
             switch result {
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to delete data from local storage", presenter: self)
             case .success(_):
-                print("Success deleting")
+                print("DeleteNewsFromStorage: success")
             }
         }
     }

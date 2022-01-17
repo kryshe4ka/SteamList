@@ -83,8 +83,8 @@ final class GamesListViewController: UIViewController {
                 self.deleteAppsFromStorage()
                 self.saveAppsToStorage(apps: app.applist.apps)
                 self.updateDataAndUI(apps: app.applist.apps)
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to update data from internet. Please try again later...", presenter: self)
             }
         }
         DispatchQueue.global(qos: .utility).async {
@@ -102,8 +102,8 @@ final class GamesListViewController: UIViewController {
             case .success(let apps):
                 self.updateDataSource(apps: apps)
                 self.updateTable()
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to update data from local storage. Please try again later...", presenter: self)
             }
         }
     }

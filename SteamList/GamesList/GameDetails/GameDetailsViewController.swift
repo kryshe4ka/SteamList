@@ -25,20 +25,9 @@ final class GameDetailsViewController: UIViewController {
     override func loadView() {
         view = contentView
     }
-    
-    var activityIndicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.activityIndicator = UIActivityIndicatorView(style: .white)
-        self.activityIndicator.frame = CGRect(x: 0, y: 0, width: 56, height: 56)
-        self.activityIndicator.hidesWhenStopped = true
-        contentView.headerImage.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        
         contentView.backgroundColor = Colors.navBarBackground
         contentView.controller = self
         setUpNavigation()
@@ -54,8 +43,8 @@ final class GameDetailsViewController: UIViewController {
                     self.app.appDetails = appDetails
                     self.updateContentViewWith(appDetails: appDetails)
                 }
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to update data from local storage", presenter: self)
             }
         }
     }
@@ -90,14 +79,14 @@ final class GameDetailsViewController: UIViewController {
                 switch result {
                 case .success(let image):
                     self.contentView.headerImage.image = image
-                    self.activityIndicator.stopAnimating()
-                case .failure(let error):
-                    self.activityIndicator.stopAnimating()
-                    print(error)
+                    self.contentView.activityIndicator.stopAnimating()
+                case .failure(_):
+                    self.contentView.activityIndicator.stopAnimating()
+                    ErrorHandler.showErrorAlert(with: "Failed to load image from internet. Please try again later...", presenter: self)
                 }
             }
         }
-        self.activityIndicator.startAnimating()
+        self.contentView.activityIndicator.startAnimating()
         DispatchQueue.global(qos: .utility).async {
             NetworkDataManager.shared.loadImage(urlString: url, completion: completion)
         }
@@ -107,7 +96,6 @@ final class GameDetailsViewController: UIViewController {
         let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
-            // обновляем UI на главной очереди
             DispatchQueue.main.async {
                 switch result {
                 case .success(let object):
@@ -123,8 +111,8 @@ final class GameDetailsViewController: UIViewController {
                     } else {
                         print("Bad success = \(object.decodedObject.success)")
                     }
-                case .failure(let error):
-                    print(error)
+                case .failure(_):
+                    ErrorHandler.showErrorAlert(with: "Failed to update data from internet. Please try again later...", presenter: self)
                 }
             }
         }
@@ -137,10 +125,10 @@ final class GameDetailsViewController: UIViewController {
     private func saveAppDetailsToStorage(appDetails: AppDetails) {
         CoreDataManager.shared.saveAppDetails(appDetails) { result in
             switch result {
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to save data to local storage", presenter: self)
             case .success(_):
-                print("сохранили детали")
+                print("SaveAppDetailsToStorage: success")
             }
         }
     }
@@ -148,10 +136,10 @@ final class GameDetailsViewController: UIViewController {
     private func deleteAppDetailsFromStorage(appId: Int) {
         CoreDataManager.shared.deleteAppDetails(appId: appId) { result in
             switch result {
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                ErrorHandler.showErrorAlert(with: "Failed to delete data from local storage", presenter: self)
             case .success(_):
-                print("удалили детали")
+                print("DeleteAppDetailsFromStorage: success")
             }
         }
     }

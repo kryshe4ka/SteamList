@@ -72,13 +72,11 @@ final class FavsListViewController: UIViewController {
     @objc func showSortOptions(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Choose your option", message: nil, preferredStyle: .actionSheet)
         let titleAlertAction = UIAlertAction(title: "Sort by Title", style: .default) { [weak self] _ in
-            print("Sort by Title")
             AppDataSource.shared.currentSortKey = "name"
             AppDataSource.shared.updateFavAppsData()
             self!.contentView.favsListTableView.reloadData()
         }
         let priceAlertAction = UIAlertAction(title: "Sort by Price", style: .default) { [weak self] _ in
-            print("Sort by Price")
             AppDataSource.shared.currentSortKey = "price"
             AppDataSource.shared.updateFavAppsData()
             self!.contentView.favsListTableView.reloadData()

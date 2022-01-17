@@ -17,11 +17,10 @@
 		3D0F23F5278351BF00AD83AE /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23F4278351BF00AD83AE /* FilterTableViewCell.swift */; };
 		3D0F2400278D6CF700AD83AE /* AppNewsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23FE278D6CF700AD83AE /* AppNewsEntity+CoreDataClass.swift */; };
 		3D0F2401278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F23FF278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift */; };
-		3D0F24082791B15500AD83AE /* Mocker in Frameworks */ = {isa = PBXBuildFile; productRef = 3D0F24072791B15500AD83AE /* Mocker */; };
 		3D0F240C2791DFE500AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
 		3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
-		3D0F24102791E49300AD83AE /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 3D0F240F2791E49300AD83AE /* SwiftyJSON */; };
 		3D0F24122792C51600AD83AE /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F24112792C51600AD83AE /* MockedData.swift */; };
+		3D0F2414279565E600AD83AE /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F2413279565E600AD83AE /* ErrorHandler.swift */; };
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
@@ -34,7 +33,6 @@
 		3D34566A27679777005AC30F /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34566927679777005AC30F /* TableView.swift */; };
 		3D34566C27687D46005AC30F /* GameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34566B27687D46005AC30F /* GameDetailsViewController.swift */; };
 		3D34566E2768E1EF005AC30F /* GameDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34566D2768E1EF005AC30F /* GameDetailsContentView.swift */; };
-		3D3456712769DB47005AC30F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D3456702769DB47005AC30F /* SnapKit */; };
 		3D345673276A23C3005AC30F /* NewsListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D345672276A23C3005AC30F /* NewsListContentView.swift */; };
 		3D345677276C6F62005AC30F /* ScreenshotsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D345676276C6F62005AC30F /* ScreenshotsCollectionViewCell.swift */; };
 		3D345679276C7030005AC30F /* ScreenshotsCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D345678276C7030005AC30F /* ScreenshotsCollectionViewDelegate.swift */; };
@@ -51,7 +49,6 @@
 		3DC02A672761DEF6002F0028 /* SteamListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A662761DEF6002F0028 /* SteamListTests.swift */; };
 		3DC02A712761DEF6002F0028 /* SteamListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A702761DEF6002F0028 /* SteamListUITests.swift */; };
 		3DC02A732761DEF6002F0028 /* SteamListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */; };
-		3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3DC02A802761E9AA002F0028 /* Alamofire */; };
 		3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */; };
 		3DC02A852761F7B7002F0028 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A842761F7B7002F0028 /* NetworkDataManager.swift */; };
 		3DC02A872761F990002F0028 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A862761F990002F0028 /* APIRouter.swift */; };
@@ -84,6 +81,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02A359942735B13103FFD41D /* Pods-SteamListUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListUITests.release.xcconfig"; path = "Target Support Files/Pods-SteamListUITests/Pods-SteamListUITests.release.xcconfig"; sourceTree = "<group>"; };
+		05CA7B405B017FA965672A37 /* Pods-SteamList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList.release.xcconfig"; path = "Target Support Files/Pods-SteamList/Pods-SteamList.release.xcconfig"; sourceTree = "<group>"; };
+		08BC56642A9AB139795B5FF5 /* Pods-SteamListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListTests.release.xcconfig"; path = "Target Support Files/Pods-SteamListTests/Pods-SteamListTests.release.xcconfig"; sourceTree = "<group>"; };
+		367D2F4B69A7AF1D25B4BE85 /* Pods-SteamListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListUITests.debug.xcconfig"; path = "Target Support Files/Pods-SteamListUITests/Pods-SteamListUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D0F23E2278310EC00AD83AE /* AppEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3D0F23E3278310EC00AD83AE /* AppEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3D0F23E6278310EC00AD83AE /* AppDetailsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDetailsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		3D0F23FF278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNewsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3D0F240A2791B5D000AD83AE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3D0F24112792C51600AD83AE /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
+		3D0F2413279565E600AD83AE /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,10 @@
 		3DC02AA727624420002F0028 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3DC02AA927624518002F0028 /* FavsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavsListViewController.swift; sourceTree = "<group>"; };
 		3DC02AAB2762454C002F0028 /* NewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
+		991A9628E65D223ADBA7C837 /* Pods-SteamListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListTests.debug.xcconfig"; path = "Target Support Files/Pods-SteamListTests/Pods-SteamListTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AA0073D4A94EEE48FBC9E59F /* Pods-SteamList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList.debug.xcconfig"; path = "Target Support Files/Pods-SteamList/Pods-SteamList.debug.xcconfig"; sourceTree = "<group>"; };
+		C37197D9D1581E8BBC2E9BCC /* Pods-SteamList-SteamListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList-SteamListUITests.debug.xcconfig"; path = "Target Support Files/Pods-SteamList-SteamListUITests/Pods-SteamList-SteamListUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DA356EC3F1D7C38ABA45CAF4 /* Pods-SteamList-SteamListUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList-SteamListUITests.release.xcconfig"; path = "Target Support Files/Pods-SteamList-SteamListUITests/Pods-SteamList-SteamListUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,10 +154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */,
-				3DC02A812761E9AA002F0028 /* Alamofire in Frameworks */,
-				3D3456712769DB47005AC30F /* SnapKit in Frameworks */,
-				3D0F24102791E49300AD83AE /* SwiftyJSON in Frameworks */,
-				3D0F24082791B15500AD83AE /* Mocker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				3D34566927679777005AC30F /* TableView.swift */,
+				3D0F2413279565E600AD83AE /* ErrorHandler.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				3DC02A6F2761DEF6002F0028 /* SteamListUITests */,
 				3DC02A4A2761DEF4002F0028 /* Products */,
 				3D0F24092791B5D000AD83AE /* Frameworks */,
+				EDCC5ED04860E9B2D1CBADE1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -371,6 +375,21 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		EDCC5ED04860E9B2D1CBADE1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C37197D9D1581E8BBC2E9BCC /* Pods-SteamList-SteamListUITests.debug.xcconfig */,
+				DA356EC3F1D7C38ABA45CAF4 /* Pods-SteamList-SteamListUITests.release.xcconfig */,
+				991A9628E65D223ADBA7C837 /* Pods-SteamListTests.debug.xcconfig */,
+				08BC56642A9AB139795B5FF5 /* Pods-SteamListTests.release.xcconfig */,
+				367D2F4B69A7AF1D25B4BE85 /* Pods-SteamListUITests.debug.xcconfig */,
+				02A359942735B13103FFD41D /* Pods-SteamListUITests.release.xcconfig */,
+				AA0073D4A94EEE48FBC9E59F /* Pods-SteamList.debug.xcconfig */,
+				05CA7B405B017FA965672A37 /* Pods-SteamList.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -378,21 +397,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3DC02A762761DEF6002F0028 /* Build configuration list for PBXNativeTarget "SteamList" */;
 			buildPhases = (
+				A023E8D591162DBD6B747505 /* [CP] Check Pods Manifest.lock */,
 				3DC02A452761DEF4002F0028 /* Sources */,
 				3DC02A462761DEF4002F0028 /* Frameworks */,
 				3DC02A472761DEF4002F0028 /* Resources */,
+				7061039D5FCB4EB9A84B4CCE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SteamList;
-			packageProductDependencies = (
-				3DC02A802761E9AA002F0028 /* Alamofire */,
-				3D3456702769DB47005AC30F /* SnapKit */,
-				3D0F24072791B15500AD83AE /* Mocker */,
-				3D0F240F2791E49300AD83AE /* SwiftyJSON */,
-			);
 			productName = SteamList;
 			productReference = 3DC02A492761DEF4002F0028 /* SteamList.app */;
 			productType = "com.apple.product-type.application";
@@ -401,9 +416,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3DC02A792761DEF6002F0028 /* Build configuration list for PBXNativeTarget "SteamListTests" */;
 			buildPhases = (
+				50C610AF809061E4E0C5DCB9 /* [CP] Check Pods Manifest.lock */,
 				3DC02A5E2761DEF6002F0028 /* Sources */,
 				3DC02A5F2761DEF6002F0028 /* Frameworks */,
 				3DC02A602761DEF6002F0028 /* Resources */,
+				00E3A083EABF618228FBBC1D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -419,9 +436,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3DC02A7C2761DEF6002F0028 /* Build configuration list for PBXNativeTarget "SteamListUITests" */;
 			buildPhases = (
+				9070B42A58FED87CEA00E98C /* [CP] Check Pods Manifest.lock */,
 				3DC02A682761DEF6002F0028 /* Sources */,
 				3DC02A692761DEF6002F0028 /* Frameworks */,
 				3DC02A6A2761DEF6002F0028 /* Resources */,
+				5052271C61AE7C7D74101A74 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -465,12 +484,6 @@
 				Base,
 			);
 			mainGroup = 3DC02A402761DEF4002F0028;
-			packageReferences = (
-				3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3D0F24062791B15500AD83AE /* XCRemoteSwiftPackageReference "Mocker" */,
-				3D0F240E2791E49300AD83AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-			);
 			productRefGroup = 3DC02A4A2761DEF4002F0028 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -508,6 +521,126 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00E3A083EABF618228FBBC1D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SteamListTests/Pods-SteamListTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SteamListTests/Pods-SteamListTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SteamListTests/Pods-SteamListTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5052271C61AE7C7D74101A74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SteamList-SteamListUITests/Pods-SteamList-SteamListUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SteamList-SteamListUITests/Pods-SteamList-SteamListUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SteamList-SteamListUITests/Pods-SteamList-SteamListUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		50C610AF809061E4E0C5DCB9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SteamListTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7061039D5FCB4EB9A84B4CCE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SteamList/Pods-SteamList-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SteamList/Pods-SteamList-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SteamList/Pods-SteamList-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9070B42A58FED87CEA00E98C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SteamList-SteamListUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A023E8D591162DBD6B747505 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SteamList-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3DC02A452761DEF4002F0028 /* Sources */ = {
@@ -556,6 +689,7 @@
 				3DC02A952762273B002F0028 /* AppNews.swift in Sources */,
 				3D3456632767864B005AC30F /* FavsListContentView.swift in Sources */,
 				3DC02A8F2762210B002F0028 /* StorageProtocol.swift in Sources */,
+				3D0F2414279565E600AD83AE /* ErrorHandler.swift in Sources */,
 				3D0F23F5278351BF00AD83AE /* FilterTableViewCell.swift in Sources */,
 				3D345665276786F2005AC30F /* FavsListTableViewDelegate.swift in Sources */,
 			);
@@ -724,6 +858,7 @@
 		};
 		3DC02A772761DEF6002F0028 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA0073D4A94EEE48FBC9E59F /* Pods-SteamList.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -757,6 +892,7 @@
 		};
 		3DC02A782761DEF6002F0028 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05CA7B405B017FA965672A37 /* Pods-SteamList.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -790,6 +926,7 @@
 		};
 		3DC02A7A2761DEF6002F0028 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 991A9628E65D223ADBA7C837 /* Pods-SteamListTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -815,6 +952,7 @@
 		};
 		3DC02A7B2761DEF6002F0028 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08BC56642A9AB139795B5FF5 /* Pods-SteamListTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -840,6 +978,7 @@
 		};
 		3DC02A7D2761DEF6002F0028 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C37197D9D1581E8BBC2E9BCC /* Pods-SteamList-SteamListUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -863,6 +1002,7 @@
 		};
 		3DC02A7E2761DEF6002F0028 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA356EC3F1D7C38ABA45CAF4 /* Pods-SteamList-SteamListUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -924,64 +1064,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3D0F24062791B15500AD83AE /* XCRemoteSwiftPackageReference "Mocker" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WeTransfer/Mocker.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		3D0F240E2791E49300AD83AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3D0F24072791B15500AD83AE /* Mocker */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D0F24062791B15500AD83AE /* XCRemoteSwiftPackageReference "Mocker" */;
-			productName = Mocker;
-		};
-		3D0F240F2791E49300AD83AE /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D0F240E2791E49300AD83AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		3D3456702769DB47005AC30F /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D34566F2769DB47005AC30F /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		3DC02A802761E9AA002F0028 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3DC02A7F2761E9AA002F0028 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */ = {

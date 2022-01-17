@@ -40,7 +40,7 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
         cell.setupCell()
         let urlString = screenshotUrls[indexPath.row]
         /// load image for cell
-        let completion: (Result<UIImage, Error>) -> Void = { [weak cell] result in
+        let completion: (Result<UIImage, Error>) -> Void = { [weak cell, self] result in
             guard let cell = cell else { return }
             /// update UI on the main queue
             DispatchQueue.main.async {
@@ -48,9 +48,10 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
                 case .success(let image):
                     cell.activityIndicator.stopAnimating()
                     cell.screenshotImageView.image = image
-                case .failure(let error):
+                case .failure(_):
                     cell.activityIndicator.stopAnimating()
-                    print(error)
+                    guard let controller = self.controller else { return }
+                    ErrorHandler.showErrorAlert(with: "Failed to load image from internet. Please try again later...", presenter: controller)
                 }
             }
         }
@@ -72,8 +73,7 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDelegateFlowLayout 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        let width = UIScreen.main.bounds.width
         let height: CGFloat = 200
-        return CGSize(width: width, height: height)
+        return CGSize(width: collectionView.frame.size.width, height: height)
     }
 }

@@ -51,7 +51,6 @@ extension FilterTableViewDelegate: UITableViewDataSource {
         } else {
             cell.accessoryType = .none
         }
-        
         return cell
     }
 }

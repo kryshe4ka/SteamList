@@ -31,7 +31,8 @@ final class GameDetailsContentView: UIView {
     private var numberOfScreenshots: Int = 0
     var delegate: ScreenshotsCollectionViewDelegate?
     weak var controller: GameDetailsViewController?
-    
+    var activityIndicator = UIActivityIndicatorView()
+
     private var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -173,6 +174,12 @@ final class GameDetailsContentView: UIView {
         [headerImage, titleLabel, favoriteButton, tagsLabel, dateLabel, priceLabel, separateLineView, descriptionLabel, platformsStackView, screenshotsCollection].forEach { view in
             scrollView.addSubview(view)
         }
+        
+        activityIndicator = UIActivityIndicatorView(style: .white)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 56, height: 56)
+        activityIndicator.hidesWhenStopped = true
+        headerImage.addSubview(activityIndicator)
+        
         addConstraints()
     }
     
@@ -197,6 +204,10 @@ final class GameDetailsContentView: UIView {
         let separateLineViewHeight: CGFloat = 1
         let buttonWidth: CGFloat = 30
         let platformsWidth: CGFloat = 20
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
         
         container.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)

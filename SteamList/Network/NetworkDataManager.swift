@@ -9,12 +9,10 @@ import UIKit
 import Alamofire
 
 class NetworkDataManager: NSObject {
-//    static let shared = NetworkDataManager()
     static let shared = NetworkDataManager(configuration: URLSessionConfiguration.af.default)
     let session: Session
     
     init(configuration: URLSessionConfiguration) {
-//        self.session = Session()
         self.session = Session(configuration: configuration)
         super.init()
     }
@@ -26,13 +24,6 @@ class NetworkDataManager: NSObject {
     func download(_ url: String) -> DownloadRequest {
         session.download(url).validate()
     }
-    
-//    static func request(_ convertible: URLRequestConvertible) -> DataRequest {
-//        shared.session.request(convertible).validate()
-//    }
-//    static func download(_ url: String) -> DownloadRequest {
-//        shared.session.download(url).validate()
-//    }
 }
 
 extension NetworkDataManager: NetworkManagerProtocol {
@@ -40,7 +31,6 @@ extension NetworkDataManager: NetworkManagerProtocol {
         NetworkDataManager.shared.download(urlString).responseData { response in
             switch response.result {
             case .failure(let error):
-                print("Error while fetching the image: \(error)")
                 completion(.failure(error))
             case .success(let data):
                 DispatchQueue.main.async {
