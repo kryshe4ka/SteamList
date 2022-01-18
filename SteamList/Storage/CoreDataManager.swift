@@ -271,6 +271,12 @@ extension CoreDataManager {
 
 // MARK: Manage Favorites
 extension CoreDataManager {
+    func updateFavoriteApp(app: AppElement, appDetails: AppDetails) {
+        var newApp = app
+        newApp.appDetails = appDetails
+        removeAppFromFavorites(app: app)
+        addAppToFavorites(app: newApp)
+    }
     func addAppToFavorites(app: AppElement) {
         let context = managedContext
         let newFavoriteEntity = FavoriteEntity(context: context)
@@ -279,10 +285,17 @@ extension CoreDataManager {
         
         /// create price string:
         var price: String
+        var priceRawValue: Float
+        
         if let isFree = app.appDetails?.isFree, isFree {
             price = "Free"
+            priceRawValue = 0
         } else {
             price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
+            
+            let priceString = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "$USD ")) ?? "0"
+            
+            priceRawValue = Float(priceString) ?? 0
         }
         var haveDiscount: Bool = false
         if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
@@ -290,14 +303,13 @@ extension CoreDataManager {
             haveDiscount = true
         }
         newFavoriteEntity.price = price
+        newFavoriteEntity.priceRawValue = priceRawValue
         newFavoriteEntity.haveDiscount = haveDiscount
         
         if context.hasChanges {
             do {
                 try context.save()
-//                completion(.success(true))
             } catch {
-//                completion(.failure(error))
                 print(error)
             }
         }
@@ -311,9 +323,7 @@ extension CoreDataManager {
         do {
             try managedContext.execute(deleteRequest)
             try managedContext.save()
-//            completion(.success(true))
         } catch {
-//            completion(.failure(error))
             print(error)
         }
     }
@@ -329,9 +339,7 @@ extension CoreDataManager {
             guard let fetchedObjects = fetchedResultsController.fetchedObjects else { return [] }
             let apps = convertFromFavoriteEntityToApp(fetchedObjects: fetchedObjects)
             return apps
-//            completion(.success(fetchedObjects))
         } catch {
-//            completion(.failure(error))
             print(error)
         }
         return []
@@ -340,7 +348,7 @@ extension CoreDataManager {
     private func convertFromFavoriteEntityToApp(fetchedObjects: [FavoriteEntity]) -> [AppElement] {
         var apps: [AppElement] = []
         for object in fetchedObjects {
-            let app = AppElement(appid: Int(object.id), name: object.name ?? "", isFavorite: true, price: object.price, haveDiscount: object.haveDiscount)
+            let app = AppElement(appid: Int(object.id), name: object.name ?? "", isFavorite: true, price: object.price, priceRawValue: object.priceRawValue, haveDiscount: object.haveDiscount)
             apps.append(app)
         }
         return apps

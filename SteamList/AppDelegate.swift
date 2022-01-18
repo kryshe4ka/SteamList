@@ -48,16 +48,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        /// UINavigationBar Appearance
-        UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = Colors.navBarBackground
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.content]
-        UINavigationBar.appearance().tintColor = Colors.content
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        configureAppearance()
+        configureUserNotifications()
         let window = UIWindow()
         window.backgroundColor = Colors.navBarBackground
         window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
         return true
+    }
+    
+    private func configureAppearance() {
+        /// UINavigationBar Appearance
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = Colors.navBarBackground
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.content]
+        UINavigationBar.appearance().tintColor = Colors.content
+    }
+    
+    private func configureUserNotifications() {
+        UNUserNotificationCenter.current().delegate = self /// add delegate method for viewing Notification When the App Is in the Foreground
+        NotificationManager.shared.requestAuthorization { granted in
+          if granted {
+              print("Notifications are allowed")
+          }
+        }
+    }
+    
+    // Support for background fetch
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        for viewController in favsListNavigationController.viewControllers {
+            if let fetchViewController = viewController as? FavsListViewController {
+                fetchViewController.fetch {
+                    completionHandler(UIBackgroundFetchResult.newData)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+// Viewing Notification When the App Is in the Foreground
+extension AppDelegate: UNUserNotificationCenterDelegate {
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .sound, .badge])
     }
 }

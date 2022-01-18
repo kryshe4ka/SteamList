@@ -21,6 +21,7 @@
 		3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
 		3D0F24122792C51600AD83AE /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F24112792C51600AD83AE /* MockedData.swift */; };
 		3D0F2414279565E600AD83AE /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F2413279565E600AD83AE /* ErrorHandler.swift */; };
+		3D2142E22796BF810064E2DE /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2142E12796BF810064E2DE /* NotificationManager.swift */; };
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
 		3D34565827671C31005AC30F /* GamesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34565727671C31005AC30F /* GamesListContentView.swift */; };
@@ -98,6 +99,7 @@
 		3D0F240A2791B5D000AD83AE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3D0F24112792C51600AD83AE /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		3D0F2413279565E600AD83AE /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		3D2142E12796BF810064E2DE /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
 		3D34565727671C31005AC30F /* GamesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListContentView.swift; sourceTree = "<group>"; };
@@ -268,13 +270,12 @@
 			path = Screenshots;
 			sourceTree = "<group>";
 		};
-		3D47C488277488E000E72A58 /* CustomViews */ = {
+		3D47C488277488E000E72A58 /* General Views */ = {
 			isa = PBXGroup;
 			children = (
 				3D34566927679777005AC30F /* TableView.swift */,
-				3D0F2413279565E600AD83AE /* ErrorHandler.swift */,
 			);
-			path = CustomViews;
+			path = "General Views";
 			sourceTree = "<group>";
 		};
 		3D5BA4F327708AA400336CE9 /* NewsDetails */ = {
@@ -313,7 +314,9 @@
 			children = (
 				3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */,
 				3D34565D27672903005AC30F /* AppDataSource.swift */,
-				3D47C488277488E000E72A58 /* CustomViews */,
+				3D0F2413279565E600AD83AE /* ErrorHandler.swift */,
+				3D2142E12796BF810064E2DE /* NotificationManager.swift */,
+				3D47C488277488E000E72A58 /* General Views */,
 				3D34566127675237005AC30F /* GamesList */,
 				3D34566627678735005AC30F /* FavsList */,
 				3D345674276A2441005AC30F /* NewsList */,
@@ -669,6 +672,7 @@
 				3D0F2401278D6CF700AD83AE /* AppNewsEntity+CoreDataProperties.swift in Sources */,
 				3D34565C276721DE005AC30F /* GamesListTableDelegate.swift in Sources */,
 				3D5BA4EE277088EF00336CE9 /* NewsListTableViewDelegate.swift in Sources */,
+				3D2142E22796BF810064E2DE /* NotificationManager.swift in Sources */,
 				3D5BA4F027708A1000336CE9 /* NewsDetailsViewController.swift in Sources */,
 				3D34565E27672903005AC30F /* AppDataSource.swift in Sources */,
 				3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */,

@@ -33,5 +33,6 @@ struct AppElement: Codable, Equatable {
     var appDetails: AppDetails?
     var news: [Newsitem]?
     var price: String?
+    var priceRawValue: Float?
     var haveDiscount: Bool?
 }

@@ -68,23 +68,27 @@ class AppDataSource: DataSource {
     
     func refreshData(appId: Int, appDetails: AppDetails) {
         if let index = apps.firstIndex(where: { $0.appid == appId }) {
-            var app = apps[index]
-            app.appDetails = appDetails
             apps[index].appDetails = appDetails
             /// create price string:
             var price: String
-            if let isFree = app.appDetails?.isFree, isFree {
+            if let isFree = apps[index].appDetails?.isFree, isFree {
                 price = "Free"
             } else {
-                price = app.appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
+                price = apps[index].appDetails?.priceOverview?.finalFormatted?.trimmingCharacters(in: CharacterSet(charactersIn: "USD ")) ?? "-"
             }
             var haveDiscount: Bool = false
-            if let discount = app.appDetails?.priceOverview?.discountPercent, discount != 0 {
+            if let discount = apps[index].appDetails?.priceOverview?.discountPercent, discount != 0 {
                 price += " (-\(discount)%)"
                 haveDiscount = true
             }
-            app.haveDiscount = haveDiscount
-            app.price = price
+            apps[index].haveDiscount = haveDiscount
+            apps[index].price = price
+            
+            if let indexFav = favApps.firstIndex(where: { $0.appid == appId })  {
+                favApps[indexFav].appDetails = appDetails
+                favApps[indexFav].haveDiscount = haveDiscount
+                favApps[indexFav].price = price
+            }
         }
     }
     

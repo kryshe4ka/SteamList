@@ -19,5 +19,6 @@ extension FavoriteEntity {
     @NSManaged public var id: Int32
     @NSManaged public var name: String?
     @NSManaged public var price: String?
+    @NSManaged public var priceRawValue: Float
     @NSManaged public var haveDiscount: Bool
 }

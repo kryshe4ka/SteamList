@@ -96,25 +96,29 @@ final class GameDetailsViewController: UIViewController {
         let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 switch result {
                 case .success(let object):
                     if object.decodedObject.success {
                         guard let detailsData = object.decodedObject.data else { return }
-                        /// update data source and reload view
-                        AppDataSource.shared.refreshData(appId: self.app.appid, appDetails: detailsData)
-                        // тут обновить price и дискаунт
-                        AppDataSource.shared.updateFavAppsData()
                         self.deleteAppDetailsFromStorage(appId: self.app.appid)
                         self.saveAppDetailsToStorage(appDetails: detailsData)
-                        self.updateContentViewWith(appDetails: detailsData)
+                        
+                        DispatchQueue.main.async {
+                            /// update data source and reload view
+                            AppDataSource.shared.refreshData(appId: self.app.appid, appDetails: detailsData)
+                            // тут обновить price и дискаунт
+                            AppDataSource.shared.updateFavAppsData()
+                            self.updateContentViewWith(appDetails: detailsData)
+                        }
+                        
                     } else {
                         print("Bad success = \(object.decodedObject.success)")
                     }
                 case .failure(_):
                     ErrorHandler.showErrorAlert(with: "Failed to update data from internet. Please try again later...", presenter: self)
                 }
-            }
+//            }
         }
         /// perform request on another queue
         DispatchQueue.global(qos: .utility).async {
