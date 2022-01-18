@@ -8,9 +8,13 @@
 import Foundation
 import UIKit
 
+protocol Notifiable {
+    func fetch(_ completion: () -> Void)
+    func sendNotification(task: Task)
+}
+
 final class FavsListViewController: UIViewController {
     private let group = DispatchGroup()
-
     private let contentView = FavsListContentView()
     private let searchController = UISearchController(searchResultsController: nil)
     var isSearchBarEmpty: Bool {
@@ -105,24 +109,16 @@ extension FavsListViewController: UISearchResultsUpdating {
   }
 }
 
-extension FavsListViewController {
+extension FavsListViewController: Notifiable {
     func fetch(_ completion: () -> Void) {
-        print("background fetch")
         getAppDetails()
-//        sendNotification()
         completion()
     }
     
-//    func updateUI() {
-//        print("updateUI или можно что-то еще сделать в комплишине")
-//    }
-    
-    private func sendNotification(task: Task) {
+    func sendNotification(task: Task) {
         NotificationManager.shared.scheduleNotification(task: task)
-        print("sendNotification")
     }
     
-
     private func getAppDetails() {
         let apps = AppDataSource.shared.favApps
         apps.forEach { app in
@@ -141,15 +137,12 @@ extension FavsListViewController {
         
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
-//            DispatchQueue.main.async {
-                switch result {
+            switch result {
                 case .success(let object):
                     if object.decodedObject.success {
                         guard let detailsData = object.decodedObject.data else { return }
                         
-                        // сравнить новую цену с текущей
                         let currentPrice = app.priceRawValue ?? 0.0
-                        
                         /// create price string:
                         var newPrice: Float
                         var priceString: String
@@ -161,18 +154,16 @@ extension FavsListViewController {
                             newPrice = Float(priceString) ?? 0
                         }
                                                 
-                        // если цена ниже, то отправить уведомление
                         if newPrice <= currentPrice {
                             let task = Task(id: UUID().uuidString, name: app.name, body: "The price has dropped to $\(priceString)!")
                             self.sendNotification(task: task)
                         }
                         
-                        // сохранить данные в хранилище
                         self.deleteAppDetailsFromStorage(appId: app.appid)
                         self.saveAppDetailsToStorage(appDetails: detailsData)
                         CoreDataManager.shared.updateFavoriteApp(app: app, appDetails: detailsData)
-        
                         AppDataSource.shared.refreshData(appId: app.appid, appDetails: detailsData)
+                        
                     } else {
                         print("Not success)")
                     }
@@ -180,19 +171,13 @@ extension FavsListViewController {
                 case .failure(_):
                     ErrorHandler.showErrorAlert(with: "Failed to update data from internet. Please try again later...", presenter: self)
                     group.leave()
-                }
-//            }
+            }
         }
         /// perform request on another queue
         DispatchQueue.global(qos: .background).async {
             NetworkDataManager.shared.get(request: request, completion: completion)
         }
     }
-    
-//    private func updateContentViewWith(appDetails: AppDetails) {
-//        let price = appDetails.priceOverview?.finalFormatted ?? "Unknown"
-//        print(price)
-//    }
 
     private func saveAppDetailsToStorage(appDetails: AppDetails) {
         CoreDataManager.shared.saveAppDetails(appDetails) { result in

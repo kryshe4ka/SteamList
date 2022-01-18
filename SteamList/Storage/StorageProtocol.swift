@@ -24,4 +24,5 @@ protocol Storage {
     func fetchFavoriteApps(sortKey: String) -> [AppElement]
     func removeAppFromFavorites(app: AppElement)
     func addAppToFavorites(app: AppElement)
+    func updateFavoriteApp(app: AppElement, appDetails: AppDetails)
 }

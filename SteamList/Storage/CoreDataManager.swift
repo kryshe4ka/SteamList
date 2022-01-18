@@ -74,11 +74,11 @@ extension CoreDataManager: Storage {
     }
     
     func saveApps(_ apps: [AppElement], completion: @escaping (Result<Bool, Error>) -> Void) {
-        // get main context
+        /// get main context
         let mainQueueContext = managedContext
-        // get private context
+        /// get private context
         let privateChildContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        // make main context as a parent of child
+        /// make main context as a parent of child
         privateChildContext.parent = mainQueueContext
         privateChildContext.perform {
             for app in apps {
@@ -89,7 +89,7 @@ extension CoreDataManager: Storage {
                 newAppEntity.price = app.price
                 newAppEntity.haveDiscount = app.haveDiscount ?? false
             }
-            // merge changes to main context
+            /// merge changes to main context
             do {
                 try privateChildContext.save()
             } catch {
@@ -171,15 +171,6 @@ extension CoreDataManager {
             completion(.failure(error))
         }
     }
-    
-//    private func convertFromNewsEntityToAppNews(fetchedObjects: [AppNewsEntity]) -> [Newsitem] {
-//        var news: [Newsitem] = []
-//        for object in fetchedObjects {
-//            let oneNews = Newsitem(gid: object.gid, title: object.title, author: object.author, contents: object.contents, date: Int(object.date), appid: Int(object.appId))
-//            news.append(oneNews)
-//        }
-//        return news
-//    }
     
     private func convertFromDBEntityToNews(fetchedObjects: [AppNewsEntity]) -> [Newsitem] {
         var news: [Newsitem] = []
