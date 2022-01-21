@@ -10,7 +10,6 @@
 //import Alamofire
 import SwiftyJSON
 @testable import SteamList
-import Foundation
 
 enum TestExampleError: Error, LocalizedError {
     case example
@@ -26,10 +25,23 @@ public final class MockedData {
     static let fetchNewsUrl = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=10&count=10"
     
     static let app = App(applist: Applist(apps: [AppElement(appid: appId, name: "Test Game")]))
-    
+
     static let appNews = AppNews(appnews: Appnews(appid: 1, newsitems: [Newsitem(gid: "1", title: "Test News", author: "LK", contents: "Test content", date: 12345678, appid: 1), Newsitem(gid: "2", title: "Test News 2", author: "LK", contents: "Test content 2", date: 12345679, appid: 1)], count: 2))
     
     static let appDetails = AppDetails(name: "Counter-Strike", steamAppid: 10, isFree: false, shortDescription: "Play the world's number ...", headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/10/header.jpg?t=1602535893", priceOverview: PriceOverview(currency: "USD", initial: 629, priceOverviewFinal: 629, discountPercent: 0, initialFormatted: "", finalFormatted: "$6.29 USD"), platforms: Platforms(windows: true, mac: true, linux: true), genres: [Genre(genreDescription: "Action")], screenshots: [Screenshot(pathFull: "https://cdn.akamai.steamstatic.com/steam/apps/10/0000000132.1920x1080.jpg?t=1602535893")], releaseDate: ReleaseDate(date: "1 Nov, 2000"))
+    
+    static let favAppsSortedByName = [
+        AppElement(appid: 2, name: "A Test Game", isFavorite: true, price: "$3.0", priceRawValue: 3),
+        AppElement(appid: 3, name: "B Test Game", isFavorite: true, price: "$1.0", priceRawValue: 1),
+        AppElement(appid: 1, name: "C Test Game", isFavorite: true, price: "$2.0", priceRawValue: 2)
+    ]
+    
+    static let favAppsSortedByPrice = [
+        AppElement(appid: 3, name: "B Test Game", isFavorite: true, price: "$1.0", priceRawValue: 1),
+        AppElement(appid: 1, name: "C Test Game", isFavorite: true, price: "$2.0", priceRawValue: 2),
+        AppElement(appid: 2, name: "A Test Game", isFavorite: true, price: "$3.0", priceRawValue: 3)
+    ]
+    
     
     static let jsonObject = JSON([
         "10": [

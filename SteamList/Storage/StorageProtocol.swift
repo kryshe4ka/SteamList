@@ -21,7 +21,7 @@ protocol Storage {
     func saveNews(_ news: [Newsitem], completion: @escaping (Result<Bool, Error>) -> Void)
     func deleteNews(completion: @escaping (Result<Bool, Error>) -> Void)
     // favorites
-    func fetchFavoriteApps(sortKey: String) -> [AppElement]
+    func fetchFavoriteApps(sortKey: SortingKey) -> [AppElement]
     func removeAppFromFavorites(app: AppElement)
     func addAppToFavorites(app: AppElement)
     func updateFavoriteApp(app: AppElement, appDetails: AppDetails)

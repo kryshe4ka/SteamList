@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (5.5.0)
   - Mocker (2.5.5)
-  - SnapKit (5.0.1)
+  - SnapKit (5.0.0)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -20,9 +20,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Mocker: 8c731a8104962f246cadf2b02556218e9edc1390
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 252d240f724c67f364eeb3eb8a2e421d69f0394f
+PODFILE CHECKSUM: 3b760194a75d6d835edeb0b641a681ac5de839c5
 
 COCOAPODS: 1.11.2

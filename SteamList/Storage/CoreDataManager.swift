@@ -319,9 +319,9 @@ extension CoreDataManager {
         }
     }
     
-    func fetchFavoriteApps(sortKey: String) -> [AppElement] { // }(completion: @escaping (Result<[FavoriteEntity], Error>) -> Void) {
+    func fetchFavoriteApps(sortKey: SortingKey) -> [AppElement] { // }(completion: @escaping (Result<[FavoriteEntity], Error>) -> Void) {
         let fetchRequest: NSFetchRequest<FavoriteEntity> = FavoriteEntity.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: sortKey.rawValue, ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
         

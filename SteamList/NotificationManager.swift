@@ -9,6 +9,12 @@ import Foundation
 import UserNotifications
 import CoreLocation
 
+protocol NotificationType {
+    func requestAuthorization(completion: @escaping  (Bool) -> Void)
+    func fetchNotificationSettings()
+    func scheduleNotification(task: Task)
+}
+
 enum NotificationManagerConstants {
   static let timeBasedNotificationThreadId =
     "TimeBasedNotificationThreadId"
@@ -20,7 +26,7 @@ struct Task {
     var body: String
 }
 
-class NotificationManager {
+class NotificationManager: NotificationType {
     static let shared = NotificationManager()
     var settings: UNNotificationSettings?
 
@@ -47,7 +53,7 @@ class NotificationManager {
         content.threadIdentifier = NotificationManagerConstants.timeBasedNotificationThreadId
         
         var trigger: UNNotificationTrigger?
-        let timeInterval: TimeInterval = TimeInterval(1) // 1 sec
+        let timeInterval: TimeInterval = TimeInterval(3) // 3 sec
         trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 
         if let trigger = trigger {

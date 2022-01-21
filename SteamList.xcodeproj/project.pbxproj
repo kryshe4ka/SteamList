@@ -21,6 +21,8 @@
 		3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F240A2791B5D000AD83AE /* XCTest.framework */; };
 		3D0F24122792C51600AD83AE /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F24112792C51600AD83AE /* MockedData.swift */; };
 		3D0F2414279565E600AD83AE /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F2413279565E600AD83AE /* ErrorHandler.swift */; };
+		3D10D77B279A7F9C0041BCF2 /* MockNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D10D77A279A7F9C0041BCF2 /* MockNotifiable.swift */; };
+		3D10D77D279A81DC0041BCF2 /* MockNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D10D77C279A81DC0041BCF2 /* MockNotificationType.swift */; };
 		3D2142E22796BF810064E2DE /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2142E12796BF810064E2DE /* NotificationManager.swift */; };
 		3D27AC1427721798003E677F /* NewsDetailsStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 3D27AC1327721798003E677F /* NewsDetailsStyle.css */; };
 		3D27AC162772582A003E677F /* NewsShortDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */; };
@@ -43,11 +45,13 @@
 		3D5BA4EE277088EF00336CE9 /* NewsListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5BA4ED277088EF00336CE9 /* NewsListTableViewDelegate.swift */; };
 		3D5BA4F027708A1000336CE9 /* NewsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5BA4EF27708A1000336CE9 /* NewsDetailsViewController.swift */; };
 		3D5BA4F227708A6000336CE9 /* NewsDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5BA4F127708A6000336CE9 /* NewsDetailsContentView.swift */; };
+		3D64822E2799485C00D480AD /* CoreDataManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64822D2799485C00D480AD /* CoreDataManagerStub.swift */; };
+		3D64823027995B9800D480AD /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64822F27995B9800D480AD /* DataManagerTests.swift */; };
 		3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */; };
 		3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */; };
 		3DC02A592761DEF6002F0028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A582761DEF6002F0028 /* Assets.xcassets */; };
 		3DC02A5C2761DEF6002F0028 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A5A2761DEF6002F0028 /* LaunchScreen.storyboard */; };
-		3DC02A672761DEF6002F0028 /* SteamListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A662761DEF6002F0028 /* SteamListTests.swift */; };
+		3DC02A672761DEF6002F0028 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A662761DEF6002F0028 /* NetworkingTests.swift */; };
 		3DC02A712761DEF6002F0028 /* SteamListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A702761DEF6002F0028 /* SteamListUITests.swift */; };
 		3DC02A732761DEF6002F0028 /* SteamListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */; };
 		3DC02A832761EEBA002F0028 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A822761EEBA002F0028 /* NetworkManagerProtocol.swift */; };
@@ -62,6 +66,9 @@
 		3DC02AA827624420002F0028 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AA727624420002F0028 /* Helper.swift */; };
 		3DC02AAA27624518002F0028 /* FavsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AA927624518002F0028 /* FavsListViewController.swift */; };
 		3DC02AAC2762454C002F0028 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02AAB2762454C002F0028 /* NewsListViewController.swift */; };
+		84C1215A15E513E079169136 /* Pods_SteamList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D210F7D8DB4A2751331ACF5 /* Pods_SteamList.framework */; };
+		8AB2C9C02ADC0B0F17C62A16 /* Pods_SteamListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD10DD8DFFE3D51FFC2B87B /* Pods_SteamListTests.framework */; };
+		A07E899504C13770C08860A5 /* Pods_SteamList_SteamListUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165F0A8B6B74EF2C120E3F43 /* Pods_SteamList_SteamListUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +92,8 @@
 		02A359942735B13103FFD41D /* Pods-SteamListUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListUITests.release.xcconfig"; path = "Target Support Files/Pods-SteamListUITests/Pods-SteamListUITests.release.xcconfig"; sourceTree = "<group>"; };
 		05CA7B405B017FA965672A37 /* Pods-SteamList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList.release.xcconfig"; path = "Target Support Files/Pods-SteamList/Pods-SteamList.release.xcconfig"; sourceTree = "<group>"; };
 		08BC56642A9AB139795B5FF5 /* Pods-SteamListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListTests.release.xcconfig"; path = "Target Support Files/Pods-SteamListTests/Pods-SteamListTests.release.xcconfig"; sourceTree = "<group>"; };
+		165F0A8B6B74EF2C120E3F43 /* Pods_SteamList_SteamListUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SteamList_SteamListUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AD10DD8DFFE3D51FFC2B87B /* Pods_SteamListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SteamListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		367D2F4B69A7AF1D25B4BE85 /* Pods-SteamListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListUITests.debug.xcconfig"; path = "Target Support Files/Pods-SteamListUITests/Pods-SteamListUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D0F23E2278310EC00AD83AE /* AppEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3D0F23E3278310EC00AD83AE /* AppEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -99,6 +108,8 @@
 		3D0F240A2791B5D000AD83AE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3D0F24112792C51600AD83AE /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		3D0F2413279565E600AD83AE /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		3D10D77A279A7F9C0041BCF2 /* MockNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotifiable.swift; sourceTree = "<group>"; };
+		3D10D77C279A81DC0041BCF2 /* MockNotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotificationType.swift; sourceTree = "<group>"; };
 		3D2142E12796BF810064E2DE /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		3D27AC1327721798003E677F /* NewsDetailsStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = NewsDetailsStyle.css; sourceTree = "<group>"; };
 		3D27AC152772582A003E677F /* NewsShortDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsShortDescriptionView.swift; sourceTree = "<group>"; };
@@ -121,6 +132,8 @@
 		3D5BA4ED277088EF00336CE9 /* NewsListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListTableViewDelegate.swift; sourceTree = "<group>"; };
 		3D5BA4EF27708A1000336CE9 /* NewsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsViewController.swift; sourceTree = "<group>"; };
 		3D5BA4F127708A6000336CE9 /* NewsDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsContentView.swift; sourceTree = "<group>"; };
+		3D64822D2799485C00D480AD /* CoreDataManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerStub.swift; sourceTree = "<group>"; };
+		3D64822F27995B9800D480AD /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
 		3DC02A492761DEF4002F0028 /* SteamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DC02A562761DEF4002F0028 /* SteamList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SteamList.xcdatamodel; sourceTree = "<group>"; };
@@ -128,7 +141,7 @@
 		3DC02A5B2761DEF6002F0028 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DC02A5D2761DEF6002F0028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DC02A622761DEF6002F0028 /* SteamListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SteamListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DC02A662761DEF6002F0028 /* SteamListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamListTests.swift; sourceTree = "<group>"; };
+		3DC02A662761DEF6002F0028 /* NetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTests.swift; sourceTree = "<group>"; };
 		3DC02A6C2761DEF6002F0028 /* SteamListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SteamListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A702761DEF6002F0028 /* SteamListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamListUITests.swift; sourceTree = "<group>"; };
 		3DC02A722761DEF6002F0028 /* SteamListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamListUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -144,6 +157,7 @@
 		3DC02AA727624420002F0028 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3DC02AA927624518002F0028 /* FavsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavsListViewController.swift; sourceTree = "<group>"; };
 		3DC02AAB2762454C002F0028 /* NewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
+		5D210F7D8DB4A2751331ACF5 /* Pods_SteamList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SteamList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		991A9628E65D223ADBA7C837 /* Pods-SteamListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamListTests.debug.xcconfig"; path = "Target Support Files/Pods-SteamListTests/Pods-SteamListTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0073D4A94EEE48FBC9E59F /* Pods-SteamList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList.debug.xcconfig"; path = "Target Support Files/Pods-SteamList/Pods-SteamList.debug.xcconfig"; sourceTree = "<group>"; };
 		C37197D9D1581E8BBC2E9BCC /* Pods-SteamList-SteamListUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SteamList-SteamListUITests.debug.xcconfig"; path = "Target Support Files/Pods-SteamList-SteamListUITests/Pods-SteamList-SteamListUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0F240D2791E01C00AD83AE /* XCTest.framework in Frameworks */,
+				84C1215A15E513E079169136 /* Pods_SteamList.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0F240C2791DFE500AD83AE /* XCTest.framework in Frameworks */,
+				8AB2C9C02ADC0B0F17C62A16 /* Pods_SteamListTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A07E899504C13770C08860A5 /* Pods_SteamList_SteamListUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +213,9 @@
 			isa = PBXGroup;
 			children = (
 				3D0F240A2791B5D000AD83AE /* XCTest.framework */,
+				5D210F7D8DB4A2751331ACF5 /* Pods_SteamList.framework */,
+				165F0A8B6B74EF2C120E3F43 /* Pods_SteamList_SteamListUITests.framework */,
+				1AD10DD8DFFE3D51FFC2B87B /* Pods_SteamListTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -333,8 +353,12 @@
 		3DC02A652761DEF6002F0028 /* SteamListTests */ = {
 			isa = PBXGroup;
 			children = (
-				3DC02A662761DEF6002F0028 /* SteamListTests.swift */,
+				3DC02A662761DEF6002F0028 /* NetworkingTests.swift */,
+				3D64822F27995B9800D480AD /* DataManagerTests.swift */,
 				3D0F24112792C51600AD83AE /* MockedData.swift */,
+				3D64822D2799485C00D480AD /* CoreDataManagerStub.swift */,
+				3D10D77A279A7F9C0041BCF2 /* MockNotifiable.swift */,
+				3D10D77C279A81DC0041BCF2 /* MockNotificationType.swift */,
 			);
 			path = SteamListTests;
 			sourceTree = "<group>";
@@ -703,7 +727,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DC02A672761DEF6002F0028 /* SteamListTests.swift in Sources */,
+				3D10D77D279A81DC0041BCF2 /* MockNotificationType.swift in Sources */,
+				3DC02A672761DEF6002F0028 /* NetworkingTests.swift in Sources */,
+				3D64823027995B9800D480AD /* DataManagerTests.swift in Sources */,
+				3D64822E2799485C00D480AD /* CoreDataManagerStub.swift in Sources */,
+				3D10D77B279A7F9C0041BCF2 /* MockNotifiable.swift in Sources */,
 				3D0F24122792C51600AD83AE /* MockedData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

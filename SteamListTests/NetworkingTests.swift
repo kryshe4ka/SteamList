@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 @testable import SteamList
 
-class SteamListTests: XCTestCase {
+class NetworkingTests: XCTestCase {
     var configuration: URLSessionConfiguration!
     var networkDataManager: NetworkDataManager!
     

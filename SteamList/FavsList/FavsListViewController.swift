@@ -13,6 +13,11 @@ protocol Notifiable {
     func sendNotification(task: Task)
 }
 
+enum SortingKey: String {
+    case name = "name"
+    case price = "priceRawValue"
+}
+
 final class FavsListViewController: UIViewController {
     private let group = DispatchGroup()
     private let contentView = FavsListContentView()
@@ -78,12 +83,12 @@ final class FavsListViewController: UIViewController {
     @objc func showSortOptions(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Choose your option", message: nil, preferredStyle: .actionSheet)
         let titleAlertAction = UIAlertAction(title: "Sort by Title", style: .default) { [weak self] _ in
-            AppDataSource.shared.currentSortKey = "name"
+            AppDataSource.shared.currentSortKey = SortingKey.name
             AppDataSource.shared.updateFavAppsData()
             self!.contentView.favsListTableView.reloadData()
         }
         let priceAlertAction = UIAlertAction(title: "Sort by Price", style: .default) { [weak self] _ in
-            AppDataSource.shared.currentSortKey = "price"
+            AppDataSource.shared.currentSortKey = SortingKey.price
             AppDataSource.shared.updateFavAppsData()
             self!.contentView.favsListTableView.reloadData()
         }
@@ -132,9 +137,7 @@ extension FavsListViewController: Notifiable {
     }
     
     private func getAppDetails(app: AppElement, group: DispatchGroup) {
-        print("getAppDetails")
         let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
-        
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             switch result {
