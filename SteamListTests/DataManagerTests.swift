@@ -64,4 +64,18 @@ class DataManagerTests: XCTestCase {
         let sortedArray = dataManager.fetchFavoriteApps(sortKey: SortingKey.price)
         XCTAssertEqual(sortedArray, MockedData.favAppsSortedByPrice)
     }
+    
+    func testAddToFavorites() {
+        let expectedCount = dataManager.favApps.count + 1
+        let app = AppElement(appid: 4, name: "D Test Game", isFavorite: true, price: "$4.0", priceRawValue: 4)
+        dataManager.addAppToFavorites(app: app)
+        XCTAssertEqual(expectedCount, dataManager.favApps.count)
+    }
+    
+    func testRemoveAppFromFavorites() {
+        let expectedCount = dataManager.favApps.count - 1
+        let app = AppElement(appid: 1, name: "C Test Game", isFavorite: true, price: "$2.0", priceRawValue: 2)
+        dataManager.removeAppFromFavorites(app: app)
+        XCTAssertEqual(expectedCount, dataManager.favApps.count)
+    }
 }
