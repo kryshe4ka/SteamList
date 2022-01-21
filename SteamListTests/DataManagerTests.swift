@@ -78,4 +78,12 @@ class DataManagerTests: XCTestCase {
         dataManager.removeAppFromFavorites(app: app)
         XCTAssertEqual(expectedCount, dataManager.favApps.count)
     }
+    
+    func testUpdateFavoriteApp() {
+        let app = AppElement(appid: 1, name: "C Test Game", isFavorite: true, price: "$2.0", priceRawValue: 2)
+        let appDetails = MockedData.appDetails
+        dataManager.updateFavoriteApp(app: app, appDetails: appDetails)
+        let newApp = dataManager.favApps.first { $0.appid == 1 }
+        XCTAssertNotNil(newApp?.appDetails)
+    }
 }
