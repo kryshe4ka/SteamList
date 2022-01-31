@@ -58,7 +58,7 @@ extension ScreenshotsCollectionViewDelegate: UICollectionViewDataSource {
         if !urlString.isEmpty {
             cell.activityIndicator.startAnimating()
             DispatchQueue.global(qos: .utility).async {
-                NetworkDataManager.shared.loadImage(urlString: urlString, completion: completion)
+                self.controller?.delegate?.networkDataManager.loadImage(urlString: urlString, completion: completion)
             }
         }
         return cell

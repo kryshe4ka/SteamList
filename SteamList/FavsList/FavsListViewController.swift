@@ -18,7 +18,7 @@ enum SortingKey: String {
     case price = "priceRawValue"
 }
 
-final class FavsListViewController: UIViewController {
+final class FavsListViewController: UIViewController, Delegate {
     private let group = DispatchGroup()
     private let contentView = FavsListContentView()
     private let searchController = UISearchController(searchResultsController: nil)
@@ -29,6 +29,21 @@ final class FavsListViewController: UIViewController {
       return searchController.isActive && !isSearchBarEmpty
     }
     var filteredTableData: [AppElement] = []
+    
+    let networkDataManager: NetworkDataManager
+    let dataManager: CoreDataManager
+    let appDataSource: AppDataSource
+    
+    init(networkDataManager: NetworkDataManager, dataManager: CoreDataManager, appDataSource: AppDataSource) {
+        self.networkDataManager = networkDataManager
+        self.dataManager = dataManager
+        self.appDataSource = appDataSource
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = contentView
@@ -83,14 +98,16 @@ final class FavsListViewController: UIViewController {
     @objc func showSortOptions(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Choose your option", message: nil, preferredStyle: .actionSheet)
         let titleAlertAction = UIAlertAction(title: "Sort by Title", style: .default) { [weak self] _ in
-            AppDataSource.shared.currentSortKey = SortingKey.name
-            AppDataSource.shared.updateFavAppsData()
-            self!.contentView.favsListTableView.reloadData()
+            guard let self = self else { return }
+            self.appDataSource.currentSortKey = SortingKey.name
+            self.appDataSource.updateFavAppsData()
+            self.contentView.favsListTableView.reloadData()
         }
         let priceAlertAction = UIAlertAction(title: "Sort by Price", style: .default) { [weak self] _ in
-            AppDataSource.shared.currentSortKey = SortingKey.price
-            AppDataSource.shared.updateFavAppsData()
-            self!.contentView.favsListTableView.reloadData()
+            guard let self = self else { return }
+            self.appDataSource.currentSortKey = SortingKey.price
+            self.appDataSource.updateFavAppsData()
+            self.contentView.favsListTableView.reloadData()
         }
         let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(titleAlertAction)
@@ -100,7 +117,7 @@ final class FavsListViewController: UIViewController {
     }
     
     private func filterContentForSearchText(_ searchText: String) {
-        filteredTableData = AppDataSource.shared.favApps.filter { (app: AppElement) -> Bool in
+        filteredTableData = self.appDataSource.favApps.filter { (app: AppElement) -> Bool in
             return app.name.lowercased().contains(searchText.lowercased())
         }
         contentView.favsListTableView.reloadData()
@@ -125,19 +142,19 @@ extension FavsListViewController: Notifiable {
     }
     
     private func getAppDetails() {
-        let apps = AppDataSource.shared.favApps
+        let apps = self.appDataSource.favApps
         apps.forEach { app in
             group.enter()
             getAppDetails(app: app, group: group)
         }
         group.notify(queue: .main) {
-            AppDataSource.shared.updateFavAppsData()
+            self.appDataSource.updateFavAppsData()
             self.updateTable()
         }
     }
     
     private func getAppDetails(app: AppElement, group: DispatchGroup) {
-        let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
+        let request = self.networkDataManager.buildRequestForFetchAppDetails(appId: app.appid)
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -164,8 +181,8 @@ extension FavsListViewController: Notifiable {
                         
                         self.deleteAppDetailsFromStorage(appId: app.appid)
                         self.saveAppDetailsToStorage(appDetails: detailsData)
-                        CoreDataManager.shared.updateFavoriteApp(app: app, appDetails: detailsData)
-                        AppDataSource.shared.refreshData(appId: app.appid, appDetails: detailsData)
+                        self.dataManager.updateFavoriteApp(app: app, appDetails: detailsData)
+                        self.appDataSource.refreshData(appId: app.appid, appDetails: detailsData)
                         
                     } else {
                         print("Not success)")
@@ -178,12 +195,12 @@ extension FavsListViewController: Notifiable {
         }
         /// perform request on another queue
         DispatchQueue.global(qos: .background).async {
-            NetworkDataManager.shared.get(request: request, completion: completion)
+            self.networkDataManager.get(request: request, completion: completion)
         }
     }
 
     private func saveAppDetailsToStorage(appDetails: AppDetails) {
-        CoreDataManager.shared.saveAppDetails(appDetails) { result in
+        self.dataManager.saveAppDetails(appDetails) { result in
             switch result {
             case .failure(_):
                 ErrorHandler.showErrorAlert(with: "Failed to save data to local storage", presenter: self)
@@ -194,7 +211,7 @@ extension FavsListViewController: Notifiable {
     }
     
     private func deleteAppDetailsFromStorage(appId: Int) {
-        CoreDataManager.shared.deleteAppDetails(appId: appId) { result in
+        self.dataManager.deleteAppDetails(appId: appId) { result in
             switch result {
             case .failure(_):
                 ErrorHandler.showErrorAlert(with: "Failed to delete data from local storage", presenter: self)

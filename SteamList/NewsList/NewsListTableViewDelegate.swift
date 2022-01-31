@@ -47,7 +47,7 @@ extension NewsListTableViewDelegate: UITableViewDataSource {
     
     private func getNewsCellStateFrom(news: Newsitem) -> NewsCellState {
         let date = "\(news.date ?? 0)".toDateFormat
-        let name = AppDataSource.shared.favApps.first { $0.appid == news.appid }?.name
+        let name = controller?.appDataSource.favApps.first { $0.appid == news.appid }?.name
         let state = NewsCellState(appName: name ?? "Unknown app", title: news.title ?? "Unknown title", author: news.author ?? "Unknown author", date: date)
         return state
     }

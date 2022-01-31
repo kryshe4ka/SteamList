@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class GamesListViewController: UIViewController {
+final class GamesListViewController: UIViewController, Delegate {
     private let contentView = GamesListContentView()
     private let searchController = UISearchController(searchResultsController: nil)
     private var isSearchBarEmpty: Bool {
@@ -24,15 +24,30 @@ final class GamesListViewController: UIViewController {
         view = contentView
     }
     
+    let networkDataManager: NetworkDataManager
+    let dataManager: CoreDataManager
+    let appDataSource: AppDataSource
+    
+    init(networkDataManager: NetworkDataManager, dataManager: CoreDataManager, appDataSource: AppDataSource) {
+        self.networkDataManager = networkDataManager
+        self.dataManager = dataManager
+        self.appDataSource = appDataSource
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if needUpdateFavorites {
             updateTable()
             needUpdateFavorites = false
         }
-        if AppDataSource.shared.needUpdateGamesList {
+        if self.appDataSource.needUpdateGamesList {
             updateTable()
-            AppDataSource.shared.needUpdateGamesList = false
+            self.appDataSource.needUpdateGamesList = false
         }
     }
     
@@ -62,7 +77,7 @@ final class GamesListViewController: UIViewController {
     }
     
     private func filterContentForSearchText(_ searchText: String) {
-        filteredTableData = AppDataSource.shared.apps.filter { (app: AppElement) -> Bool in
+        filteredTableData = self.appDataSource.apps.filter { (app: AppElement) -> Bool in
             return app.name.lowercased().contains(searchText.lowercased())
         }
         contentView.gamesListTableView.reloadData()
@@ -75,7 +90,7 @@ final class GamesListViewController: UIViewController {
     }
     
     private func getApps() {
-        let request = NetworkDataManager.shared.buildRequestForFetchApps()
+        let request = self.networkDataManager.buildRequestForFetchApps()
         let completion: (Result<App, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -88,7 +103,7 @@ final class GamesListViewController: UIViewController {
             }
         }
         DispatchQueue.global(qos: .utility).async {
-            NetworkDataManager.shared.get(request: request, completion: completion)
+            self.networkDataManager.get(request: request, completion: completion)
         }
     }
     
@@ -97,7 +112,7 @@ final class GamesListViewController: UIViewController {
     }
     
     private func getAppsFromStorage() {
-        CoreDataManager.shared.fetchApps { result in
+        self.dataManager.fetchApps { result in
             switch result {
             case .success(let apps):
                 self.updateDataSource(apps: apps)
@@ -109,7 +124,7 @@ final class GamesListViewController: UIViewController {
     }
     
     private func deleteAppsFromStorage() {
-        CoreDataManager.shared.deleteApps { result in
+        self.dataManager.deleteApps { result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -120,7 +135,7 @@ final class GamesListViewController: UIViewController {
     }
     
     private func saveAppsToStorage(apps: [AppElement]) {
-        CoreDataManager.shared.saveApps(apps) { result in
+        self.dataManager.saveApps(apps) { result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -138,7 +153,7 @@ final class GamesListViewController: UIViewController {
     }
     
     private func updateDataSource(apps: [AppElement]) {
-        AppDataSource.shared.refreshData(apps: apps)
+        self.appDataSource.refreshData(apps: apps)
     }
 }
 

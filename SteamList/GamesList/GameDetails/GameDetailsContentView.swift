@@ -332,12 +332,12 @@ extension GameDetailsContentView {
         self.isFavorite = !self.isFavorite
         setFavoriteButtonState(isFavorite: isFavorite)
         /// save favorite state in the data source
-        if let index = AppDataSource.shared.apps.firstIndex(where: { [weak self] app in
+        if let index = controller?.delegate?.appDataSource.apps.firstIndex(where: { [weak self] app in
             guard let self = self else { return false }
             return app.appid == self.appId
         }) {
-            AppDataSource.shared.toggleFavorite(index: index, favoriteState: isFavorite)
-            AppDataSource.shared.needUpdateGamesList = true
+            controller?.delegate?.appDataSource.toggleFavorite(index: index, favoriteState: isFavorite)
+            controller?.delegate?.appDataSource.needUpdateGamesList = true
         }
     }
 }

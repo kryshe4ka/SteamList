@@ -18,7 +18,7 @@ final class GamesListTableViewDelegate: NSObject, UITableViewDelegate {
         if controller.isFiltering {
             app = controller.filteredTableData[indexPath.row]
         } else {
-            app = AppDataSource.shared.apps[indexPath.row]
+            app = controller.appDataSource.apps[indexPath.row]
         }
         let gameDetailsViewController = GameDetailsViewController(app: app)
         gameDetailsViewController.delegate = controller
@@ -37,7 +37,7 @@ extension GamesListTableViewDelegate: UITableViewDataSource {
         if controller.isFiltering {
             return controller.filteredTableData.count
           }
-        return AppDataSource.shared.apps.count
+        return controller.appDataSource.apps.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,14 +46,15 @@ extension GamesListTableViewDelegate: UITableViewDataSource {
         }
         cell.index = indexPath.row
         cell.setupCell()
+        guard let controller = controller else { return cell }
         let app: AppElement
-        if let controller = controller, controller.isFiltering {
+        if controller.isFiltering {
             if controller.filteredTableData.isEmpty { return cell }
             app = controller.filteredTableData[indexPath.row]
             
         } else {
-            if AppDataSource.shared.apps.isEmpty { return cell }
-            app = AppDataSource.shared.apps[indexPath.row]
+            if controller.appDataSource.apps.isEmpty { return cell }
+            app = controller.appDataSource.apps[indexPath.row]
         }
         let state = CellState(name: app.name, isFavorite: app.isFavorite!)
         cell.update(state: state)

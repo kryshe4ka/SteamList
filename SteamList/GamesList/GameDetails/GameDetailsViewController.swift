@@ -8,10 +8,17 @@
 import Foundation
 import UIKit
 
+protocol Delegate: AnyObject {
+    var networkDataManager: NetworkDataManager { get }
+    var dataManager: CoreDataManager { get }
+    var appDataSource: AppDataSource { get }
+}
+
+
 final class GameDetailsViewController: UIViewController {
     private let contentView = GameDetailsContentView()
     private var app: AppElement
-    weak var delegate: GamesListViewController?
+    weak var delegate: Delegate?
     
     init(app: AppElement) {
         self.app = app
@@ -36,7 +43,8 @@ final class GameDetailsViewController: UIViewController {
     }
     
     private func getAppDetailsFromStorage(for app: AppElement) {
-        CoreDataManager.shared.fetchAppDetails(appId: app.appid) { result in
+        guard let delegate = delegate else { return }
+        delegate.dataManager.fetchAppDetails(appId: app.appid) { result in
             switch result {
             case .success(let appDetails):
                 if let appDetails = appDetails {
@@ -88,12 +96,14 @@ final class GameDetailsViewController: UIViewController {
         }
         self.contentView.activityIndicator.startAnimating()
         DispatchQueue.global(qos: .utility).async {
-            NetworkDataManager.shared.loadImage(urlString: url, completion: completion)
+            self.delegate?.networkDataManager.loadImage(urlString: url, completion: completion)
         }
     }
     
-    private func getAppDetails() {    
-        let request = NetworkDataManager.shared.buildRequestForFetchAppDetails(appId: app.appid)
+    private func getAppDetails() {
+        guard let delegate = self.delegate else { return }
+
+        let request = delegate.networkDataManager.buildRequestForFetchAppDetails(appId: app.appid)
         let completion: (Result<DecodedObject, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -105,8 +115,8 @@ final class GameDetailsViewController: UIViewController {
             
                     DispatchQueue.main.async {
                         /// update data source and reload view
-                        AppDataSource.shared.refreshData(appId: self.app.appid, appDetails: detailsData)
-                        AppDataSource.shared.updateFavAppsData()
+                        delegate.appDataSource.refreshData(appId: self.app.appid, appDetails: detailsData)
+                        delegate.appDataSource.updateFavAppsData()
                         self.updateContentViewWith(appDetails: detailsData)
                     }
                     
@@ -119,12 +129,14 @@ final class GameDetailsViewController: UIViewController {
         }
         /// perform request on another queue
         DispatchQueue.global(qos: .utility).async {
-            NetworkDataManager.shared.get(request: request, completion: completion)
+            guard let delegate = self.delegate else { return }
+            delegate.networkDataManager.get(request: request, completion: completion)
         }
     }
     
     private func saveAppDetailsToStorage(appDetails: AppDetails) {
-        CoreDataManager.shared.saveAppDetails(appDetails) { result in
+        guard let delegate = self.delegate else { return }
+        delegate.dataManager.saveAppDetails(appDetails) { result in
             switch result {
             case .failure(_):
                 ErrorHandler.showErrorAlert(with: "Failed to save data to local storage", presenter: self)
@@ -135,7 +147,8 @@ final class GameDetailsViewController: UIViewController {
     }
     
     private func deleteAppDetailsFromStorage(appId: Int) {
-        CoreDataManager.shared.deleteAppDetails(appId: appId) { result in
+        guard let delegate = self.delegate else { return }
+        delegate.dataManager.deleteAppDetails(appId: appId) { result in
             switch result {
             case .failure(_):
                 ErrorHandler.showErrorAlert(with: "Failed to delete data from local storage", presenter: self)

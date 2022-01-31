@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NewsListViewController: UIViewController {
+class NewsListViewController: UIViewController, Delegate {
     private let group = DispatchGroup()
     private let contentView = NewsListContentView()
     private let newsCount = 10
@@ -24,6 +24,21 @@ class NewsListViewController: UIViewController {
         }
         newsArray.sort { $0.date! > $1.date! }
         return newsArray
+    }
+    
+    let networkDataManager: NetworkDataManager
+    let dataManager: CoreDataManager
+    let appDataSource: AppDataSource
+    
+    init(networkDataManager: NetworkDataManager, dataManager: CoreDataManager, appDataSource: AppDataSource) {
+        self.networkDataManager = networkDataManager
+        self.dataManager = dataManager
+        self.appDataSource = appDataSource
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
@@ -46,11 +61,11 @@ class NewsListViewController: UIViewController {
         setUpNavigation()
         contentView.delegate.controller = self
         contentView.saveButton.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
-        filteredFavApps = AppDataSource.shared.favApps /// add all favorites to filtered list by default
+        filteredFavApps = self.appDataSource.favApps /// add all favorites to filtered list by default
     }
         
     private func getNewsFromStorage() {
-        CoreDataManager.shared.fetchNews { result in
+        self.dataManager.fetchNews { result in
             switch result {
             case .success(let news):
                 self.updateDataAndUI(news: news)
@@ -61,13 +76,13 @@ class NewsListViewController: UIViewController {
     }
     
     private func updateDataAndUI(news: [Newsitem]) {
-        for i in 0..<AppDataSource.shared.favApps.count {
+        for i in 0..<self.appDataSource.favApps.count {
             let newsArray = news.filter { newsitem in
-                newsitem.appid == AppDataSource.shared.favApps[i].appid
+                newsitem.appid == self.appDataSource.favApps[i].appid
             }
-            AppDataSource.shared.favApps[i].news = newsArray
+            self.appDataSource.favApps[i].news = newsArray
         }
-        filteredFavApps = AppDataSource.shared.favApps
+        filteredFavApps = self.appDataSource.favApps
 
         DispatchQueue.main.async {
             self.updateTable()
@@ -75,13 +90,13 @@ class NewsListViewController: UIViewController {
     }
         
     private func getNews() {
-        let apps = AppDataSource.shared.favApps
+        let apps = self.appDataSource.favApps
         apps.forEach { app in
             group.enter()
             getNews(app: app, group: group)
         }
         group.notify(queue: .global()) {
-            let news = AppDataSource.shared.news
+            let news = self.appDataSource.news
             self.deleteNewsFromStorage()
             self.saveNewsToStorage(news: news)
         }
@@ -91,7 +106,7 @@ class NewsListViewController: UIViewController {
     }
     
     private func getNews(app: AppElement, group: DispatchGroup) {
-        let request = NetworkDataManager.shared.buildRequestForFetchNews(appId: app.appid, count: newsCount)
+        let request = self.networkDataManager.buildRequestForFetchNews(appId: app.appid, count: newsCount)
         let completion: (Result<AppNews, Error>) -> Void = { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -106,12 +121,12 @@ class NewsListViewController: UIViewController {
             }
         }
         DispatchQueue.global(qos: .utility).async {
-            NetworkDataManager.shared.get(request: request, completion: completion)
+            self.networkDataManager.get(request: request, completion: completion)
         }
     }
 
     private func saveNewsToStorage(news: [Newsitem]) {
-        CoreDataManager.shared.saveNews(news) { result in
+        self.dataManager.saveNews(news) { result in
             switch result {
             case .failure(_):
                 ErrorHandler.showErrorAlert(with: "Failed to save data to local storage", presenter: self)
@@ -122,7 +137,7 @@ class NewsListViewController: UIViewController {
     }
     
     private func deleteNewsFromStorage() {
-        CoreDataManager.shared.deleteNews { result in
+        self.dataManager.deleteNews { result in
             switch result {
             case .failure(_):
                 ErrorHandler.showErrorAlert(with: "Failed to delete data from local storage", presenter: self)
@@ -133,7 +148,7 @@ class NewsListViewController: UIViewController {
     }
     
     private func updateData(newsItems: [Newsitem], appId: Int) {
-        AppDataSource.shared.refreshData(with: newsItems, appId: appId)
+        self.appDataSource.refreshData(with: newsItems, appId: appId)
         updateFilteredList(newsItems: newsItems, appId: appId)
     }
     

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     var gamesListNavigationController: UINavigationController {
-        let gamesListViewController = GamesListViewController()
+        let gamesListViewController = GamesListViewController(networkDataManager: NetworkDataManager.shared, dataManager: CoreDataManager.shared, appDataSource: AppDataSource.shared)
         let navigationController = UINavigationController(rootViewController: gamesListViewController)
         navigationController.tabBarItem.image = UIImage(named: TabBarImage.games)
         navigationController.tabBarItem.selectedImage = UIImage(named: TabBarImage.games)
@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     var favsListNavigationController: UINavigationController {
-        let favsListViewController = FavsListViewController()
+        let favsListViewController = FavsListViewController(networkDataManager: NetworkDataManager.shared, dataManager: CoreDataManager.shared, appDataSource: AppDataSource.shared)
         let navigationController = UINavigationController(rootViewController: favsListViewController)
         navigationController.tabBarItem.image = UIImage(named: TabBarImage.favorites)
         navigationController.tabBarItem.selectedImage = UIImage(named: TabBarImage.favorites)
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     var newsListNavigationController: UINavigationController {
-        let newsListViewController = NewsListViewController()
+        let newsListViewController = NewsListViewController(networkDataManager: NetworkDataManager.shared, dataManager: CoreDataManager.shared, appDataSource: AppDataSource.shared)
         let navigationController = UINavigationController(rootViewController: newsListViewController)
         navigationController.tabBarItem.image = UIImage(named: TabBarImage.news)
         navigationController.tabBarItem.selectedImage = UIImage(named: TabBarImage.news)
