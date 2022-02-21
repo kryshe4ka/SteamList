@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import Firebase
 
 struct CellState {
     let name: String
@@ -57,6 +58,8 @@ final class GamesListTableViewCell: UITableViewCell {
         setFavoriteButtonState()
         /// save favorite state in the data source
         AppDataSource.shared.toggleFavorite(index: index, favoriteState: isFavorite)
+        
+        Analytics.logEvent("press_favorite_button", parameters: ["state": isFavorite ? "added" : "removed"])
     }
     
     func setFavoriteButtonState() {
