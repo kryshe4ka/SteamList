@@ -48,6 +48,7 @@
 		3D5BA4F227708A6000336CE9 /* NewsDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5BA4F127708A6000336CE9 /* NewsDetailsContentView.swift */; };
 		3D64822E2799485C00D480AD /* CoreDataManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64822D2799485C00D480AD /* CoreDataManagerStub.swift */; };
 		3D64823027995B9800D480AD /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64822F27995B9800D480AD /* DataManagerTests.swift */; };
+		3D9C54FC2827F7FE00861A85 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C54FB2827F7FE00861A85 /* AppCoordinator.swift */; };
 		3DC02A4D2761DEF4002F0028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */; };
 		3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02A552761DEF4002F0028 /* SteamList.xcdatamodeld */; };
 		3DC02A592761DEF6002F0028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02A582761DEF6002F0028 /* Assets.xcassets */; };
@@ -136,6 +137,7 @@
 		3D5BA4F127708A6000336CE9 /* NewsDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsContentView.swift; sourceTree = "<group>"; };
 		3D64822D2799485C00D480AD /* CoreDataManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerStub.swift; sourceTree = "<group>"; };
 		3D64822F27995B9800D480AD /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
+		3D9C54FB2827F7FE00861A85 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3DC02A492761DEF4002F0028 /* SteamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DC02A562761DEF4002F0028 /* SteamList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SteamList.xcdatamodel; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				3DC02A4C2761DEF4002F0028 /* AppDelegate.swift */,
+				3D9C54FB2827F7FE00861A85 /* AppCoordinator.swift */,
 				3D34565D27672903005AC30F /* AppDataSource.swift */,
 				3D0F2413279565E600AD83AE /* ErrorHandler.swift */,
 				3D2142E12796BF810064E2DE /* NotificationManager.swift */,
@@ -718,6 +721,7 @@
 				3DC02AAA27624518002F0028 /* FavsListViewController.swift in Sources */,
 				3DC02A572761DEF4002F0028 /* SteamList.xcdatamodeld in Sources */,
 				3D345677276C6F62005AC30F /* ScreenshotsCollectionViewCell.swift in Sources */,
+				3D9C54FC2827F7FE00861A85 /* AppCoordinator.swift in Sources */,
 				3D5BA4EC2770887000336CE9 /* NewsListTableViewCell.swift in Sources */,
 				3D345673276A23C3005AC30F /* NewsListContentView.swift in Sources */,
 				3D345679276C7030005AC30F /* ScreenshotsCollectionViewDelegate.swift in Sources */,
